@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--============= Main droid behavior core ============-->
+  
+  <ThinkTreeDef>
+    <defName>MainDroidBehaviorCore</defName>
+    <thinkRoot Class="MD3_Droids.ThinkNode_ConditionalDroid">
+      <subNodes>
+        <li Class="ThinkNode_PrioritySorter">
+          <subNodes>
+            <li Class="MD3_Droids.JobGiver_WorkDroid"/>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+</Defs>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <BodyPartGroupDef>
+    <defName>MD3_UpperMechanicalHead</defName>
+    <label>upper mechanical head</label>
+    <listOrder>200</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_FullMechanicalHead</defName>
+    <label>full mechanical head</label>
+    <listOrder>199</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_VisualReceptors</defName>
+    <label>visual receptors</label>
+    <listOrder>198</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_AudioReceptors</defName>
+    <label>audio receptors</label>
+    <listOrder>197</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalNeck</defName>
+    <label>mechanical neck</label>
+    <listOrder>180</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_Chassis</defName>
+    <label>chassis</label>
+    <listOrder>100</listOrder>
+  </BodyPartGroupDef>
+
+  
+  
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalShoulders</defName>
+    <label>mechanical shoulders</label>
+    <listOrder>90</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalArms</defName>
+    <label>mechanical arms</label>
+    <listOrder>85</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalArmLeft</defName>
+    <label>left mechanical arm</label>
+    <listOrder>84</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalArmRight</defName>
+    <label>right mechanical arm</label>
+    <listOrder>83</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalHands</defName>
+    <label>mechanical hands</label>
+    <listOrder>80</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalHandLeft</defName>
+    <label>left mechanical hand</label>
+    <listOrder>79</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalHandRight</defName>
+    <label>right mechanical hand</label>
+    <listOrder>78</listOrder>
+  </BodyPartGroupDef>
+
+  
+  
+  <BodyPartGroupDef>
+    <defName>MD3_Waist</defName>
+    <label>waist</label>
+    <listOrder>50</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalLegs</defName>
+    <label>mechanical legs</label>
+    <listOrder>25</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalLegLeft</defName>
+    <label>left mechanical leg</label>
+    <listOrder>24</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalLegRight</defName>
+    <label>right mechanical leg</label>
+    <listOrder>23</listOrder>
+  </BodyPartGroupDef>
+  
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalFeet</defName>
+    <label>mechanical feet</label>
+    <listOrder>22</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalFootLeft</defName>
+    <label>left mechanical foot</label>
+    <listOrder>21</listOrder>
+  </BodyPartGroupDef>
+
+  <BodyPartGroupDef>
+    <defName>MD3_MechanicalFootRight</defName>
+    <label>right mechanical foot</label>
+    <listOrder>20</listOrder>
+  </BodyPartGroupDef>
+
+
+</Defs>
