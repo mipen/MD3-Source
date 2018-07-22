@@ -74,6 +74,7 @@ namespace MD3_Droids
         {
             base.SpawnSetup(map, respawningAfterLoad);
             UtilityWorldObjectManager.GetUtilityWorldObject<DroidManager>().RegisterDroid(this);
+            def.race.corpseDef.inspectorTabs.Remove(typeof(ITab_Pawn_Character));
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
