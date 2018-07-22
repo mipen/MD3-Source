@@ -16,6 +16,7 @@ namespace MD3_Droids
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
+            this.FailOnDestroyedNullOrForbidden(TargetIndex.A);
             ICharge chargee = (ICharge)pawn;
             CompDroidCharger charger = job.GetTarget(TargetIndex.A).Thing.TryGetComp<CompDroidCharger>();
             yield return Toils_Reserve.Reserve(TargetIndex.A);

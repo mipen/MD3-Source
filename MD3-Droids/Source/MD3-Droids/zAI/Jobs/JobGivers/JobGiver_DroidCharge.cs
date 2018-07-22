@@ -25,7 +25,7 @@ namespace MD3_Droids
             }
             ICharge chargee = (ICharge)pawn;
             Droid droid = (Droid)pawn;
-            if (droid !=null && !droid.Active)
+            if (droid != null && !droid.Active)
                 return null;
 
             float chargeThreshold;
@@ -62,7 +62,8 @@ namespace MD3_Droids
                 Thing target = DroidManager.Instance.ClosestChargerFor(chargee, droid.Map, distance);
                 if (target != null)
                 {
-                    return new Job(DefDatabase<JobDef>.GetNamed("MD3_ChargeDroidJob"), new LocalTargetInfo(target));
+                    if (droid.CanReserve(target, 1, -1, null, false))
+                        return new Job(DefDatabase<JobDef>.GetNamed("MD3_ChargeDroidJob"), new LocalTargetInfo(target));
                 }
             }
             return null;
