@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <JobDef>
+    <defName>MD3_ChargeDroidJob</defName>
+    <driverClass>MD3_Droids.JobDriver_DroidCharge</driverClass>
+    <reportString>Charging internal energy storage.</reportString>
+  </JobDef>
+</Defs>

@@ -18,11 +18,6 @@
         <!-- React to close melee threat -->
         <li Class="JobGiver_ReactToCloseMeleeThreat" />
 
-        <!-- Insertion hook for modders -->
-        <li Class="ThinkNode_SubtreesByTag">
-          <insertTag>Humanlike_PostMentalState</insertTag>
-        </li>
-
         <!-- Do a queued job -->
         <li Class="ThinkNode_QueuedJob" />
 
@@ -39,11 +34,6 @@
           </subNodes>
         </li>
 
-        <!-- Insertion hook for modders -->
-        <li Class="ThinkNode_SubtreesByTag">
-          <insertTag>Humanlike_PostDuty</insertTag>
-        </li>
-
         <!-- If on colonist team, do forced and emergency work -->
         <li Class="MD3_Droids.ThinkNode_ConditionalDroid">
           <subNodes>
@@ -52,6 +42,9 @@
 
             <!-- Seek safe temperatures -->
             <li Class="JobGiver_SeekSafeTemperature" />
+
+            <!-- Charge Critical-->
+            <li Class="MD3_Droids.JobGiver_ChargeCritical"/>
 
             <!-- Drop unnused inventory -->
             <li Class="JobGiver_DropUnusedInventory" />
@@ -70,12 +63,10 @@
               </subNodes>
             </li>
 
-          </subNodes>
-        </li>
+              <!-- Charge low-->
+              <li Class="MD3_Droids.JobGiver_ChargeLow"/>
 
-        <!-- Insertion hook for modders -->
-        <li Class="ThinkNode_SubtreesByTag">
-          <insertTag>Humanlike_PreMain</insertTag>
+          </subNodes>
         </li>
 
         <!-- Main droid behavior core -->
@@ -84,12 +75,8 @@
             <li Class="ThinkNode_Subtree">
               <treeDef>MainDroidBehaviorCore</treeDef>
             </li>
+            <li Class="MD3_Droids.JobGiver_ChargeStaySafe"/>
           </subNodes>
-        </li>
-
-        <!-- Insertion hook for modders -->
-        <li Class="ThinkNode_SubtreesByTag">
-          <insertTag>Humanlike_PostMain</insertTag>
         </li>
 
         <!-- Idle colonist -->

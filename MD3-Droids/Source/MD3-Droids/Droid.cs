@@ -22,6 +22,8 @@ namespace MD3_Droids
 
         public bool ShouldUsePower { get => shouldUseCharge; set => shouldUseCharge = value; }
 
+        public float EnergyUseRate => 10f;
+
         public bool DesiresCharge => totalCharge < MaxEnergy;
 
         public bool CanTryGetCharge => Active;
@@ -52,15 +54,48 @@ namespace MD3_Droids
             }
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref totalCharge, "totalCharge");
+            Scribe_Values.Look(ref shouldUseCharge, "shouldUseCharge");
+        }
+
         public override void Tick()
         {
             base.Tick();
+            if(ShouldUsePower)
+            {
+                Deplete(EnergyUseRate);
+            }
+            if (needs != null)
+                Log.Message(needs.mood.CurLevel.ToString());
         }
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
             UtilityWorldObjectManager.GetUtilityWorldObject<DroidManager>().RegisterDroid(this);
+        }
+
+        public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
+        {
+            DroidManager.Instance.DeregisterDroid(this);
+            base.Destroy(mode);
+        }
+
+        public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
+        {
+            DroidManager.Instance.DeregisterDroid(this);
+            base.DeSpawn(mode);
+        }
+
+        public override string GetInspectString()
+        {
+            StringBuilder str = new StringBuilder();
+            str.AppendLine(base.GetInspectString());
+            str.Append($"Current energy: {TotalCharge.ToString("0")}Wd / {MaxEnergy}Wd");
+            return str.ToString();
         }
 
         #region Charge Methods

@@ -116,10 +116,10 @@
       </specialShadowData>
       <ageGenerationCurve>
         <points>
-          <li>(100,0)</li>
-          <li>(100,100)</li>
-          <li>(100,100)</li>
-          <li>(100,0)</li>
+          <li>(1,0)</li>
+          <li>(1,100)</li>
+          <li>(1,100)</li>
+          <li>(1,0)</li>
         </points>
       </ageGenerationCurve>
     </race>
