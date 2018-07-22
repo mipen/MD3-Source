@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<!--
+  <MD3_Droids.DroidUpgradeHediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidMotivatorII</defName>
+    <hediffClass>MD3_Droids.Hediff_VariableName</hediffClass>
+    <label>motivatorII</label>
+    <labelNoun>a motivator II</labelNoun>
+    <tagToRemove>motivator</tagToRemove>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidPowerDrain>2</MD3_DroidPowerDrain>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+      <partEfficiency>1.2</partEfficiency>
+    </addedPartProps>
+  </MD3_Droids.DroidUpgradeHediffDef>
+
+  <MD3_Droids.DroidUpgradeHediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidMotivatorIII</defName>
+    <hediffClass>MD3_Droids.Hediff_VariableName</hediffClass>
+    <label>motivatorIII</label>
+    <labelNoun>a motivator III</labelNoun>
+    <tagToRemove>motivator</tagToRemove>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidPowerDrain>5</MD3_DroidPowerDrain>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+      <partEfficiency>1.5</partEfficiency>
+    </addedPartProps>
+  </MD3_Droids.DroidUpgradeHediffDef>
+
+  <MD3_Droids.DroidUpgradeHediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidMotivatorIV</defName>
+    <hediffClass>MD3_Droids.Hediff_VariableName</hediffClass>
+    <label>motivatorIV</label>
+    <labelNoun>a motivator IV</labelNoun>
+    <tagToRemove>motivator</tagToRemove>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidPowerDrain>8</MD3_DroidPowerDrain>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+      <partEfficiency>2</partEfficiency>
+    </addedPartProps>
+  </MD3_Droids.DroidUpgradeHediffDef>
+
+-->
+</Defs>

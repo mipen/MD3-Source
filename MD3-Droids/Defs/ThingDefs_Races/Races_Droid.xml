@@ -27,6 +27,7 @@
       <MD3_DroidCPUCapacity>100</MD3_DroidCPUCapacity>
       <MD3_DroidPowerStorage>500</MD3_DroidPowerStorage>
       <MD3_DroidPowerDrain>50</MD3_DroidPowerDrain>
+      <MD3_DroidPowerMaxRate>300</MD3_DroidPowerMaxRate>
     </statBases>
     <comps>
       <li>

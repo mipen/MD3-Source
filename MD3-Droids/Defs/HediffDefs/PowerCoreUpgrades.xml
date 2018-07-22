@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <HediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidPowerCoreII</defName>
+    <label>power core II</label>
+    <labelNoun>a power core II</labelNoun>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidPowerStorage>250</MD3_DroidPowerStorage>
+          <MD3_DroidPowerMaxRate>150</MD3_DroidPowerMaxRate>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+    </addedPartProps>
+  </HediffDef>
+
+  <HediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidPowerCoreIII</defName>
+    <label>power core III</label>
+    <labelNoun>a power core III</labelNoun>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidPowerStorage>500</MD3_DroidPowerStorage>
+          <MD3_DroidPowerMaxRate>300</MD3_DroidPowerMaxRate>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+    </addedPartProps>
+  </HediffDef>
+
+  <HediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidPowerCoreIV</defName>
+    <label>power core IV</label>
+    <labelNoun>a power core IV</labelNoun>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidPowerStorage>1500</MD3_DroidPowerStorage>
+          <MD3_DroidPowerMaxRate>700</MD3_DroidPowerMaxRate>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+    </addedPartProps>
+  </HediffDef>
+
+</Defs>

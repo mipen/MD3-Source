@@ -12,6 +12,7 @@ namespace MD3_Droids
         bool Deplete(float rate);
         bool ShouldUsePower { get; set; }
         float EnergyUseRate { get; }
+        float EnergyUseRateMax { get; }
         bool DesiresCharge { get; }
         bool CanTryGetCharge { get; }
         Pawn Parent { get; }

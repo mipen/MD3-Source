@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+
   <BodyDef>
     <defName>MD3_MediumDroid</defName>
     <label>droid</label>
@@ -172,6 +173,474 @@
               </groups>
             </li>
             <li>
+              <def>MD3_DroidArm</def>
+              <customLabel>left mechanical arm</customLabel>
+              <coverage>0.375</coverage>
+              <height>Bottom</height>
+              <groups>
+                <li>MD3_MechanicalArms</li>
+                <li>MD3_MechanicalArmLeft</li>
+              </groups>
+              <parts>
+                <li>
+                  <def>MD3_DroidArmourPlating</def>
+                  <coverage>0.8</coverage>
+                  <depth>Outside</depth>
+                  <customLabel>left arm armour plating</customLabel>
+                  <groups>
+                    <li>MD3_MechanicalArms</li>
+                    <li>MD3_MechanicalArmLeft</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidHand</def>
+                  <customLabel>left mechanical hand</customLabel>
+                  <coverage>0.14</coverage>
+                  <height>Bottom</height>
+                  <groups>
+                    <li>MD3_MechanicalHands</li>
+                    <li>MD3_MechanicalHandLeft</li>
+                  </groups>
+                  <parts>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>left mechanical thumb</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHands</li>
+                        <li>MD3_MechanicalHandLeft</li>
+                      </groups>
+                    </li>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>left mechanical index finger</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHands</li>
+                        <li>MD3_MechanicalHandLeft</li>
+                      </groups>
+                    </li>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>left mechanical middle finger</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHands</li>
+                        <li>MD3_MechanicalHandLeft</li>
+                      </groups>
+                    </li>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>left mechanical finger</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHands</li>
+                        <li>MD3_MechanicalHandLeft</li>
+                      </groups>
+                    </li>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>left mechanical finger</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHands</li>
+                        <li>MD3_MechanicalHandLeft</li>
+                      </groups>
+                    </li>
+                  </parts>
+                </li>
+              </parts>
+            </li>
+          </parts>
+        </li>
+        <li>
+          <!-- right shoulder and arm -->
+          <def>MD3_DroidShoulder</def>
+          <coverage>0.12</coverage>
+          <customLabel>right mechanical shoulder</customLabel>
+          <groups>
+            <li>MD3_MechanicalShoulders</li>
+          </groups>
+          <parts>
+            <li>
+              <def>MD3_DroidArmourPlating</def>
+              <coverage>0.565</coverage>
+              <depth>Outside</depth>
+              <customLabel>right shoulder armour plating</customLabel>
+              <groups>
+                <li>MD3_MechanicalShoulders</li>
+              </groups>
+            </li>
+            <li>
+              <def>MD3_DroidArm</def>
+              <customLabel>right mechanical arm</customLabel>
+              <coverage>0.375</coverage>
+              <height>Bottom</height>
+              <groups>
+                <li>MD3_MechanicalArms</li>
+                <li>MD3_MechanicalArmRight</li>
+              </groups>
+              <parts>
+                <li>
+                  <def>MD3_DroidArmourPlating</def>
+                  <coverage>0.8</coverage>
+                  <depth>Outside</depth>
+                  <customLabel>right arm armour plating</customLabel>
+                  <groups>
+                    <li>MD3_MechanicalArms</li>
+                    <li>MD3_MechanicalArmRight</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidHand</def>
+                  <customLabel>right mechanical hand</customLabel>
+                  <coverage>0.14</coverage>
+                  <height>Bottom</height>
+                  <groups>
+                    <li>MD3_MechanicalHands</li>
+                    <li>MD3_MechanicalHandRight</li>
+                  </groups>
+                  <parts>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>right mechanical thumb</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHandRight</li>
+                      </groups>
+                    </li>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>right mechanical index finger</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHandRight</li>
+                      </groups>
+                    </li>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>right mechanical middle finger</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHandRight</li>
+                      </groups>
+                    </li>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>right mechanical finger</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHandRight</li>
+                      </groups>
+                    </li>
+                    <li>
+                      <def>MD3_DroidFinger</def>
+                      <coverage>0.06</coverage>
+                      <customLabel>right mechanical finger</customLabel>
+                      <groups>
+                        <li>MD3_MechanicalHandRight</li>
+                      </groups>
+                    </li>
+                  </parts>
+                </li>
+              </parts>
+            </li>
+          </parts>
+        </li>
+        <li>
+          <def>Waist</def>
+          <coverage>0</coverage>
+          <height>Bottom</height>
+          <groups>
+            <li>MD3_Waist</li>
+          </groups>
+        </li>
+        <li>
+          <!-- left leg -->
+          <def>MD3_DroidLegSocketJoint</def>
+          <coverage>0.15</coverage>
+          <customLabel>left leg socket joint</customLabel>
+          <groups>
+            <li>MD3_MechanicalLegs</li>
+            <li>MD3_MechanicalLegLeft</li>
+          </groups>
+          <parts>
+            <li>
+              <def>MD3_DroidArmourPlating</def>
+              <coverage>0.545</coverage>
+              <depth>Outside</depth>
+              <customLabel>left socket joint armour plating</customLabel>
+              <groups>
+                <li>MD3_MechanicalLegs</li>
+                <li>MD3_MechanicalLegLeft</li>
+              </groups>
+            </li>
+            <li>
+              <def>MD3_DroidLeg</def>
+              <customLabel>left mechanical leg</customLabel>
+              <coverage>0.4</coverage>
+              <height>Bottom</height>
+              <groups>
+                <li>MD3_MechanicalLegs</li>
+                <li>MD3_MechanicalLegLeft</li>
+              </groups>
+              <parts>
+                <li>
+                  <def>MD3_DroidArmourPlating</def>
+                  <coverage>0.79</coverage>
+                  <depth>Outside</depth>
+                  <customLabel>left leg armour plating</customLabel>
+                  <groups>
+                    <li>MD3_MechanicalLegs</li>
+                    <li>MD3_MechanicalLegLeft</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidFoot</def>
+                  <customLabel>left mechanical foot</customLabel>
+                  <coverage>0.2</coverage>
+                  <height>Bottom</height>
+                  <groups>
+                    <li>MD3_MechanicalFeet</li>
+                    <li>MD3_MechanicalFootLeft</li>
+                  </groups>
+                </li>
+              </parts>
+            </li>
+          </parts>
+        </li>
+        <li>
+          <!-- right leg -->
+          <def>MD3_DroidLegSocketJoint</def>
+          <coverage>0.15</coverage>
+          <customLabel>right leg socket joint</customLabel>
+          <groups>
+            <li>MD3_MechanicalLegs</li>
+            <li>MD3_MechanicalLegRight</li>
+          </groups>
+          <parts>
+            <li>
+              <def>MD3_DroidArmourPlating</def>
+              <coverage>0.545</coverage>
+              <depth>Outside</depth>
+              <customLabel>right socket joint armour plating</customLabel>
+              <groups>
+                <li>MD3_MechanicalLegs</li>
+                <li>MD3_MechanicalLegRight</li>
+              </groups>
+            </li>
+            <li>
+              <def>MD3_DroidLeg</def>
+              <customLabel>right mechanical leg</customLabel>
+              <coverage>0.4</coverage>
+              <height>Bottom</height>
+              <groups>
+                <li>MD3_MechanicalLegs</li>
+                <li>MD3_MechanicalLegRight</li>
+              </groups>
+              <parts>
+                <li>
+                  <def>MD3_DroidArmourPlating</def>
+                  <coverage>0.79</coverage>
+                  <depth>Outside</depth>
+                  <customLabel>right leg armour plating</customLabel>
+                  <groups>
+                    <li>MD3_MechanicalLegs</li>
+                    <li>MD3_MechanicalLegRight</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidFoot</def>
+                  <customLabel>right mechanical foot</customLabel>
+                  <coverage>0.2</coverage>
+                  <height>Bottom</height>
+                  <groups>
+                    <li>MD3_MechanicalFeet</li>
+                    <li>MD3_MechanicalFootRight</li>
+                  </groups>
+                </li>
+              </parts>
+            </li>
+          </parts>
+        </li>
+      </parts>
+    </corePart>
+  </BodyDef>
+
+
+
+  <!--
+  <BodyDef>
+    <defName>MD3_MediumDroid</defName>
+    <label>droid</label>
+    <corePart>
+      <def>MD3_DroidChassis</def>
+      <height>Middle</height>
+      <depth>Inside</depth>
+      <groups>
+        <li>MD3_Chassis</li>
+      </groups>
+      <parts>
+        <li>
+           inner chassis 
+          <def>MD3_DroidArmourPlating</def>
+          <coverage>0.294</coverage>
+          <height>Middle</height>
+          <depth>Outside</depth>
+          <customLabel>chassis armour plating</customLabel>
+          <groups>
+            <li>MD3_Chassis</li>
+          </groups>
+        </li>
+        <li>
+          <def>MD3_DroidPowerCore</def>
+          <coverage>0.035</coverage>
+          <depth>Inside</depth>
+          <groups>
+            <li>MD3_Chassis</li>
+          </groups>
+        </li>
+        <li>
+          <def>MD3_DroidGyroscope</def>
+          <coverage>0.025</coverage>
+          <depth>Inside</depth>
+          <groups>
+            <li>MD3_Chassis</li>
+          </groups>
+        </li>
+        <li>
+          <def>MD3_DroidFluidFiltrationUnit</def>
+          <coverage>0.035</coverage>
+          <depth>Inside</depth>
+          <groups>
+            <li>MD3_Chassis</li>
+          </groups>
+        </li>
+        <li>
+          head
+          <def>MD3_DroidNeck</def>
+          <coverage>0.07</coverage>
+          <height>Top</height>
+          <groups>
+            <li>MD3_MechanicalNeck</li>
+          </groups>
+          <parts>
+            <li>
+              <def>MD3_DroidArmourPlating</def>
+              <coverage>0.495</coverage>
+              <depth>Outside</depth>
+              <customLabel>neck armour plating</customLabel>
+              <groups>
+                <li>MD3_MechanicalNeck</li>
+              </groups>
+            </li>
+            <li>
+              <def>MD3_DroidHead</def>
+              <coverage>0.5</coverage>
+              <height>Top</height>
+              <groups>
+                <li>MD3_UpperMechanicalHead</li>
+                <li>MD3_FullMechanicalHead</li>
+                <li>HeadAttackTool</li>
+              </groups>
+              <parts>
+                <li>
+                  <def>MD3_DroidArmourPlating</def>
+                  <coverage>0.6</coverage>
+                  <depth>Outside</depth>
+                  <customLabel>head armour plating</customLabel>
+                  <groups>
+                    <li>MD3_UpperMechanicalHead</li>
+                    <li>MD3_FullMechanicalHead</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidCPUCasing</def>
+                  <coverage>0.17</coverage>
+                  <depth>Inside</depth>
+                  <groups>
+                    <li>MD3_UpperMechanicalHead</li>
+                    <li>MD3_FullMechanicalHead</li>
+                  </groups>
+                  <parts>
+                    <li>
+                      <def>MD3_DroidCPU</def>
+                      <coverage>0.95</coverage>
+                      <depth>Inside</depth>
+                      <groups>
+                        <li>MD3_UpperMechanicalHead</li>
+                        <li>MD3_FullMechanicalHead</li>
+                      </groups>
+                    </li>
+                  </parts>
+                </li>
+                <li>
+                  <def>MD3_DroidVisualReceptor</def>
+                  <coverage>0.04</coverage>
+                  <customLabel>left visual receptor</customLabel>
+                  <groups>
+                    <li>MD3_VisualReceptors</li>
+                    <li>MD3_FullMechanicalHead</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidVisualReceptor</def>
+                  <coverage>0.04</coverage>
+                  <customLabel>right visual receptor</customLabel>
+                  <groups>
+                    <li>MD3_VisualReceptors</li>
+                    <li>MD3_FullMechanicalHead</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidAudioReceptor</def>
+                  <coverage>0.04</coverage>
+                  <customLabel>left audio receptor</customLabel>
+                  <groups>
+                    <li>MD3_AudioReceptors</li>
+                    <li>MD3_FullMechanicalHead</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidAudioReceptor</def>
+                  <coverage>0.04</coverage>
+                  <customLabel>right audio receptor</customLabel>
+                  <groups>
+                    <li>MD3_AudioReceptors</li>
+                    <li>MD3_FullMechanicalHead</li>
+                  </groups>
+                </li>
+                <li>
+                  <def>MD3_DroidVocabulator</def>
+                  <coverage>0.04</coverage>
+                  <customLabel>vocabulator</customLabel>
+                  <groups>
+                    <li>MD3_FullMechanicalHead</li>
+                  </groups>
+                </li>
+              </parts>
+            </li>
+          </parts>
+        </li>
+        <li>
+           left shoulder and arm 
+          <def>MD3_DroidShoulder</def>
+          <coverage>0.12</coverage>
+          <customLabel>left mechanical shoulder</customLabel>
+          <groups>
+            <li>MD3_MechanicalShoulders</li>
+          </groups>
+          <parts>
+            <li>
+              <def>MD3_DroidArmourPlating</def>
+              <coverage>0.565</coverage>
+              <depth>Outside</depth>
+              <customLabel>left shoulder armour plating</customLabel>
+              <groups>
+                <li>MD3_MechanicalShoulders</li>
+              </groups>
+            </li>
+            <li>
               <def>MD3_DroidMotivatorManipulation</def>
               <depth>Inside</depth>
               <height>Top</height>
@@ -273,7 +742,7 @@
           </parts>
         </li>
         <li>
-          <!-- right shoulder and arm -->
+           right shoulder and arm 
           <def>MD3_DroidShoulder</def>
           <coverage>0.12</coverage>
           <customLabel>right mechanical shoulder</customLabel>
@@ -334,6 +803,7 @@
                       <def>MD3_DroidMotivatorManipulation</def>
                       <coverage>0.07</coverage>
                       <depth>Inside</depth>
+                      <customLabel>right mechanical hand motivator</customLabel>
                       <groups>
                         <li>MD3_MechanicalHandRight</li>
                       </groups>
@@ -393,7 +863,7 @@
           </groups>
         </li>
         <li>
-          <!-- left leg -->
+           left leg 
           <def>MD3_DroidLegSocketJoint</def>
           <coverage>0.15</coverage>
           <customLabel>left leg socket joint</customLabel>
@@ -468,7 +938,7 @@
           </parts>
         </li>
         <li>
-          <!-- right leg -->
+           right leg 
           <def>MD3_DroidLegSocketJoint</def>
           <coverage>0.15</coverage>
           <customLabel>right leg socket joint</customLabel>
@@ -545,6 +1015,6 @@
         </li>
       </parts>
     </corePart>
-  </BodyDef>
+  </BodyDef>-->
 
 </Defs>

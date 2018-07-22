@@ -50,21 +50,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompDroidCharger.cs" />
-    <Compile Include="Droid.cs" />
+    <Compile Include="zComps\CompDroidCharger.cs" />
+    <Compile Include="zDefs\DroidUpgradeHediffDef.cs" />
+    <Compile Include="zDroid\Droid.cs" />
     <Compile Include="zAI\Droid_AIPackageTracker.cs" />
     <Compile Include="zAI\Jobs\JobDrivers\JobDriver_DroidCharge.cs" />
     <Compile Include="zAI\Jobs\JobGivers\JobGiver_DroidCharge.cs" />
     <Compile Include="zDefs\AIPackageDef.cs" />
+    <Compile Include="zHediffs\Hediff_VariableName.cs" />
     <Compile Include="zPatches\Pawn_HealthTrackerPatch.cs" />
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_CopyPasteDroidWorkPriorities.cs" />
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_DroidWorkPriority.cs" />
     <Compile Include="zUtil\DroidManager.cs" />
     <Compile Include="zUtil\DroidStatDefOf.cs" />
-    <Compile Include="zUtil\ICharge.cs" />
+    <Compile Include="zDroid\ICharge.cs" />
     <Compile Include="zAI\Jobs\JobGivers\JobGiver_WorkDroid.cs" />
     <Compile Include="zUI\MainTabWindow_DroidWork.cs" />
-    <Compile Include="MD3_Droids.cs" />
+    <Compile Include="zUtil\MD3_Droids.cs" />
     <Compile Include="zPatches\Pawn_PlayerSettingsPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="zPatches\RacePropsPatch.cs" />
@@ -80,6 +82,9 @@
     <Content Include="Defs\BodyPartGroupDefs\BodyPartGroups.xml" />
     <Content Include="Defs\BodyPartTagDefs\DroidBodyPartTagDefs.xml" />
     <Content Include="Defs\FleshTypeDefs\FleshType.xml" />
+    <Content Include="Defs\HediffDefs\CPU Upgrades.xml" />
+    <Content Include="Defs\HediffDefs\MotivatorUpgrades.xml" />
+    <Content Include="Defs\HediffDefs\PowerCoreUpgrades.xml" />
     <Content Include="Defs\JobDefs\DroidChargeJob.xml" />
     <Content Include="Defs\MainButtonDefs\MainButtons.xml" />
     <Content Include="Defs\PawnColumnDefs\DroidColumns.xml" />

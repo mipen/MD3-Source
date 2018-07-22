@@ -16,7 +16,7 @@
     <displayPriorityInCategory>100</displayPriorityInCategory>
     <defaultBaseValue>100</defaultBaseValue>
     <minValue>100</minValue>
-    <toStringStyle>Integer</toStringStyle>
+    <toStringStyle>FloatOne</toStringStyle>
     <toStringStyleUnfinalized>FloatOne</toStringStyleUnfinalized>
     <formatString>{0}tf</formatString>
   </StatDef>
@@ -34,13 +34,25 @@
   </StatDef>
 
   <StatDef ParentName="DroidStatBase">
+    <defName>MD3_DroidPowerMaxRate</defName>
+    <label>maximum power load</label>
+    <description>The maximum power load that this droid's power core is capable of sourcing.</description>
+    <displayPriorityInCategory>70</displayPriorityInCategory>
+    <defaultBaseValue>300</defaultBaseValue>
+    <minValue>100</minValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <toStringStyleUnfinalized>FloatOne</toStringStyleUnfinalized>
+    <formatString>{0}W</formatString>
+  </StatDef>  
+
+  <StatDef ParentName="DroidStatBase">
     <defName>MD3_DroidPowerDrain</defName>
     <label>power drain</label>
     <description>The droid's power drain.</description>
     <displayPriorityInCategory>50</displayPriorityInCategory>
     <defaultBaseValue>50</defaultBaseValue>
     <minValue>0</minValue>
-    <toStringStyle>Integer</toStringStyle>
+    <toStringStyle>FloatOne</toStringStyle>
     <toStringStyleUnfinalized>FloatOne</toStringStyleUnfinalized>
     <formatString>{0}W</formatString>
   </StatDef>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  
+  <HediffDef Name="DroidUpgradeBase" Abstract="True">
+    <hediffClass>Hediff_AddedPart</hediffClass>
+    <defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
+    <isBad>false</isBad>
+  </HediffDef>
+
+  <HediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidCPUII</defName>
+    <label>central processing unit II</label>
+    <labelNoun>a central processing unit II</labelNoun>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidCPUCapacity>50</MD3_DroidCPUCapacity>
+          <MD3_DroidPowerDrain>20</MD3_DroidPowerDrain>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+      <partEfficiency>1.1</partEfficiency>
+    </addedPartProps>
+  </HediffDef>
+
+  <HediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidCPUIII</defName>
+    <label>central processing unit III</label>
+    <labelNoun>a central processing unit III</labelNoun>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidCPUCapacity>100</MD3_DroidCPUCapacity>
+          <MD3_DroidPowerDrain>40</MD3_DroidPowerDrain>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+      <partEfficiency>1.25</partEfficiency>
+    </addedPartProps>
+  </HediffDef>
+
+  <HediffDef ParentName="DroidUpgradeBase">
+    <defName>MD3_DroidCPUIV</defName>
+    <label>central processing unit IV</label>
+    <labelNoun>a central processing unit IV</labelNoun>
+    <stages>
+      <li>
+        <statOffsets>
+          <MD3_DroidCPUCapacity>200</MD3_DroidCPUCapacity>
+          <MD3_DroidPowerDrain>70</MD3_DroidPowerDrain>
+        </statOffsets>
+      </li>
+    </stages>
+    <addedPartProps>
+      <solid>true</solid>
+      <partEfficiency>1.5</partEfficiency>
+    </addedPartProps>
+  </HediffDef>
+
+</Defs>

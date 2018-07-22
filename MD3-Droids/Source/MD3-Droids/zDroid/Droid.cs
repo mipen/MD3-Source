@@ -24,6 +24,8 @@ namespace MD3_Droids
 
         public float EnergyUseRate => this.GetStatValue(DroidStatDefOf.PowerDrain);
 
+        public float EnergyUseRateMax => this.GetStatValue(DroidStatDefOf.PowerDrainMaxRate);
+
         public bool DesiresCharge => totalCharge < MaxEnergy;
 
         public bool CanTryGetCharge => Active;
