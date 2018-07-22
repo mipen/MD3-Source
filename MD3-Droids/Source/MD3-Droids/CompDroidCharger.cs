@@ -89,10 +89,13 @@ namespace MD3_Droids
         public override void CompTick()
         {
             base.CompTick();
+            Log.Message("compTick");
             if (chargee != null)
             {
+                Log.Message("chargee not null");
                 if (Power != null && Power.PowerOn)
                 {
+                    Log.Message("power on");
                     Chargee.Charge(Power.Props.basePowerConsumption * 2f);
                 }
             }

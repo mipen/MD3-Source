@@ -41,8 +41,6 @@ namespace MD3_Droids
 
         public bool Active { get => active; set => active = value; }
 
-        public Droid_AIPackageTracker aiPackages;
-
         public Droid() : base()
         {
             story = new Pawn_StoryTracker(this);
@@ -54,7 +52,6 @@ namespace MD3_Droids
             {
                 workSettings.SetPriority(wtd, 1);
             }
-            aiPackages = new Droid_AIPackageTracker(this);
         }
 
         public override void ExposeData()
@@ -62,7 +59,6 @@ namespace MD3_Droids
             base.ExposeData();
             Scribe_Values.Look(ref totalCharge, "totalCharge");
             Scribe_Values.Look(ref shouldUseCharge, "shouldUseCharge");
-            Scribe_Deep.Look(ref aiPackages, "aiPackages", this);
         }
 
         public override void Tick()
@@ -76,14 +72,9 @@ namespace MD3_Droids
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            //DEBUG
-            aiPackages.AddPackage(AIPackageDef.Named("MD3_CleaningPackage"));
-            aiPackages.AddPackage(AIPackageDef.Named("MD3_ConstructionPackage"));
-
-
             base.SpawnSetup(map, respawningAfterLoad);
             UtilityWorldObjectManager.GetUtilityWorldObject<DroidManager>().RegisterDroid(this);
-            aiPackages.SpawnSetup();
+            def.race.corpseDef.inspectorTabs.Remove(typeof(ITab_Pawn_Character));
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)

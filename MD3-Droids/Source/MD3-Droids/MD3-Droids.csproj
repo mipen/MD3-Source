@@ -52,13 +52,9 @@
   <ItemGroup>
     <Compile Include="CompDroidCharger.cs" />
     <Compile Include="Droid.cs" />
-    <Compile Include="zAI\Droid_AIPackageTracker.cs" />
     <Compile Include="zAI\Jobs\JobDrivers\JobDriver_DroidCharge.cs" />
     <Compile Include="zAI\Jobs\JobGivers\JobGiver_DroidCharge.cs" />
-    <Compile Include="zDefs\AIPackageDef.cs" />
     <Compile Include="zPatches\Pawn_HealthTrackerPatch.cs" />
-    <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_CopyPasteDroidWorkPriorities.cs" />
-    <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_DroidWorkPriority.cs" />
     <Compile Include="zUtil\DroidManager.cs" />
     <Compile Include="zUtil\DroidStatDefOf.cs" />
     <Compile Include="zUtil\ICharge.cs" />
@@ -74,7 +70,6 @@
     <Content Include="About\About.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Defs\AIPackageDefs\AIPackages.xml" />
     <Content Include="Defs\BodyDefs\BodyParts_DroidMedium.xml" />
     <Content Include="Defs\BodyDefs\BodyDef_DroidMedium.xml" />
     <Content Include="Defs\BodyPartGroupDefs\BodyPartGroups.xml" />
@@ -82,8 +77,6 @@
     <Content Include="Defs\FleshTypeDefs\FleshType.xml" />
     <Content Include="Defs\JobDefs\DroidChargeJob.xml" />
     <Content Include="Defs\MainButtonDefs\MainButtons.xml" />
-    <Content Include="Defs\PawnColumnDefs\DroidColumns.xml" />
-    <Content Include="Defs\PawnTableDefs\DroidTables.xml" />
     <Content Include="Defs\StatDefs\StatCategories.xml" />
     <Content Include="Defs\StatDefs\Stats_Droids.xml" />
     <Content Include="Defs\ThingDefs_Buildings\DroidChargePad.xml">

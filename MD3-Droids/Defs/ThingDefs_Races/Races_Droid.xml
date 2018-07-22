@@ -40,7 +40,7 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>8</power>
+        <power>12</power>
         <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>MD3_MechanicalHandLeft</linkedBodyPartsGroup>
         <surpriseAttack>
@@ -57,7 +57,7 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>8</power>
+        <power>12</power>
         <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>MD3_MechanicalHandRight</linkedBodyPartsGroup>
         <surpriseAttack>
@@ -74,7 +74,7 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>6</power>
+        <power>9</power>
         <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
         <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>

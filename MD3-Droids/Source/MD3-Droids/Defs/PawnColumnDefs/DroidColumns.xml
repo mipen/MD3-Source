@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Defs>
-
-  <PawnColumnDef>
-    <defName>MD3_CopyPasteDroidWorkPriorities</defName>
-    <workerClass>MD3_Droids.PawnColumnWorker_CopyPasteDroidWorkPriorities</workerClass>
-  </PawnColumnDef>
-  
-</Defs>
