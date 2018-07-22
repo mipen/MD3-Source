@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  
+  <MD3_Droids.AIPackageDef>
+    <defName>MD3_CleaningPackage</defName>
+    <label>cleaning</label>
+    <workTypes>
+      <li>Cleaning</li>
+    </workTypes>
+    <cpuUsage>2.5</cpuUsage>
+  </MD3_Droids.AIPackageDef>
+
+  <MD3_Droids.AIPackageDef>
+    <defName>MD3_ConstructionPackage</defName>
+    <label>construction</label>
+    <workTypes>
+      <li>Construction</li>
+    </workTypes>
+    <cpuUsage>5</cpuUsage>
+  </MD3_Droids.AIPackageDef>
+  
+</Defs>
