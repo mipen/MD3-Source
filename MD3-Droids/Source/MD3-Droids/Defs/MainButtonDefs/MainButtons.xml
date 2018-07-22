@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MainButtonDef>
+    <defName>MD3_DroidWork</defName>
+    <label>droid work</label>
+    <description>Choose which droid does what kinds of work, and in what order.</description>
+    <tabWindowClass>MD3_Droids.MainTabWindow_DroidWork</tabWindowClass>
+    <order>11</order>
+  </MainButtonDef>
+
+</Defs>

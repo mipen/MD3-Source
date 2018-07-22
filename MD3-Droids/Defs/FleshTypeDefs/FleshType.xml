@@ -2,7 +2,7 @@
 
 <Defs>
   <FleshTypeDef>
-    <defName>Droid</defName>
+    <defName>MD3_Droid</defName>
     <corpseCategory>CorpsesMechanoid</corpseCategory>
     <requiresBedForSurgery>false</requiresBedForSurgery>
     <wounds>
