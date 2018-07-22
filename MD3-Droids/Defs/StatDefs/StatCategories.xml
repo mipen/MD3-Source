@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <StatCategoryDef>
+    <defName>MD3_DroidStats</defName>
+    <label>Droid</label>
+    <displayOrder>105</displayOrder>
+    <displayAllByDefault>True</displayAllByDefault>
+  </StatCategoryDef>
+</Defs>

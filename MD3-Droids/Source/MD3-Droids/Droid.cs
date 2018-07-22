@@ -18,11 +18,11 @@ namespace MD3_Droids
 
         public float TotalCharge { get => totalCharge; set => totalCharge = value; }
 
-        public float MaxEnergy => 1000f; //TODO:: Implement total energy derived from used parts
+        public float MaxEnergy => this.GetStatValue(DroidStatDefOf.PowerStorage);
 
         public bool ShouldUsePower { get => shouldUseCharge; set => shouldUseCharge = value; }
 
-        public float EnergyUseRate => 10f;
+        public float EnergyUseRate => this.GetStatValue(DroidStatDefOf.PowerDrain);
 
         public bool DesiresCharge => totalCharge < MaxEnergy;
 
@@ -64,12 +64,10 @@ namespace MD3_Droids
         public override void Tick()
         {
             base.Tick();
-            if(ShouldUsePower)
+            if (ShouldUsePower)
             {
                 Deplete(EnergyUseRate);
             }
-            if (needs != null)
-                Log.Message(needs.mood.CurLevel.ToString());
         }
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
@@ -94,7 +92,7 @@ namespace MD3_Droids
         {
             StringBuilder str = new StringBuilder();
             str.AppendLine(base.GetInspectString());
-            str.Append($"Current energy: {TotalCharge.ToString("0")}Wd / {MaxEnergy}Wd");
+            str.Append($"Current energy: {TotalCharge.ToString("0")}Wd / {MaxEnergy}Wd, Drain: {EnergyUseRate}W");
             return str.ToString();
         }
 
