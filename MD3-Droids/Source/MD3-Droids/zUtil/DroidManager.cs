@@ -12,15 +12,44 @@ namespace MD3_Droids
     {
         private List<Droid> droids = new List<Droid>();
         private List<Thing> chargers = new List<Thing>();
+        private List<DroidDesign> designs;
+        private int idCount = 0;
 
         public List<Droid> AllDroids => droids;
         public List<Thing> AllChargers => chargers;
+        public List<DroidDesign> Designs
+        {
+            get
+            {
+                if (designs == null)
+                    LoadDroidDesigns();
+                return designs;
+            }
+        }
+
 
         public static DroidManager Instance => UtilityWorldObjectManager.GetUtilityWorldObject<DroidManager>();
 
         public DroidManager()
         {
 
+        }
+
+        public int GetUniqueID()
+        {
+            return idCount++;
+            //TODO:: save idCount in config file so that all games have unique id's
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+        }
+
+        private void LoadDroidDesigns()
+        {
+            designs = new List<DroidDesign>();
+            //TODO:: Load droid designs here
         }
 
         public void RegisterDroid(Droid droid)

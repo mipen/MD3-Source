@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
+<!--
   <MD3_Droids.DroidUpgradeHediffDef ParentName="DroidUpgradeBase">
     <defName>MD3_DroidMotivatorII</defName>
     <hediffClass>MD3_Droids.Hediff_VariableName</hediffClass>
@@ -58,5 +58,5 @@
     </addedPartProps>
   </MD3_Droids.DroidUpgradeHediffDef>
 
-
+-->
 </Defs>

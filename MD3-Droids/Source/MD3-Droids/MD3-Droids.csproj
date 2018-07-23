@@ -50,6 +50,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="zDroid\DroidDesign.cs" />
+    <Compile Include="zThings\Building_DroidConstructionTable.cs" />
     <Compile Include="zComps\CompDroidCharger.cs" />
     <Compile Include="zDefs\DroidUpgradeHediffDef.cs" />
     <Compile Include="zDroid\Droid.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="zDefs\AIPackageDef.cs" />
     <Compile Include="zHediffs\Hediff_VariableName.cs" />
     <Compile Include="zPatches\Pawn_HealthTrackerPatch.cs" />
+    <Compile Include="zUI\ITabs\ITab_DroidDesigns.cs" />
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_CopyPasteDroidWorkPriorities.cs" />
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_DroidWorkPriority.cs" />
     <Compile Include="zUtil\DroidManager.cs" />
@@ -94,6 +97,7 @@
     <Content Include="Defs\ThingDefs_Buildings\DroidChargePad.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Defs\ThingDefs_Buildings\DroidConstructionTable.xml" />
     <Content Include="Defs\ThingDefs_Races\Races_Droid.xml" />
     <Content Include="Defs\ThinkTreeDefs\DroidThinkTree.xml" />
     <Content Include="Defs\ThinkTreeDefs\SubTrees_Misc.xml" />
