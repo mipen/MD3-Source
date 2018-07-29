@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MD3_Droids.DroidCustomiseGroupDef>
+    <defName>MD3_MediumDroidHead</defName>
+    <label>Head</label>
+    <Parts>
+      <li>
+        <ChassisPoint>MediumHead</ChassisPoint>
+      </li>
+      <li>
+        <ChassisPoint>CPU</ChassisPoint>
+      </li>
+      <li>
+        <ChassisPoint>VisualReceptor</ChassisPoint>
+        <BodyPosition>LeftVisualReceptor</BodyPosition>
+      </li>
+      <li>
+        <ChassisPoint>VisualReceptor</ChassisPoint>
+        <BodyPosition>RightVisualReceptor</BodyPosition>
+      </li>
+    </Parts> 
+</MD3_Droids.DroidCustomiseGroupDef>
+
+  <MD3_Droids.DroidCustomiseGroupDef>
+    <defName>MD3_MediumDroidChassis</defName>
+    <label>Chassis</label>
+    <Parts>
+      <li>
+        <ChassisPoint>PowerCore</ChassisPoint>
+      </li>
+    </Parts>
+  </MD3_Droids.DroidCustomiseGroupDef>
+
+  <MD3_Droids.DroidCustomiseGroupDef>
+    <defName>MD3_MediumDroidLeftArm</defName>
+    <label>Left Arm</label>
+    <Parts>
+      <li>
+        <ChassisPoint>MediumArm</ChassisPoint>
+        <BodyPosition>LeftArm</BodyPosition>
+      </li>
+      <li>
+        <ChassisPoint>MediumHand</ChassisPoint>
+        <BodyPosition>LeftHand</BodyPosition>
+      </li>
+    </Parts>
+  </MD3_Droids.DroidCustomiseGroupDef>
+
+  <MD3_Droids.DroidCustomiseGroupDef>
+    <defName>MD3_MediumDroidRightArm</defName>
+    <label>Right Arm</label>
+    <Parts>
+      <li>
+        <ChassisPoint>MediumArm</ChassisPoint>
+        <BodyPosition>RightArm</BodyPosition>
+      </li>
+      <li>
+        <ChassisPoint>MediumHand</ChassisPoint>
+        <BodyPosition>RightHand</BodyPosition>
+      </li>
+    </Parts>
+  </MD3_Droids.DroidCustomiseGroupDef>
+
+
+  <MD3_Droids.DroidCustomiseGroupDef>
+    <defName>MD3_MediumDroidLeftLeg</defName>
+    <label>Left Leg</label>
+    <Parts>
+      <li>
+        <ChassisPoint>MediumLeg</ChassisPoint>
+        <BodyPosition>LeftLeg</BodyPosition>
+      </li>
+      <li>
+        <ChassisPoint>MediumFoot</ChassisPoint>
+        <BodyPosition>LeftFoot</BodyPosition>
+      </li>
+    </Parts>
+  </MD3_Droids.DroidCustomiseGroupDef>
+  
+  <MD3_Droids.DroidCustomiseGroupDef>
+    <defName>MD3_MediumDroidRightLeg</defName>
+    <label>Right Leg</label>
+    <Parts>
+      <li>
+        <ChassisPoint>MediumLeg</ChassisPoint>
+        <BodyPosition>RightLeg</BodyPosition>
+      </li>
+      <li>
+        <ChassisPoint>MediumFoot</ChassisPoint>
+        <BodyPosition>RightFoot</BodyPosition>
+      </li>
+    </Parts>
+  </MD3_Droids.DroidCustomiseGroupDef>
+
+
+
+</Defs>

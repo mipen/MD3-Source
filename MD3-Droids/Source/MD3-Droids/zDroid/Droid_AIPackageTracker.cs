@@ -10,7 +10,6 @@ namespace MD3_Droids
     {
         private Droid droid;
         private bool capableOfViolence = true;
-        private List<AIPackageDef> aIPackageDefs = new List<AIPackageDef>();
 
         public Droid Droid => droid;
 
@@ -19,15 +18,9 @@ namespace MD3_Droids
             this.droid = droid;
         }
 
-        public void AddPackage(AIPackageDef def)
-        {
-            if (!aIPackageDefs.Contains(def))
-                aIPackageDefs.Add(def);
-        }
-
         public bool CapableOfWorkType(WorkTypeDef def)
         {
-            foreach(var package in aIPackageDefs)
+            foreach(var package in droid.design.AIPackages)
             {
                 if (package.CapableOfWorkType(def))
                     return true;
@@ -38,12 +31,11 @@ namespace MD3_Droids
         public void ExposeData()
         {
             Scribe_Values.Look(ref capableOfViolence, "capableOfViolence");
-            Scribe_Collections.Look(ref aIPackageDefs, "aiPackageDefs", LookMode.Def);
         }
 
         public void SpawnSetup()
         {
-            foreach(var aiDef in aIPackageDefs)
+            foreach(var aiDef in droid.design.AIPackages)
             {
                 if(aiDef.workTypes.Count>0)
                 {

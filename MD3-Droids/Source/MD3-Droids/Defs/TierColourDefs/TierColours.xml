@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MD3_Droids.TierColourDef>
+    <defName>TierII</defName>
+    <r>0</r>
+    <g>0.44</g>
+    <b>0.87</b>
+  </MD3_Droids.TierColourDef>
+
+  <MD3_Droids.TierColourDef>
+    <defName>TierIII</defName>
+    <r>0.64</r>
+    <g>0.21</g>
+    <b>0.93</b>
+  </MD3_Droids.TierColourDef>
+
+  <MD3_Droids.TierColourDef>
+    <defName>TierIV</defName>
+    <r>1</r>
+    <g>0.5</g>
+    <b>0</b>
+  </MD3_Droids.TierColourDef>
+  
+</Defs>

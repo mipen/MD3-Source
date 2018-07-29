@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   
-  <HediffDef Name="DroidUpgradeBase" Abstract="True">
+ <!-- <HediffDef Name="DroidUpgradeBase" Abstract="True">
     <hediffClass>Hediff_AddedPart</hediffClass>
     <defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
     <isBad>false</isBad>
@@ -59,6 +59,6 @@
       <solid>true</solid>
       <partEfficiency>1.5</partEfficiency>
     </addedPartProps>
-  </HediffDef>
+  </HediffDef>-->
 
 </Defs>

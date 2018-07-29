@@ -40,6 +40,7 @@ namespace MD3_Droids
         #endregion
 
         private bool active = true;
+        public DroidDesign design;
 
         public bool Active { get => active; set => active = value; }
 
@@ -47,6 +48,7 @@ namespace MD3_Droids
 
         public Droid() : base()
         {
+            design = new DroidDesign();
             story = new Pawn_StoryTracker(this);
             skills = new Pawn_SkillTracker(this);
             playerSettings = new Pawn_PlayerSettings(this);
@@ -62,6 +64,7 @@ namespace MD3_Droids
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Deep.Look(ref design, "design");
             Scribe_Values.Look(ref totalCharge, "totalCharge");
             Scribe_Values.Look(ref shouldUseCharge, "shouldUseCharge");
             Scribe_Deep.Look(ref aiPackages, "aiPackages", this);
@@ -74,17 +77,18 @@ namespace MD3_Droids
             {
                 Deplete(EnergyUseRate);
             }
+            Log.Message((health.hediffSet != null).ToString());
         }
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             //DEBUG
-            aiPackages.AddPackage(AIPackageDef.Named("MD3_CleaningPackage"));
-            aiPackages.AddPackage(AIPackageDef.Named("MD3_ConstructionPackage"));
+            design.AddAIPackage(AIPackageDef.Named("MD3_CleaningPackage"));
+            design.AddAIPackage(AIPackageDef.Named("MD3_ConstructionPackage"));
 
 
             base.SpawnSetup(map, respawningAfterLoad);
-            UtilityWorldObjectManager.GetUtilityWorldObject<DroidManager>().RegisterDroid(this);
+            DroidManager.Instance.RegisterDroid(this);
             aiPackages.SpawnSetup();
         }
 

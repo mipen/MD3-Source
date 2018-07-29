@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidArmourPlating</defName>
+    <label>armour plating</label>
+    <hitPoints>20</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>ArmourPlating</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <!--<MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidArmourHardPoint</defName>
+    <label>armour hardpoint</label>
+    <hitPoints>1</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>ArmourHardPoint</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>-->
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidMotivatorManipulation</defName>
+    <label>motivator</label>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <tags>
+      <li>ManipulationLimbCore</li>
+    </tags>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>MotivatorManipulation</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidMotivatorMoving</defName>
+    <label>motivator</label>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <tags>
+      <li>ManipulationLimbCore</li>
+    </tags>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>MotivatorMoving</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidVisualReceptor</defName>
+    <label>visual receptor</label>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <tags>
+      <li>SightSource</li>
+    </tags>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>VisualReceptor</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidAudioReceptor</defName>
+    <label>audio receptor</label>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <tags>
+      <li>HearingSource</li>
+    </tags>
+    <ChassisType>Any</ChassisType>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidVocabulator</defName>
+    <label>vocabulator</label>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <ChassisType>Any</ChassisType>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidPowerCore</defName>
+    <label>power core</label>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>PowerCore</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidFluidFiltrationUnit</defName>
+    <label>fluid filtration unit</label>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <ChassisType>Any</ChassisType>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef>
+    <defName>MD3_DroidGyroscope</defName>
+    <label>gyroscope</label>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <ChassisType>Any</ChassisType>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+</Defs>

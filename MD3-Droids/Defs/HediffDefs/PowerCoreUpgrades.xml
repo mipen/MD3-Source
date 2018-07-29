@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <HediffDef ParentName="DroidUpgradeBase">
+ <!-- <HediffDef ParentName="DroidUpgradeBase">
     <defName>MD3_DroidPowerCoreII</defName>
     <label>power core II</label>
     <labelNoun>a power core II</labelNoun>
@@ -50,6 +50,6 @@
     <addedPartProps>
       <solid>true</solid>
     </addedPartProps>
-  </HediffDef>
+  </HediffDef>-->
 
 </Defs>

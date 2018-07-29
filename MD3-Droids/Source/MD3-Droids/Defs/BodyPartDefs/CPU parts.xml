@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MD3_Droids.DroidChassisPartDef Name="BaseCPU">
+    <defName>MD3_DroidCPU</defName>
+    <label>central processing unit</label>
+    <description>Basic droid central processing unit.</description>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <tags>
+      <li>ConsciousnessSource</li>
+    </tags>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>CPU</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseCPU">
+    <defName>MD3_DroidCPUII</defName>
+    <label>central processing unit II</label>
+    <description>Tier II droid central processing unit.</description>
+    <BasePart>false</BasePart>
+    <color>TierII</color>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseCPU">
+    <defName>MD3_DroidCPUIII</defName>
+    <label>central processing unit III</label>
+    <description>Tier III droid central processing unit.</description>
+    <BasePart>false</BasePart>
+    <color>TierIII</color>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseCPU">
+    <defName>MD3_DroidCPUIV</defName>
+    <label>central processing unit IV</label>
+    <description>Tier IV droid central processing unit.</description>
+    <BasePart>false</BasePart>
+    <color>TierIV</color>
+  </MD3_Droids.DroidChassisPartDef>
+  
+</Defs>
