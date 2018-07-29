@@ -25,6 +25,12 @@
     <description>Tier II droid central processing unit.</description>
     <BasePart>false</BasePart>
     <color>TierII</color>
+    <statOffsets>
+      <MD3_DroidCPUCapacity>50</MD3_DroidCPUCapacity>
+    </statOffsets>
+    <requirements>
+      <MD3_DroidPowerDrain>10</MD3_DroidPowerDrain>
+    </requirements>
   </MD3_Droids.DroidChassisPartDef>
 
   <MD3_Droids.DroidChassisPartDef ParentName="BaseCPU">
@@ -33,6 +39,12 @@
     <description>Tier III droid central processing unit.</description>
     <BasePart>false</BasePart>
     <color>TierIII</color>
+    <statOffsets>
+      <MD3_DroidCPUCapacity>100</MD3_DroidCPUCapacity>
+    </statOffsets>
+    <requirements>
+      <MD3_DroidPowerDrain>20</MD3_DroidPowerDrain>
+    </requirements>
   </MD3_Droids.DroidChassisPartDef>
 
   <MD3_Droids.DroidChassisPartDef ParentName="BaseCPU">
@@ -41,6 +53,12 @@
     <description>Tier IV droid central processing unit.</description>
     <BasePart>false</BasePart>
     <color>TierIV</color>
+    <statOffsets>
+      <MD3_DroidCPUCapacity>200</MD3_DroidCPUCapacity>
+    </statOffsets>
+    <requirements>
+      <MD3_DroidPowerDrain>30</MD3_DroidPowerDrain>
+    </requirements>
   </MD3_Droids.DroidChassisPartDef>
   
 </Defs>

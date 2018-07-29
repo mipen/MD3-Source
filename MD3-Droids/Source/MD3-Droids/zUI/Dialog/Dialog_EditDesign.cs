@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 
 namespace MD3_Droids
@@ -20,7 +16,7 @@ namespace MD3_Droids
         private const float SectionMargin = 10f;
         private const float TitleRectHeight = 45f;
         private const float FooterRectHeight = 100f;
-        private const float DrawBarHeight = 30f;
+        private const float DrawBarHeight = 25f;
         private static readonly Vector2 ButtonSize = new Vector2(120f, 30f);
 
         private string designName = "";
@@ -58,7 +54,7 @@ namespace MD3_Droids
                 Rect titleRect = new Rect(0f, 0f, inRect.width, TitleRectHeight);
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Text.Font = GameFont.Medium;
-                string title = design.ChassisType == ChassisType.Small ? "Small Droid" : design.ChassisType == ChassisType.Medium ? "Medium Droid" : design.ChassisType == ChassisType.Large ? "Large Droid" : "Undefined droid chassis";
+                string title = design.ChassisType == ChassisType.Small ? "Small Chassis" : design.ChassisType == ChassisType.Medium ? "Medium Chassis" : design.ChassisType == ChassisType.Large ? "Large Chassis" : "Undefined droid chassis";
                 Widgets.Label(titleRect, title);
                 Text.Anchor = TextAnchor.UpperLeft;
                 Text.Font = GameFont.Small;
@@ -71,11 +67,13 @@ namespace MD3_Droids
                 float partsRectHeight = Mathf.Floor((availableHeight / 3) * 2) - SectionMargin;
                 Rect partsRect = new Rect(0f, 0f, DisplayAreaWidth, partsRectHeight);
                 Widgets.DrawBoxSolid(partsRect, BoxColor);
+                DroidDesignUIHandler.DrawPartsList(partsRect, design);
 
                 //AI area
                 float aiRectHeight = availableHeight - partsRectHeight - SectionMargin;
                 Rect aiRect = new Rect(0f, partsRect.yMax + 10f, partsRect.width, aiRectHeight);
                 Widgets.DrawBoxSolid(aiRect, BoxColor);
+                DroidDesignUIHandler.DrawAIList(aiRect, design, true);
 
                 //Droid display area
                 Rect droidDisplayRect = new Rect(partsRect.xMax + 10f, 0f, DroidDisplayAreaWidth, availableHeight);
@@ -141,13 +139,15 @@ namespace MD3_Droids
                     }
                 }
 
-                //Draw cpu and power draw bars
+                //Draw cpu, power draw and max power draw bars
                 float cpuY = Mathf.Floor((FooterRectHeight - (DrawBarHeight * 2)) / 3);
                 Rect cpuDrawRect = new Rect(DisplayAreaWidth + SectionMargin, cpuY, DroidDisplayAreaWidth, DrawBarHeight);
-                Widgets.DrawBox(cpuDrawRect);
+                var cpuUsage = design.GetUsedCPU;
+                DroidDesignUIHandler.DrawProgressBar(cpuDrawRect, cpuUsage.value, design.GetMaxCPU.value, cpuUsage, design.CPUTooltip);
 
                 Rect powerDrawRect = new Rect(cpuDrawRect.x, cpuDrawRect.yMax + cpuY, cpuDrawRect.width, cpuDrawRect.height);
-                Widgets.DrawBox(powerDrawRect);
+                var powerDrain = design.GetPowerDrain;
+                DroidDesignUIHandler.DrawProgressBar(powerDrawRect, powerDrain.value, design.GetMaxPowerDrain.value, powerDrain, design.PowerDrainTooltip);
             }
             finally
             {

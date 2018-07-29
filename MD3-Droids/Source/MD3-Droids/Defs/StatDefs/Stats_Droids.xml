@@ -20,6 +20,18 @@
     <toStringStyleUnfinalized>FloatOne</toStringStyleUnfinalized>
     <formatString>{0}tf</formatString>
   </StatDef>
+
+    <StatDef ParentName="DroidStatBase">
+    <defName>MD3_DroidCPUUsage</defName>
+    <label>CPU usage</label>
+    <description>The droid's CPU usage.</description>
+    <displayPriorityInCategory>75</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <toStringStyleUnfinalized>FloatOne</toStringStyleUnfinalized>
+    <formatString>{0}tf</formatString>
+  </StatDef>
   
   <StatDef ParentName="DroidStatBase">
     <defName>MD3_DroidPowerStorage</defName>

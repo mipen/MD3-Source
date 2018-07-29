@@ -1,7 +1,5 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Verse;
 
@@ -14,31 +12,52 @@ namespace MD3_Droids
         public bool BasePart = false;
         public bool allowBasePartsInSameChassisPoint = false;
         public List<StatModifier> statOffsets = new List<StatModifier>();
+        public List<MD3PawnCapacityModifier> capMods = new List<MD3PawnCapacityModifier>();
+        public List<StatModifier> requirements = new List<StatModifier>();
         public ThingDef partThingDef = null;
         public TierColourDef color = null;
 
         public string GetTooltip()
         {
-            return description;//TODO:: include stat offsets here
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(description);
+            if (statOffsets.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("Stats: ");
+                foreach (var offset in statOffsets)
+                {
+                    sb.AppendLine($"   {offset.stat.LabelCap} {(offset.value > 0 ? "+" : "-")}{offset.stat.ValueToString(offset.value)}");
+                }
+            }
+            if (capMods.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("Capacity Modifiers: ");
+                foreach (var cap in capMods)
+                {
+                    sb.AppendLine($"   {cap.capacity.LabelCap} {(cap.offset > 0 ? "+" : "-")}{cap.offset}%");
+                }
+            }
+            if (requirements.Count > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("Requirements: ");
+                foreach(var r in requirements)
+                {
+                    sb.AppendLine($"   {r.stat.LabelCap} {(r.value > 0 ? "+" : "-")}{r.stat.ValueToString(r.value)}");
+                }
+            }
+            return sb.ToString();
         }
 
-        //public override IEnumerable<string> ConfigErrors()
-        //{
-        //    if (BasePart && !allowBasePartsInSameChassisPoint)
-        //    {
-        //        var list = DefDatabase<DroidChassisPartDef>.AllDefsListForReading.Where(x => x!=this && x.BasePart == true && x.ChassisType == this.ChassisType && x.ChassisPoint == ChassisPoint);
-        //        if (list.Any())
-        //        {
-        //            yield return $"{defName} has config errors: def set as base part, but there are other defs set as base part for the same chassis type and chassis point.";
-        //            foreach (var d in list)
-        //                yield return d.defName;
-        //        }
-        //    }
+        public override IEnumerable<string> ConfigErrors()
+        {
+            foreach (var e in base.ConfigErrors())
+                yield return e;
+            if (description.NullOrEmpty())
+                yield return "no description";
+        }
 
-        //    foreach (var e in base.ConfigErrors())
-        //    {
-        //        yield return e;
-        //    }
-        //}
     }
 }

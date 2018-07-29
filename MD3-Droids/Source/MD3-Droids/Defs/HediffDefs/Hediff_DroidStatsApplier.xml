@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <HediffDef>
+    <defName>MD3_DroidStatsApplier</defName>
+    <label>Droid</label>
+    <labelNoun>Droid</labelNoun>
+    <hediffClass>MD3_Droids.Hediff_DroidStatsApplier</hediffClass>
+  </HediffDef>
+  
+</Defs>

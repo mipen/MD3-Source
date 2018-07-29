@@ -4,6 +4,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidArmourPlating</defName>
     <label>armour plating</label>
+    <description>Basic droid armour plating.</description>
     <hitPoints>20</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -32,6 +33,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidMotivatorManipulation</defName>
     <label>motivator</label>
+    <description>Basic droid motivator.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -49,6 +51,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidMotivatorMoving</defName>
     <label>motivator</label>
+    <description>Basic droid motivator.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -64,25 +67,9 @@
   </MD3_Droids.DroidChassisPartDef>
 
   <MD3_Droids.DroidChassisPartDef>
-    <defName>MD3_DroidVisualReceptor</defName>
-    <label>visual receptor</label>
-    <hitPoints>10</hitPoints>
-    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
-    <skinCovered>false</skinCovered>
-    <solid>true</solid>
-    <bleedRate>0</bleedRate>
-    <alive>false</alive>
-    <tags>
-      <li>SightSource</li>
-    </tags>
-    <ChassisType>Any</ChassisType>
-    <ChassisPoint>VisualReceptor</ChassisPoint>
-    <BasePart>True</BasePart>
-  </MD3_Droids.DroidChassisPartDef>
-
-  <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidAudioReceptor</defName>
     <label>audio receptor</label>
+    <description>Basic droid audio receptor.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -99,6 +86,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidVocabulator</defName>
     <label>vocabulator</label>
+    <description>Basic droid vocabulator.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -106,26 +94,13 @@
     <bleedRate>0</bleedRate>
     <alive>false</alive>
     <ChassisType>Any</ChassisType>
-    <BasePart>True</BasePart>
-  </MD3_Droids.DroidChassisPartDef>
-
-  <MD3_Droids.DroidChassisPartDef>
-    <defName>MD3_DroidPowerCore</defName>
-    <label>power core</label>
-    <hitPoints>10</hitPoints>
-    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
-    <skinCovered>false</skinCovered>
-    <solid>true</solid>
-    <bleedRate>0</bleedRate>
-    <alive>false</alive>
-    <ChassisType>Any</ChassisType>
-    <ChassisPoint>PowerCore</ChassisPoint>
     <BasePart>True</BasePart>
   </MD3_Droids.DroidChassisPartDef>
 
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidFluidFiltrationUnit</defName>
     <label>fluid filtration unit</label>
+    <description>Droid filtration unit.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -139,6 +114,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidGyroscope</defName>
     <label>gyroscope</label>
+    <description>Basic droid gyroscope.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>

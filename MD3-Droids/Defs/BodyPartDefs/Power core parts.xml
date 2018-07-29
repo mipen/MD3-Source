@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MD3_Droids.DroidChassisPartDef Name="BasePowerCore">
+    <defName>MD3_DroidPowerCore</defName>
+    <label>power core</label>
+    <description>Basic droid power core.</description>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>PowerCore</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BasePowerCore">
+    <defName>MD3_DroidPowerCoreII</defName>
+    <label>power core II</label>
+    <description>Tier II droid power core.</description>
+    <color>TierII</color>
+    <BasePart>false</BasePart>
+    <statOffsets>
+      <MD3_DroidPowerStorage>250</MD3_DroidPowerStorage>
+      <MD3_DroidPowerMaxRate>150</MD3_DroidPowerMaxRate>
+    </statOffsets>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BasePowerCore">
+    <defName>MD3_DroidPowerCoreIII</defName>
+    <label>power core III</label>
+    <description>Tier III droid power core.</description>
+    <color>TierIII</color>
+    <BasePart>false</BasePart>
+    <statOffsets>
+      <MD3_DroidPowerStorage>500</MD3_DroidPowerStorage>
+      <MD3_DroidPowerMaxRate>300</MD3_DroidPowerMaxRate>
+    </statOffsets>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BasePowerCore">
+    <defName>MD3_DroidPowerCoreIV</defName>
+    <label>power core IV</label>
+    <description>Tier IV droid power core.</description>
+    <color>TierIV</color>
+    <BasePart>false</BasePart>
+    <statOffsets>
+      <MD3_DroidPowerStorage>1500</MD3_DroidPowerStorage>
+      <MD3_DroidPowerMaxRate>700</MD3_DroidPowerMaxRate>
+    </statOffsets>
+  </MD3_Droids.DroidChassisPartDef>
+
+</Defs>

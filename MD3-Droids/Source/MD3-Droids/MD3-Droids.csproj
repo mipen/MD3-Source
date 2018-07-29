@@ -54,6 +54,7 @@
     <Compile Include="zDefs\DroidCustomiseGroupDef.cs" />
     <Compile Include="zDefs\TierColourDef.cs" />
     <Compile Include="zDroid\DroidDesign.cs" />
+    <Compile Include="zHediffs\Hediff_DroidStatsApplier.cs" />
     <Compile Include="zThings\Building_DroidConstructionTable.cs" />
     <Compile Include="zComps\CompDroidCharger.cs" />
     <Compile Include="zDefs\DroidUpgradeHediffDef.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="zDefs\AIPackageDef.cs" />
     <Compile Include="zHediffs\Hediff_VariableName.cs" />
     <Compile Include="zPatches\Pawn_HealthTrackerPatch.cs" />
+    <Compile Include="zUI\Dialog\Dialog_AIPackages.cs" />
     <Compile Include="zUI\Dialog\Dialog_CustomisePartGroup.cs" />
     <Compile Include="zUI\Dialog\Dialog_EditDesign.cs" />
     <Compile Include="zUI\Dialog\Dialog_SelectPart.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="zPatches\RacePropsPatch.cs" />
     <Compile Include="zAI\ThinkNode_ConditionalDroid.cs" />
     <Compile Include="zUtil\PartCustomisePack.cs" />
+    <Compile Include="zUtil\PawnCapacityModifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="About\About.xml">
@@ -105,6 +108,8 @@
     <Content Include="Defs\BodyPartDefs\DroidChassisParts_General.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Defs\BodyPartDefs\Power core parts.xml" />
+    <Content Include="Defs\BodyPartDefs\visual receptor parts.xml" />
     <Content Include="Defs\BodyPartGroupDefs\BodyPartGroups.xml" />
     <Content Include="Defs\BodyPartTagDefs\DroidBodyPartTagDefs.xml" />
     <Content Include="Defs\DroidCustomiseGroupDefs\MediumDroidCustomiseGroups.xml">
@@ -112,6 +117,7 @@
     </Content>
     <Content Include="Defs\FleshTypeDefs\FleshType.xml" />
     <Content Include="Defs\HediffDefs\CPU Upgrades.xml" />
+    <Content Include="Defs\HediffDefs\Hediff_DroidStatsApplier.xml" />
     <Content Include="Defs\HediffDefs\MotivatorUpgrades.xml" />
     <Content Include="Defs\HediffDefs\PowerCoreUpgrades.xml" />
     <Content Include="Defs\JobDefs\DroidChargeJob.xml" />
@@ -135,6 +141,19 @@
     <Content Include="Textures\Droids\DroidMedium\Head_east.png" />
     <Content Include="Textures\Droids\DroidMedium\Head_north.png" />
     <Content Include="Textures\Droids\DroidMedium\Head_south.png" />
+    <Content Include="Textures\UI\AddButton.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_Body.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_BodyHover.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_Head.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_HeadHover.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_LeftArm.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_LeftArmHover.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_LeftLeg.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_LeftLegHover.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_RightArm.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_RightArmHover.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_RightLeg.png" />
+    <Content Include="Textures\UI\PartSelector\PartSelector_RightLegHover.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

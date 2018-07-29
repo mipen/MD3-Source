@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -102,10 +100,8 @@ namespace MD3_Droids
                     Rect acceptButRect = new Rect(inRect.width - ButtonSize.x, cancelButRect.y, ButtonSize.x, ButtonSize.y);
                     if (Widgets.ButtonText(acceptButRect, "Accept"))
                     {
-                        Log.Message("got here");
                         if (selPart != null)
                         {
-                            Log.Message($"selPart not null {selPart.defName}");
                             pcp.Part = selPart;
                             Find.WindowStack.TryRemove(this);
                         }
@@ -136,7 +132,7 @@ namespace MD3_Droids
 
         private void DrawEntry(DroidChassisPartDef d, Rect rect, bool alternate, string label = "")
         {
-            string labelToUse = label.NullOrEmpty() ? d.label : label;
+            string labelToUse = label.NullOrEmpty() ? d.LabelCap : label;
 
             if (d == selPart)
             {

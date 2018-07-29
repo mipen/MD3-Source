@@ -4,6 +4,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidHead</defName>
     <label>mechanical head</label>
+    <description>Basic medium mechanical droid head.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -18,6 +19,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidCPUCasing</defName>
     <label>CPU casing</label>
+    <description>Basic droid CPU casing.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -31,6 +33,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidNeck</defName>
     <label>neck</label>
+    <description>Basic medium droid neck.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -48,6 +51,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidChassis</defName>
     <label>chassis</label>
+    <description>Basic medium droid chassis.</description>
     <hitPoints>20</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -63,6 +67,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidShoulder</defName>
     <label>mechanical shoulder</label>
+    <description>Basic medium droid mechanical shoulder.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -80,6 +85,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidArm</defName>
     <label>mechanical arm</label>
+    <description>Basic medium droid mechanical arm.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -97,6 +103,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidHand</defName>
     <label>mechanical hand</label>
+    <description>Basic medium droid mechanical hand.</description>
     <hitPoints>20</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -114,6 +121,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidFinger</defName>
     <label>mechanical finger</label>
+    <description>Basic medium droid mechanical finger.</description>
     <hitPoints>7</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <frostbiteVulnerability>2</frostbiteVulnerability>
@@ -133,6 +141,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidLegSocketJoint</defName>
     <label>mechanical leg socket joint</label>
+    <description>Basic medium droid mechanical leg socket joint.</description>
     <hitPoints>17</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -150,6 +159,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidLeg</defName>
     <label>mechanical leg</label>
+    <description>Basic medium droid mechanical leg.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>
@@ -167,6 +177,7 @@
   <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_MediumDroidFoot</defName>
     <label>mechanical foot</label>
+    <description>Basic medium droid mechanical foot.</description>
     <hitPoints>10</hitPoints>
     <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
     <skinCovered>false</skinCovered>

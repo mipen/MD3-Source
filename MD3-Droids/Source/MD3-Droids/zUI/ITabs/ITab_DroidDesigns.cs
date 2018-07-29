@@ -74,7 +74,8 @@ namespace MD3_Droids
                 //Droid display area
                 Rect droidDisplayRect = new Rect(designsListRect.xMax + SectionMargin, 0f, 420f, designsListRect.height);
                 Widgets.DrawBoxSolid(droidDisplayRect, BoxColor);
-                DrawDroidDisplay(droidDisplayRect);
+                DroidDesignUIHandler.DrawPartSelector(droidDisplayRect, selDesign, false);
+
                 //Design label
                 Rect designLabelRect = new Rect(droidDisplayRect.x, droidDisplayRect.yMax + SectionMargin, droidDisplayRect.width, CreateButtonSize.y);
                 if (selDesign != null)
@@ -89,13 +90,13 @@ namespace MD3_Droids
                 //Parts list area
                 Rect partsRect = new Rect(droidDisplayRect.xMax + SectionMargin, 0f, 240f, 260f);
                 Widgets.DrawBoxSolid(partsRect, BoxColor);
-                DrawPartsList(partsRect);
+                DroidDesignUIHandler.DrawPartsList(partsRect, selDesign);
 
                 float rectHeight = (mainRect.height - partsRect.height - (SectionMargin * 2)) / 2;
                 //AI packages area
                 Rect aiPackagesRect = new Rect(partsRect.x, partsRect.yMax + SectionMargin, partsRect.width, rectHeight);
                 Widgets.DrawBoxSolid(aiPackagesRect, BoxColor);
-                DrawAIPackagesList(aiPackagesRect);
+                DroidDesignUIHandler.DrawAIList(aiPackagesRect, selDesign, false);
 
                 //Skills list area
                 Rect skillsRect = new Rect(partsRect.x, aiPackagesRect.yMax + SectionMargin, partsRect.width, rectHeight);
@@ -167,8 +168,6 @@ namespace MD3_Droids
                 if (Widgets.ButtonInvisible(entryRect))
                 {
                     selDesign = design;
-                    //DEBUG::
-                    //Log.Message(design.ToString());
                 }
 
                 if (selDesign != null && selDesign == design)
@@ -183,7 +182,7 @@ namespace MD3_Droids
                 Widgets.Label(textRect, design.Label);
                 Text.Anchor = TextAnchor.UpperLeft;
 
-                string text = design.ChassisType == ChassisType.Small ? "Small Chassis" : design.ChassisType == ChassisType.Medium ? "Medium Chassis" : design.ChassisType == ChassisType.Large ? "Large Chassis" : "Undefined droid chassis";
+                string text = design.ChassisType == ChassisType.Small ? "Small Chassis   " : design.ChassisType == ChassisType.Medium ? "Medium Chassis   " : design.ChassisType == ChassisType.Large ? "Large Chassis   " : "Undefined droid chassis   ";
                 Text.Anchor = TextAnchor.LowerRight;
                 Text.Font = GameFont.Tiny;
                 Widgets.Label(textRect, text);
@@ -194,22 +193,6 @@ namespace MD3_Droids
             {
                 GUI.EndGroup();
             }
-        }
-
-        private void DrawDroidDisplay(Rect mainRect)
-        {
-            if (selDesign != null)
-                DroidDesignUIHandler.DrawPartSelector(mainRect, selDesign, false);
-        }
-
-        private void DrawPartsList(Rect mainRect)
-        {
-
-        }
-
-        private void DrawAIPackagesList(Rect mainRect)
-        {
-
         }
 
         private void DrawSkillsList(Rect mainRect)

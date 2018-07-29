@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MD3_Droids.DroidChassisPartDef Name="BaseVisualReceptor">
+    <defName>MD3_DroidVisualReceptor</defName>
+    <label>visual receptor</label>
+    <description>Basic droid visual receptor.</description>
+    <hitPoints>10</hitPoints>
+    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
+    <skinCovered>false</skinCovered>
+    <solid>true</solid>
+    <bleedRate>0</bleedRate>
+    <alive>false</alive>
+    <tags>
+      <li>SightSource</li>
+    </tags>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>VisualReceptor</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseVisualReceptor">
+    <defName>MD3_DroidVisualReceptorII</defName>
+    <label>visual receptor II</label>
+    <description>Tier II droid visual receptor.</description>
+    <color>TierII</color>
+    <BasePart>false</BasePart>
+    <capMods>
+      <Sight>15</Sight>
+    </capMods>
+    <requirements>
+      <MD3_DroidPowerDrain>10</MD3_DroidPowerDrain>
+      <MD3_DroidCPUUsage>10</MD3_DroidCPUUsage>
+    </requirements>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseVisualReceptor">
+    <defName>MD3_DroidVisualReceptorIII</defName>
+    <label>visual receptor III</label>
+    <description>Tier III droid visual receptor.</description>
+    <color>TierIII</color>
+    <BasePart>false</BasePart>
+    <capMods>
+      <Sight>25</Sight>
+    </capMods>
+    <requirements>
+      <MD3_DroidPowerDrain>20</MD3_DroidPowerDrain>
+      <MD3_DroidCPUUsage>20</MD3_DroidCPUUsage>
+    </requirements>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseVisualReceptor">
+    <defName>MD3_DroidVisualReceptorIV</defName>
+    <label>visual receptor IV</label>
+    <description>Tier IV droid visual receptor.</description>
+    <color>TierIV</color>
+    <BasePart>false</BasePart>
+    <capMods>
+      <Sight>40</Sight>
+    </capMods>
+    <requirements>
+      <MD3_DroidPowerDrain>45</MD3_DroidPowerDrain>
+      <MD3_DroidCPUUsage>30</MD3_DroidCPUUsage>
+    </requirements>
+  </MD3_Droids.DroidChassisPartDef>
+
+</Defs>

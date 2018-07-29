@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace MD3_Droids
     {
         public List<WorkTypeDef> workTypes = new List<WorkTypeDef>();
         public float cpuUsage = 0f;
+        public ChassisType chassisType = ChassisType.Any;
 
         public bool CapableOfWorkType(WorkTypeDef def)
         {
@@ -19,6 +21,18 @@ namespace MD3_Droids
         public static AIPackageDef Named(string name)
         {
             return DefDatabase<AIPackageDef>.GetNamed(name);
+        }
+
+        public string Tooltip
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(description);
+                sb.AppendLine();
+                sb.Append($"Uses: {cpuUsage}tf");
+                return sb.ToString();
+            }
         }
     }
 }

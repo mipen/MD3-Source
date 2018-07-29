@@ -77,15 +77,23 @@ namespace MD3_Droids
             {
                 Deplete(EnergyUseRate);
             }
-            Log.Message((health.hediffSet != null).ToString());
         }
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            //DEBUG
+            //DEBUG::
             design.AddAIPackage(AIPackageDef.Named("MD3_CleaningPackage"));
             design.AddAIPackage(AIPackageDef.Named("MD3_ConstructionPackage"));
+            var group = DefDatabase<DroidCustomiseGroupDef>.GetNamed("MD3_MediumDroidHead");
+            var partDef = DefDatabase<DroidChassisPartDef>.GetNamed("MD3_DroidVisualReceptorIV");
+            var part = new PartCustomisePack(ChassisPoint.VisualReceptor, partDef, BodyPosition.LeftVisualReceptor);
+            var list = new List<PartCustomisePack>() { part };
+            design.PartsGrouped.Add(group, list);
+            design.RecacheStats();
 
+            var def = DefDatabase<HediffDef>.GetNamed("MD3_DroidStatsApplier");
+            if (!health.hediffSet.HasHediff(def))
+                health.AddHediff(def);
 
             base.SpawnSetup(map, respawningAfterLoad);
             DroidManager.Instance.RegisterDroid(this);
