@@ -17,13 +17,15 @@ namespace MD3_Droids
         private int addedPartHealth = -1;
         public int AddedPartHealth { get => addedPartHealth; set => addedPartHealth = value; }
 
-        public HediffStage Stage = null;
+        public HediffStageSaveable Stage = null;
         public override HediffStage CurStage => Stage;
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Values.Look(ref addedPartHealth, "addedPartHealth");
+            Scribe_Deep.Look(ref Stage, "Stage");
+            Scribe_Values.Look(ref label, "label");
         }
     }
 }

@@ -248,12 +248,23 @@ namespace MD3_Droids
 
                     foreach (var groupKey in design.PartsGrouped.Keys)
                     {
-                        if (design.PartsGrouped[groupKey].Where(x => x.Part.BasePart == false).Any())
+                        var partsList = design.PartsGrouped[groupKey].Where(x => x.Part.BasePart == false).ToList();
+                        if (partsList.Any())
                         {
-                            float entryHeight = PartGroupHeight(design.PartsGrouped[groupKey]);
-                            Rect entryRect = new Rect(0f, curY, viewRect.width, entryHeight);
-                            DrawPartsGroupListing(entryRect, groupKey, design.PartsGrouped[groupKey]);
-                            curY += entryHeight;
+                            if (partsList[0].ChassisPoint == ChassisPoint.ArmourPlating)
+                            {
+                                float entryHeight = PartGroupHeight(design.PartsGrouped[groupKey]);
+                                Rect entryRect = new Rect(0f, curY, viewRect.width, entryHeight);
+                                DrawPartsGroupListing(entryRect, groupKey, new List<PartCustomisePack>() { partsList[0] });
+                                curY += entryHeight;
+                            }
+                            else
+                            {
+                                float entryHeight = PartGroupHeight(design.PartsGrouped[groupKey]);
+                                Rect entryRect = new Rect(0f, curY, viewRect.width, entryHeight);
+                                DrawPartsGroupListing(entryRect, groupKey, design.PartsGrouped[groupKey]);
+                                curY += entryHeight;
+                            }
                         }
                     }
 
@@ -403,21 +414,21 @@ namespace MD3_Droids
                 var list = packs.Where(x => x.Part.BasePart == false);
                 float curY = labelRect.yMax;
                 bool alternate = false;
-                foreach (var p in list)
+                foreach (var part in list)
                 {
                     Rect pRect = new Rect(0f, curY, rect.width, PartEntryHeight);
                     if (Mouse.IsOver(pRect))
                     {
                         Widgets.DrawHighlight(pRect);
-                        TooltipHandler.TipRegion(pRect, p.Part.GetTooltip());
+                        TooltipHandler.TipRegion(pRect, part.Part.GetTooltip());
                     }
                     else if (alternate)
                         Widgets.DrawAltRect(pRect);
 
                     Text.Anchor = TextAnchor.MiddleLeft;
-                    if (p.Part.color != null)
-                        GUI.color = p.Part.color.GetColor();
-                    Widgets.Label(pRect, $"   {p.Part.LabelCap}");
+                    if (part.Part.color != null)
+                        GUI.color = part.Part.color.GetColor();
+                    Widgets.Label(pRect, $"   {part.Part.LabelCap}");
                     Text.Anchor = TextAnchor.UpperLeft;
                     GUI.color = Color.white;
                     curY += PartEntryHeight;
@@ -438,8 +449,16 @@ namespace MD3_Droids
             float num = 0f;
             if (list.Count > 0)
             {
-                num += PartGroupTitleHeight;
-                num += PartEntryHeight * list.Count;
+                if (list[0].Part.ChassisPoint == ChassisPoint.ArmourPlating)
+                {
+                    num += PartGroupTitleHeight;
+                    num += PartEntryHeight;
+                }
+                else
+                {
+                    num += PartGroupTitleHeight;
+                    num += PartEntryHeight * list.Count;
+                }
             }
             return num;
         }

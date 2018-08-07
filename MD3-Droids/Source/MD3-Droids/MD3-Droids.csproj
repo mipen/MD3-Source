@@ -68,7 +68,6 @@
     <Compile Include="zAI\Jobs\JobDrivers\JobDriver_DroidCharge.cs" />
     <Compile Include="zAI\Jobs\JobGivers\JobGiver_DroidCharge.cs" />
     <Compile Include="zDefs\AIPackageDef.cs" />
-    <Compile Include="zHediffs\Hediff_VariableName.cs" />
     <Compile Include="zPatches\Pawn_HealthTrackerPatch.cs" />
     <Compile Include="zUI\Dialog\Dialog_AIPackages.cs" />
     <Compile Include="zUI\Dialog\Dialog_CustomisePartGroup.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="zExtensions\BodyDefExt.cs" />
     <Compile Include="zExtensions\BodyPartRecordExtension.cs" />
     <Compile Include="zUtil\BodyPosition.cs" />
+    <Compile Include="zUtil\CapModSaveable.cs" />
     <Compile Include="zUtil\ChassisPoint.cs" />
     <Compile Include="zUtil\ChassisType.cs" />
     <Compile Include="zUtil\CustomiseGroupListItem.cs" />
@@ -96,6 +96,7 @@
     <Compile Include="zUI\MainTabWindow_DroidWork.cs" />
     <Compile Include="zUtil\ChassisPointLabel.cs" />
     <Compile Include="zUtil\GroupPackPair.cs" />
+    <Compile Include="zUtil\HediffStageSaveable.cs" />
     <Compile Include="zUtil\HugsLibSetup.cs" />
     <Compile Include="zUtil\MD3DefOF.cs" />
     <Compile Include="zUtil\MD3_Droids.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="zAI\ThinkNode_ConditionalDroid.cs" />
     <Compile Include="zUtil\PartCustomisePack.cs" />
     <Compile Include="zUtil\PawnCapacityModifier.cs" />
+    <Compile Include="zUtil\StatOffsetSaveable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="About\About.xml">

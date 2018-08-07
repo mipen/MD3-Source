@@ -81,7 +81,7 @@ namespace MD3_Droids
                     foreach (var part in list2)
                     {
                         Hediff_DroidStatsApplier hediff = new Hediff_DroidStatsApplier();
-                        HediffStage stage = new HediffStage();
+                        HediffStageSaveable stage = new HediffStageSaveable();
                         stage.statOffsets = new List<StatModifier>();
                         if (part.Part.statOffsets != null && part.Part.statOffsets.Count > 0)
                             stage.statOffsets.AddRange(part.Part.statOffsets);
@@ -93,7 +93,7 @@ namespace MD3_Droids
                                 stage.capMods.Add(capMod);
                         }
                         hediff.Stage = stage;
-                        hediff.def = DefDatabase<HediffDef>.GetNamed("MD3_DroidStatsApplier").Clone<HediffDef>($"Hediff_{part.Part.defName}");
+                        hediff.def = DroidsDefOf.MD3_DroidStatsApplier;//.Clone<HediffDef>($"Hediff_{part.Part.defName}");
                         hediff.label = part.Part.LabelCap;
                         list.Add(hediff);
                     }
@@ -298,7 +298,7 @@ namespace MD3_Droids
         public Hediff BuildHediff(PartCustomisePack pack, BodyPartRecord rec, Droid d)
         {
             Hediff_DroidStatsApplier hediff = (Hediff_DroidStatsApplier)HediffMaker.MakeHediff(DroidsDefOf.MD3_DroidStatsApplier, d, rec);
-            HediffStage stage = new HediffStage();
+            HediffStageSaveable stage = new HediffStageSaveable();
             stage.statOffsets = new List<StatModifier>();
             hediff.AddedPartHealth = pack.Part.addedPartHealth;
             if (pack.Part.statOffsets != null && pack.Part.statOffsets.Count > 0)
