@@ -2,8 +2,10 @@
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using UnityEngine;
 using Verse;
 
@@ -41,6 +43,7 @@ namespace MD3_Droids
 
         private bool active = true;
         public DroidDesign design;
+        public Droid_WorkManager workManager;
 
         public bool Active { get => active; set => active = value; }
 
@@ -59,6 +62,8 @@ namespace MD3_Droids
                 workSettings.SetPriority(wtd, 1);
             }
             aiPackages = new Droid_AIPackageTracker(this);
+            workManager = new Droid_WorkManager(this);
+            playerSettings.medCare = MedicalCareCategory.NoCare;
         }
 
         public override void ExposeData()
@@ -79,25 +84,24 @@ namespace MD3_Droids
             }
         }
 
+        public void InitialiseFromDesign()
+        {
+            design.Recache();
+            design.AddHediffsToDroid(this);
+            aiPackages.SpawnSetup();
+        }
+
+        public List<BodyPartRecord> GetBodyPartRecords(ChassisPoint cp, BodyPosition bp)
+        {
+            return (from t in def.race.body.AllParts
+                    where t.def is DroidChassisPartDef && ((DroidChassisPartDef)t.def).ChassisPoint == cp && (!(t is DroidChassisPartRecord) || ((DroidChassisPartRecord)t).bodyPosition == bp)
+                    select t).ToList();
+        }
+
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            //DEBUG::
-            design.AddAIPackage(AIPackageDef.Named("MD3_CleaningPackage"));
-            design.AddAIPackage(AIPackageDef.Named("MD3_ConstructionPackage"));
-            var group = DefDatabase<DroidCustomiseGroupDef>.GetNamed("MD3_MediumDroidHead");
-            var partDef = DefDatabase<DroidChassisPartDef>.GetNamed("MD3_DroidVisualReceptorIV");
-            var part = new PartCustomisePack(ChassisPoint.VisualReceptor, partDef, BodyPosition.LeftVisualReceptor);
-            var list = new List<PartCustomisePack>() { part };
-            design.PartsGrouped.Add(group, list);
-            design.RecacheStats();
-
-            var def = DefDatabase<HediffDef>.GetNamed("MD3_DroidStatsApplier");
-            if (!health.hediffSet.HasHediff(def))
-                health.AddHediff(def);
-
             base.SpawnSetup(map, respawningAfterLoad);
             DroidManager.Instance.RegisterDroid(this);
-            aiPackages.SpawnSetup();
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)

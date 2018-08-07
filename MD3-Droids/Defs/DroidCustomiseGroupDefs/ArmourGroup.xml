@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MD3_Droids.DroidCustomiseGroupDef>
+    <defName>MD3_DroidArmourPlating</defName>
+    <label>armour plating</label>
+    <Parts>
+      <li>
+        <ChassisPoint>ArmourPlating</ChassisPoint>
+        <BodyPosition>Undefined</BodyPosition>
+      </li>
+    </Parts>
+  </MD3_Droids.DroidCustomiseGroupDef>
+  
+</Defs>

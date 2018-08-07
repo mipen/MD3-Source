@@ -54,7 +54,12 @@
     <Compile Include="zDefs\DroidCustomiseGroupDef.cs" />
     <Compile Include="zDefs\TierColourDef.cs" />
     <Compile Include="zDroid\DroidDesign.cs" />
+    <Compile Include="zDroid\Droid_WorkManager.cs" />
+    <Compile Include="zExtensions\CloneExt.cs" />
+    <Compile Include="zExtensions\ThingDefExt.cs" />
     <Compile Include="zHediffs\Hediff_DroidStatsApplier.cs" />
+    <Compile Include="zPatches\HealthCardUtilityPatch.cs" />
+    <Compile Include="zPatches\HediffSetPatch.cs" />
     <Compile Include="zThings\Building_DroidConstructionTable.cs" />
     <Compile Include="zComps\CompDroidCharger.cs" />
     <Compile Include="zDefs\DroidUpgradeHediffDef.cs" />
@@ -71,20 +76,28 @@
     <Compile Include="zUI\Dialog\Dialog_SelectPart.cs" />
     <Compile Include="zUI\ITabs\ITab_DroidDesigns.cs" />
     <Compile Include="zUI\DroidDesignUIHandler.cs" />
+    <Compile Include="zUI\ITabs\ITab_Droid_Design.cs" />
+    <Compile Include="zUI\ITabs\ITab_Droid_Health.cs" />
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_CopyPasteDroidWorkPriorities.cs" />
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_DroidWorkPriority.cs" />
-    <Compile Include="zUtil\BodyPartRecodExtension.cs" />
+    <Compile Include="zExtensions\BodyDefExt.cs" />
+    <Compile Include="zExtensions\BodyPartRecordExtension.cs" />
     <Compile Include="zUtil\BodyPosition.cs" />
     <Compile Include="zUtil\ChassisPoint.cs" />
     <Compile Include="zUtil\ChassisType.cs" />
     <Compile Include="zUtil\CustomiseGroupListItem.cs" />
     <Compile Include="zUtil\DroidChassisPartRecord.cs" />
+    <Compile Include="zUtil\DroidGenerator.cs" />
     <Compile Include="zUtil\DroidManager.cs" />
+    <Compile Include="zUtil\DroidsDefOf.cs" />
     <Compile Include="zUtil\DroidStatDefOf.cs" />
     <Compile Include="zDroid\ICharge.cs" />
     <Compile Include="zAI\Jobs\JobGivers\JobGiver_WorkDroid.cs" />
     <Compile Include="zUI\MainTabWindow_DroidWork.cs" />
     <Compile Include="zUtil\ChassisPointLabel.cs" />
+    <Compile Include="zUtil\GroupPackPair.cs" />
+    <Compile Include="zUtil\HugsLibSetup.cs" />
+    <Compile Include="zUtil\MD3DefOF.cs" />
     <Compile Include="zUtil\MD3_Droids.cs" />
     <Compile Include="zPatches\Pawn_PlayerSettingsPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,9 +111,11 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Defs\AIPackageDefs\AIPackages.xml" />
-    <Content Include="Defs\BodyDefs\BodyDef_DroidMedium.xml">
+    <Content Include="Defs\BodyDefs\DroidMedium.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Defs\BodyPartDefs\armour plating.xml" />
+    <Content Include="Defs\BodyPartDefs\base part.xml" />
     <Content Include="Defs\BodyPartDefs\BodyParts_DroidMediumBase.xml" />
     <Content Include="Defs\BodyPartDefs\CPU parts.xml">
       <SubType>Designer</SubType>
@@ -112,6 +127,7 @@
     <Content Include="Defs\BodyPartDefs\visual receptor parts.xml" />
     <Content Include="Defs\BodyPartGroupDefs\BodyPartGroups.xml" />
     <Content Include="Defs\BodyPartTagDefs\DroidBodyPartTagDefs.xml" />
+    <Content Include="Defs\DroidCustomiseGroupDefs\ArmourGroup.xml" />
     <Content Include="Defs\DroidCustomiseGroupDefs\MediumDroidCustomiseGroups.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -130,7 +146,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Defs\ThingDefs_Buildings\DroidConstructionTable.xml" />
-    <Content Include="Defs\ThingDefs_Races\Races_Droid.xml" />
+    <Content Include="Defs\ThingDefs_Races\Races_Droid.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Defs\ThinkTreeDefs\DroidThinkTree.xml" />
     <Content Include="Defs\ThinkTreeDefs\SubTrees_Misc.xml" />
     <Content Include="Defs\TierColourDefs\TierColours.xml" />

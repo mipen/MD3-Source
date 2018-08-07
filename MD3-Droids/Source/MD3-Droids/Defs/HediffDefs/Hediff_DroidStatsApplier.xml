@@ -6,6 +6,8 @@
     <label>Droid</label>
     <labelNoun>Droid</labelNoun>
     <hediffClass>MD3_Droids.Hediff_DroidStatsApplier</hediffClass>
+    <isBad>false</isBad>
+    <everCurableByItem>false</everCurableByItem>
   </HediffDef>
   
 </Defs>

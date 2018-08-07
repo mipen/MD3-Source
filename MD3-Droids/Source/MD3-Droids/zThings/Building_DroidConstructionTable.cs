@@ -8,6 +8,9 @@ namespace MD3_Droids
 {
     public class Building_DroidConstructionTable : Building
     {
-
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            base.SpawnSetup(map, respawningAfterLoad);
+        }
     }
 }

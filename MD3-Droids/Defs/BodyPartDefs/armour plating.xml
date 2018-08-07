@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+<!--TODO:: Added movement speed penalties to the armour -->
+  <MD3_Droids.DroidChassisPartDef ParentName="DroidChassisBasePart" Name="BaseArmourPlating">
+    <defName>MD3_DroidArmourPlating</defName>
+    <label>armour plating</label>
+    <description>Basic droid armour plating.</description>
+    <hitPoints>20</hitPoints>
+    <ChassisType>Any</ChassisType>
+    <ChassisPoint>ArmourPlating</ChassisPoint>
+    <BasePart>True</BasePart>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseArmourPlating">
+    <defName>MD3_DroidArmourPlatingII</defName>
+    <label>armour plating II</label>
+    <description>Tier II droid armour plating.</description>
+    <hitPoints>20</hitPoints>
+    <color>TierII</color>
+    <BasePart>False</BasePart>
+    <addedPartHealth>10</addedPartHealth>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseArmourPlating">
+    <defName>MD3_DroidArmourPlatingIII</defName>
+    <label>armour plating III</label>
+    <description>Tier III droid armour plating.</description>
+    <hitPoints>20</hitPoints>
+    <color>TierIII</color>
+    <BasePart>False</BasePart>
+    <addedPartHealth>15</addedPartHealth>
+  </MD3_Droids.DroidChassisPartDef>
+
+  <MD3_Droids.DroidChassisPartDef ParentName="BaseArmourPlating">
+    <defName>MD3_DroidArmourPlatingIV</defName>
+    <label>armour plating IV</label>
+    <description>Tier IV droid armour plating.</description>
+    <hitPoints>20</hitPoints>
+    <color>TierIV</color>
+    <BasePart>False</BasePart>
+    <addedPartHealth>25</addedPartHealth>
+  </MD3_Droids.DroidChassisPartDef>
+
+</Defs>

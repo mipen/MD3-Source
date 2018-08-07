@@ -1,8 +1,6 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -20,8 +18,8 @@ namespace MD3_Droids
         private DroidDesign selDesign = null;
 
         private static readonly Vector2 CreateButtonSize = new Vector2(150f, 29f);
-        public static readonly Vector2 SmallSize = new Vector2(260f, 600f);
-        public static readonly Vector2 LargeSize = new Vector2(1310f, 600f);
+        public static readonly Vector2 SmallSize = new Vector2(260f, 700f);
+        public static readonly Vector2 LargeSize = new Vector2(1310f, 700f);
 
         public ITab_DroidDesigns()
         {
@@ -45,6 +43,16 @@ namespace MD3_Droids
             Rect designsListRect = new Rect(0f, 0f, 240f, mainRect.height - CreateButtonSize.y - SectionMargin);
             Widgets.DrawBoxSolid(designsListRect, BoxColor);
             DrawDesignList(designsListRect);
+            //DEBUG:: Spawn droid button
+            Rect spawnButtonRect = new Rect(0f, designsListRect.yMax + SectionMargin, 50f, 30f);
+            if (Widgets.ButtonText(spawnButtonRect, "spawn"))
+            {
+                if (selDesign != null)
+                {
+                    Droid d = DroidGenerator.GenerateDroid(DefDatabase<PawnKindDef>.GetNamed("MD3_Droid"), selDesign, Faction.OfPlayer);
+                    GenSpawn.Spawn(d, ((Building)SelObject).InteractionCell, ((Building)SelObject).Map);
+                }
+            }
             //Create button
             Rect createButtonRect = new Rect(designsListRect.xMax - CreateButtonSize.x, designsListRect.yMax + SectionMargin, CreateButtonSize.x, CreateButtonSize.y);
             if (Widgets.ButtonText(createButtonRect, "Create New"))

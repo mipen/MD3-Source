@@ -119,7 +119,7 @@ namespace MD3_Droids
                 {
                     design.AIPackages.Clear();
                     design.AIPackages.AddRange(packagesTemp);
-                    design.RecacheStats();
+                    design.Recache();
                     Find.WindowStack.TryRemove(this);
                 }
             }

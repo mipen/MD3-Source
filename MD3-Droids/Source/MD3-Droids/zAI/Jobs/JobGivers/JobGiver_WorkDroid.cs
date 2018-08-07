@@ -26,7 +26,12 @@ namespace MD3_Droids
 
         public override ThinkResult TryIssueJobPackage(Pawn pawn, JobIssueParams jobParams)
         {
-            List<WorkGiver> list = emergency ? pawn.workSettings.WorkGiversInOrderEmergency : pawn.workSettings.WorkGiversInOrderNormal;
+            Droid d = null;
+            if (pawn is Droid)
+                d = pawn as Droid;
+            else
+                return ThinkResult.NoJob;
+            List<WorkGiver> list = emergency ? d.workManager.WorkGiversInOrderEmergency : d.workManager.WorkGiversInOrder;
             int num = -999;
             TargetInfo targetInfo = TargetInfo.Invalid;
             WorkGiver_Scanner workGiver_Scanner = null;

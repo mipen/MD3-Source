@@ -1,21 +1,17 @@
 ﻿using Harmony;
-using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using Verse;
 
 namespace MD3_Droids
 {
-    [StaticConstructorOnStartup]
-    public class MD3_Droids
+    
+    public class MD3_DroidsMod : Mod
     {
-        static MD3_Droids()
+        public static MD3_DroidsMod Instance;
+
+        public MD3_DroidsMod(ModContentPack pack) : base(pack)
         {
-            var harmony = HarmonyInstance.Create("com.MD3.Droids");
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+            Instance = this;
         }
 
     }

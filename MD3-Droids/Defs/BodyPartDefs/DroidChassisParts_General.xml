@@ -2,35 +2,6 @@
 <Defs>
 
   <MD3_Droids.DroidChassisPartDef>
-    <defName>MD3_DroidArmourPlating</defName>
-    <label>armour plating</label>
-    <description>Basic droid armour plating.</description>
-    <hitPoints>20</hitPoints>
-    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
-    <skinCovered>false</skinCovered>
-    <solid>true</solid>
-    <bleedRate>0</bleedRate>
-    <alive>false</alive>
-    <ChassisType>Any</ChassisType>
-    <ChassisPoint>ArmourPlating</ChassisPoint>
-    <BasePart>True</BasePart>
-  </MD3_Droids.DroidChassisPartDef>
-
-  <!--<MD3_Droids.DroidChassisPartDef>
-    <defName>MD3_DroidArmourHardPoint</defName>
-    <label>armour hardpoint</label>
-    <hitPoints>1</hitPoints>
-    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
-    <skinCovered>false</skinCovered>
-    <solid>true</solid>
-    <bleedRate>0</bleedRate>
-    <alive>false</alive>
-    <ChassisType>Any</ChassisType>
-    <ChassisPoint>ArmourHardPoint</ChassisPoint>
-    <BasePart>True</BasePart>
-  </MD3_Droids.DroidChassisPartDef>-->
-
-  <MD3_Droids.DroidChassisPartDef>
     <defName>MD3_DroidMotivatorManipulation</defName>
     <label>motivator</label>
     <description>Basic droid motivator.</description>

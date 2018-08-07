@@ -1,16 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <MD3_Droids.DroidChassisPartDef Name="BaseVisualReceptor">
+  <MD3_Droids.DroidChassisPartDef ParentName="DroidChassisBasePart" Name="BaseVisualReceptor">
     <defName>MD3_DroidVisualReceptor</defName>
     <label>visual receptor</label>
     <description>Basic droid visual receptor.</description>
-    <hitPoints>10</hitPoints>
-    <permanentInjuryChanceFactor>0</permanentInjuryChanceFactor>
-    <skinCovered>false</skinCovered>
-    <solid>true</solid>
-    <bleedRate>0</bleedRate>
-    <alive>false</alive>
     <tags>
       <li>SightSource</li>
     </tags>
@@ -26,7 +20,7 @@
     <color>TierII</color>
     <BasePart>false</BasePart>
     <capMods>
-      <Sight>15</Sight>
+      <Sight>0.15</Sight>
     </capMods>
     <requirements>
       <MD3_DroidPowerDrain>10</MD3_DroidPowerDrain>
@@ -41,7 +35,7 @@
     <color>TierIII</color>
     <BasePart>false</BasePart>
     <capMods>
-      <Sight>25</Sight>
+      <Sight>0.25</Sight>
     </capMods>
     <requirements>
       <MD3_DroidPowerDrain>20</MD3_DroidPowerDrain>
@@ -56,7 +50,7 @@
     <color>TierIV</color>
     <BasePart>false</BasePart>
     <capMods>
-      <Sight>40</Sight>
+      <Sight>0.40</Sight>
     </capMods>
     <requirements>
       <MD3_DroidPowerDrain>45</MD3_DroidPowerDrain>

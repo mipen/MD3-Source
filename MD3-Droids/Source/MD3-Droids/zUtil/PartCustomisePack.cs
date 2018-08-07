@@ -26,12 +26,26 @@ namespace MD3_Droids
             }
         }
 
+        public PartCustomisePack()
+        {
+
+        }
 
         public PartCustomisePack(ChassisPoint cp, DroidChassisPartDef part = null, BodyPosition position = BodyPosition.Undefined)
         {
             chassisPoint = cp;
             this.part = part;
             bodyPosition = position;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is PartCustomisePack)
+            {
+                PartCustomisePack pack = obj as PartCustomisePack;
+                return ChassisPoint == pack.ChassisPoint && BodyPosition == pack.BodyPosition && Part == pack.Part;
+            }
+            return false;
         }
 
         public PartCustomisePack CreateCopy()
@@ -51,6 +65,13 @@ namespace MD3_Droids
             Scribe_Defs.Look(ref part, "part");
             Scribe_Values.Look(ref chassisPoint, "chassisPoint");
             Scribe_Values.Look(ref bodyPosition, "bodyPosition");
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{chassisPoint}, {bodyPosition}, {part?.defName}");
+            return sb.ToString();
         }
     }
 }

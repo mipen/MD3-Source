@@ -9,7 +9,6 @@ namespace MD3_Droids
     public class Droid_AIPackageTracker : IExposable
     {
         private Droid droid;
-        private bool capableOfViolence = true;
 
         public Droid Droid => droid;
 
@@ -30,11 +29,11 @@ namespace MD3_Droids
 
         public void ExposeData()
         {
-            Scribe_Values.Look(ref capableOfViolence, "capableOfViolence");
         }
 
         public void SpawnSetup()
         {
+            //DEBUG:: Set skills to max
             foreach(var aiDef in droid.design.AIPackages)
             {
                 if(aiDef.workTypes.Count>0)

@@ -14,31 +14,31 @@ namespace MD3_Droids
         #region Variables
         private static Vector2 partsScrollPos = default(Vector2);
 
-        public static Texture2D AddButtonTex;
+        public static readonly Texture2D AddButtonTex;
 
-        public static Texture2D HeadTex;
-        public static Texture2D HeadHoverTex;
+        public static readonly Texture2D HeadTex;
+        public static readonly Texture2D HeadHoverTex;
 
-        public static Texture2D BodyTex;
-        public static Texture2D BodyHoverTex;
+        public static readonly Texture2D BodyTex;
+        public static readonly Texture2D BodyHoverTex;
 
-        public static Texture2D LeftArmTex;
-        public static Texture2D LeftArmHoverTex;
+        public static readonly Texture2D LeftArmTex;
+        public static readonly Texture2D LeftArmHoverTex;
 
-        public static Texture2D RightArmTex;
-        public static Texture2D RightArmHoverTex;
+        public static readonly Texture2D RightArmTex;
+        public static readonly Texture2D RightArmHoverTex;
 
-        public static Texture2D LeftLegTex;
-        public static Texture2D LeftLegHoverTex;
+        public static readonly Texture2D LeftLegTex;
+        public static readonly Texture2D LeftLegHoverTex;
 
-        public static Texture2D RightLegTex;
-        public static Texture2D RightLegHoverTex;
+        public static readonly Texture2D RightLegTex;
+        public static readonly Texture2D RightLegHoverTex;
 
         public static readonly Vector2 HeadRectSize = new Vector2(92, 92);
         public static readonly Vector2 BodyRectSize = new Vector2(128, 192);
         public static readonly Vector2 ArmRectSize = new Vector2(100, 100);
         public static readonly Vector2 LegRectSize = new Vector2(100, 100);
-        public const float Margin = 10f;
+        public const float PartSelectorMargin = 10f;
 
         public const float PartGroupTitleHeight = 40f;
         public const float PartEntryHeight = 30f;
@@ -51,15 +51,20 @@ namespace MD3_Droids
         public static readonly Color Blue = new Color(0.094f, 0.592f, 0.905f, 1f);
         public static readonly Color Orange = new Color(0.874f, 0.36f, 0.066f, 1f);
         public static readonly Color Red = new Color(0.964f, 0.082f, 0.074f, 1f);
+
+        public static readonly Texture2D DefaultSlotIcon;
+        public static readonly Vector2 TexRectSize = new Vector2(128f, 128f);
+        public static readonly Vector2 SlotRectSize = new Vector2(64f, 64f);
+        public static readonly Vector2 IconRectSize = new Vector2(32f, 32f);
+        public const float SlotLabelHeight = 25f;
+        public static readonly float TotalSlotRectHeight = SlotRectSize.y + SlotLabelHeight + 10f;
+
+        public static readonly float PartSelectorMinDistFromBottom = (BodyRectSize.y + PartSelectorMargin + LegRectSize.y + PartSelectorMargin + TotalSlotRectHeight);
         #endregion
 
         static DroidDesignUIHandler()
         {
-            GetTextures();
-        }
-
-        public static void GetTextures()
-        {
+            DefaultSlotIcon = ContentFinder<Texture2D>.Get("Things/Item/Health/HealthItemProsthetic");
             AddButtonTex = ContentFinder<Texture2D>.Get("UI/AddButton");
 
             HeadTex = ContentFinder<Texture2D>.Get("UI/PartSelector/PartSelector_Head");
@@ -79,6 +84,7 @@ namespace MD3_Droids
 
             RightLegTex = ContentFinder<Texture2D>.Get("UI/PartSelector/PartSelector_RightLeg");
             RightLegHoverTex = ContentFinder<Texture2D>.Get("UI/PartSelector/PartSelector_RightLegHover");
+
         }
 
         public static void DrawPartSelector(Rect mainRect, DroidDesign design, bool editMode)
@@ -86,12 +92,16 @@ namespace MD3_Droids
             try
             {
                 Rect inRect = mainRect.ContractedBy(10f);
+                if (inRect.height < (HeadRectSize.y + PartSelectorMargin + BodyRectSize.y + PartSelectorMargin + LegRectSize.y + PartSelectorMargin + TotalSlotRectHeight))
+                    Log.Error($"Rect is too small for PartSelector height: {inRect.height}");
 
                 GUI.BeginGroup(inRect);
 
                 //Body rect
-                Rect bodyRect = new Rect((inRect.width / 2) - (BodyRectSize.x / 2), inRect.center.y - (BodyRectSize.y / 2), BodyRectSize.x, BodyRectSize.y);
-                //Widgets.DrawBox(bodyRect);
+                float bodyRectY = inRect.center.y - (BodyRectSize.y / 2);
+                if (inRect.height - bodyRectY < PartSelectorMinDistFromBottom)
+                    bodyRectY = inRect.height - PartSelectorMinDistFromBottom;
+                Rect bodyRect = new Rect((inRect.width / 2) - (BodyRectSize.x / 2), bodyRectY, BodyRectSize.x, BodyRectSize.y);
                 if (Mouse.IsOver(bodyRect))
                     Widgets.DrawTextureFitted(bodyRect, BodyHoverTex, 1.3f);
                 else
@@ -103,8 +113,7 @@ namespace MD3_Droids
                 }
 
                 //Head rect
-                Rect headRect = new Rect((inRect.width / 2) - (HeadRectSize.x / 2), bodyRect.y - Margin - HeadRectSize.y, HeadRectSize.x, HeadRectSize.y);
-                // Widgets.DrawBox(headRect);
+                Rect headRect = new Rect((inRect.width / 2) - (HeadRectSize.x / 2), bodyRect.y - PartSelectorMargin - HeadRectSize.y, HeadRectSize.x, HeadRectSize.y);
                 if (Mouse.IsOver(headRect))
                     Widgets.DrawTextureFitted(headRect, HeadHoverTex, 1);
                 else
@@ -116,8 +125,7 @@ namespace MD3_Droids
                 }
 
                 //Left arm rect
-                Rect leftArmRect = new Rect(bodyRect.x - Margin - ArmRectSize.x, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
-                // Widgets.DrawBox(leftArmRect);
+                Rect leftArmRect = new Rect(bodyRect.x - PartSelectorMargin - ArmRectSize.x, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
                 if (Mouse.IsOver(leftArmRect))
                     Widgets.DrawTextureFitted(leftArmRect, LeftArmHoverTex, 1);
                 else
@@ -129,8 +137,7 @@ namespace MD3_Droids
                 }
 
                 //Right arm rect
-                Rect rightArmRect = new Rect(bodyRect.xMax + Margin, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
-                //Widgets.DrawBox(rightArmRect);
+                Rect rightArmRect = new Rect(bodyRect.xMax + PartSelectorMargin, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
                 if (Mouse.IsOver(rightArmRect))
                     Widgets.DrawTextureFitted(rightArmRect, RightArmHoverTex, 1);
                 else
@@ -142,8 +149,7 @@ namespace MD3_Droids
                 }
 
                 //Left leg rect
-                Rect leftLegRect = new Rect(leftArmRect.x + LegRectSize.x / 2, bodyRect.yMax + Margin, LegRectSize.x, LegRectSize.y);
-                //Widgets.DrawBox(leftLegRect);
+                Rect leftLegRect = new Rect(leftArmRect.x + LegRectSize.x / 2, bodyRect.yMax + PartSelectorMargin, LegRectSize.x, LegRectSize.y);
                 if (Mouse.IsOver(leftLegRect))
                     Widgets.DrawTextureFitted(leftLegRect, LeftLegHoverTex, 1);
                 else
@@ -156,7 +162,6 @@ namespace MD3_Droids
 
                 //Right leg rect 
                 Rect rightLegRect = new Rect(rightArmRect.x - LegRectSize.x / 2, leftLegRect.y, LegRectSize.x, LegRectSize.y);
-                //Widgets.DrawBox(rightLegRect);
                 if (Mouse.IsOver(rightLegRect))
                     Widgets.DrawTextureFitted(rightLegRect, RightLegHoverTex, 1);
                 else
@@ -166,6 +171,21 @@ namespace MD3_Droids
                     Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightLeg"), design, RightLegTex, editMode);
                     Find.WindowStack.Add(cp);
                 }
+
+                //Bottom slots
+                float slotWidth = inRect.width / 3;
+                Rect armourSlotRect = new Rect(slotWidth, inRect.height - TotalSlotRectHeight, slotWidth, TotalSlotRectHeight);
+                if (design.HasArmourPlating)
+                {
+                    List<PartCustomisePack> armour = design.GetPartCustomisePacks(DroidCustomiseGroupDef.Named("MD3_DroidArmourPlating"), true);
+                    var pack = armour.First();
+                    DrawSlot(pack, armourSlotRect, design.ChassisType, editMode);
+                    foreach (var p in armour)
+                        p.Part = pack.Part;
+                    design.Recache();
+                }
+
+                Rect motivator1SlotRect = new Rect(0f, armourSlotRect.y, armourSlotRect.width, armourSlotRect.height);
             }
             finally
             {
@@ -280,6 +300,48 @@ namespace MD3_Droids
             }
             finally
             {
+                GUI.EndGroup();
+            }
+        }
+
+        public static void DrawSlot(PartCustomisePack slot, Rect rect, ChassisType ct, bool editMode)
+        {
+            try
+            {
+                GUI.BeginGroup(rect);
+
+                Rect slotRect = new Rect(rect.width / 2 - SlotRectSize.x / 2, 0f, SlotRectSize.x, SlotRectSize.y);
+                if (Mouse.IsOver(slotRect))
+                {
+                    Widgets.DrawHighlightSelected(slotRect);
+                    TooltipHandler.TipRegion(slotRect, slot.Part.GetTooltip());
+                }
+                else
+                    Widgets.DrawHighlight(slotRect);
+                Widgets.DrawBox(slotRect);
+
+                Rect imageRect = new Rect(slotRect.center.x - IconRectSize.x / 2, slotRect.center.y - IconRectSize.y / 2, IconRectSize.x, IconRectSize.y);
+                Widgets.DrawTextureFitted(imageRect, DefaultSlotIcon, 1f);//TODO:: show slot icon
+
+                Rect labelRect = new Rect(0f, SlotRectSize.y, rect.width, SlotLabelHeight);
+                Text.Anchor = TextAnchor.MiddleCenter;
+                if (slot.Part.color != null)
+                    GUI.color = slot.Part.color.GetColor();
+                Widgets.Label(labelRect, slot.Part.LabelCap);
+                GUI.color = Color.white;
+
+                if (editMode)
+                {
+                    if (Widgets.ButtonInvisible(slotRect))
+                    {
+                        Dialog_SelectPart sp = new Dialog_SelectPart(slot, ct);
+                        Find.WindowStack.Add(sp);
+                    }
+                }
+            }
+            finally
+            {
+                Text.Anchor = TextAnchor.UpperLeft;
                 GUI.EndGroup();
             }
         }

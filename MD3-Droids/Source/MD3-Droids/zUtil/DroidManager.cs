@@ -22,7 +22,7 @@ namespace MD3_Droids
             get
             {
                 if (designs == null)
-                    LoadDroidDesigns();
+                    designs = new List<DroidDesign>();
                 return designs;
             }
         }
@@ -44,6 +44,8 @@ namespace MD3_Droids
         public override void ExposeData()
         {
             base.ExposeData();
+            //TODO:: implement saving designs properly
+            Scribe_Collections.Look(ref designs, "designs", LookMode.Deep);
         }
 
         private void LoadDroidDesigns()
