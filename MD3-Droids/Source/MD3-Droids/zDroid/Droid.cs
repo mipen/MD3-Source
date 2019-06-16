@@ -88,6 +88,7 @@ namespace MD3_Droids
         {
             design.Recache();
             design.AddHediffsToDroid(this);
+            design.AddSkillsToDroid(this);
             aiPackages.SpawnSetup();
         }
 

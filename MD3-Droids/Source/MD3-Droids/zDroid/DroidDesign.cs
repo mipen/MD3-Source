@@ -18,11 +18,11 @@ namespace MD3_Droids
         //private Graphic_Multi bodyGraphic;
         //private Graphic_Multi headGraphic;
 
-        //TODO:: implement skills list
         private ChassisType chassisType = ChassisType.Medium;
         private List<AIPackageDef> aiPackages = new List<AIPackageDef>();
         private Dictionary<DroidCustomiseGroupDef, List<PartCustomisePack>> partsGrouped = new Dictionary<DroidCustomiseGroupDef, List<PartCustomisePack>>();
         private List<GroupPackPair> partsCondensed = new List<GroupPackPair>();
+        private List<SkillLevel> skills = SkillLevel.GetBlankList();
         public bool CapableOfViolence = false;
 
 
@@ -42,6 +42,15 @@ namespace MD3_Droids
         }
         public Dictionary<DroidCustomiseGroupDef, List<PartCustomisePack>> PartsGrouped => partsGrouped;
         public List<AIPackageDef> AIPackages => aiPackages;
+        public List<SkillLevel> Skills
+        {
+            get
+            {
+                if (skills == null)
+                    skills = new List<SkillLevel>();
+                return skills;
+            }
+        }
         public BodyDef BaseBodyDef
         {
             get
@@ -49,14 +58,31 @@ namespace MD3_Droids
                 switch (ChassisType)
                 {
                     case ChassisType.Small:
-                        return DefDatabase<BodyDef>.GetNamed("");
+                        return null; //DroidsDefOf.
                     case ChassisType.Medium:
-                        return DefDatabase<BodyDef>.GetNamed("MD3_MediumDroid");
+                        return DroidsDefOf.MD3_MediumDroid;
                     case ChassisType.Large:
-                        return DefDatabase<BodyDef>.GetNamed("");
+                        return null; //DroidsDefOf.
                     default:
                         throw new ArgumentException($"No body def found for {ChassisType}");
 
+                }
+            }
+        }
+        public PawnKindDef KindDef
+        {
+            get
+            {
+                switch (ChassisType)
+                {
+                    case ChassisType.Small:
+                        return null; //DroidsDefOf.
+                    case ChassisType.Medium:
+                        return DroidsDefOf.MD3_Droid;
+                    case ChassisType.Large:
+                        return null; //DroidsDefOf.
+                    default:
+                        throw new ArgumentException($"No body def found for {ChassisType}");
                 }
             }
         }
@@ -102,6 +128,7 @@ namespace MD3_Droids
             }
         }
 
+        #region Stat Properties
         private StatModifier maxCPU = null;
         private StatModifier usedCPU = null;
         private bool RecacheMaxCPU = true;
@@ -151,9 +178,13 @@ namespace MD3_Droids
                             usedCPU.value += stat.value;
                         }
                     }
+                    foreach(var sl in Skills)
+                    {
+                        usedCPU.value += sl.CPUUsage;
+                    }
                     RecacheUsedCPU = false;
                 }
-                return usedCPU;
+                return usedCPU;//TODO:: include cpu from skills and ai packages
             }
         }
         public string CPUTooltip
@@ -215,9 +246,13 @@ namespace MD3_Droids
                             powerDrain.value += stat.value;
                         }
                     }
+                    foreach(var sl in Skills)
+                    {
+                        powerDrain.value += sl.PowerUsage;
+                    }
                     RecachePowerDrain = false;
                 }
-                return powerDrain;
+                return powerDrain; //TODO:: include from skills and ai packages.
             }
         }
         public string PowerDrainTooltip
@@ -229,6 +264,7 @@ namespace MD3_Droids
                 return sb.ToString();
             }
         }
+        #endregion
 
         public bool HasArmourPlating
         {
@@ -255,6 +291,7 @@ namespace MD3_Droids
             Scribe_Values.Look(ref VersionNumber, "versionRun");
             Scribe_Values.Look(ref chassisType, "chassisType");
             Scribe_Collections.Look(ref aiPackages, "aiPackages");
+            Scribe_Collections.Look(ref skills, "skills", LookMode.Deep);
             Scribe_Values.Look(ref CapableOfViolence, "capableOfViolence");
             //Scribe_Values.Look(ref color, "color");
             if (Scribe.mode == LoadSaveMode.Saving)
@@ -293,6 +330,31 @@ namespace MD3_Droids
                     }
                 }
             }
+        }
+
+        public void AddSkillsToDroid(Droid d)
+        {
+            foreach (var skillRecord in d.skills.skills)
+            {
+                SkillLevel sl = GetSkillLevel(skillRecord);
+                skillRecord.levelInt = sl.Level;
+            }
+        }
+
+        public SkillLevel GetSkillLevel(SkillRecord skillRecord)
+        {
+            SkillLevel foundSL = null;
+            foreach (var sl in Skills)
+            {
+                if (sl.Skill == skillRecord.def)
+                {
+                    foundSL = sl;
+                    break;
+                }
+            }
+            if (foundSL == null)
+                foundSL = new SkillLevel(skillRecord);
+            return foundSL;
         }
 
         public Hediff BuildHediff(PartCustomisePack pack, BodyPartRecord rec, Droid d)
@@ -445,6 +507,7 @@ namespace MD3_Droids
             }
             return list;
         }
+
         private void LoadDictionary()
         {
             foreach (var pair in partsCondensed)

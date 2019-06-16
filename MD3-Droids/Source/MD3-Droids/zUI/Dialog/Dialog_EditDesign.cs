@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace MD3_Droids
@@ -18,6 +19,11 @@ namespace MD3_Droids
         private const float FooterRectHeight = 100f;
         private const float DrawBarHeight = 25f;
         private static readonly Vector2 ButtonSize = new Vector2(120f, 30f);
+        private Vector2 partsScrollPos = default(Vector2);
+        private Vector2 aiScrollPos = default(Vector2);
+        private Vector2 skillsScrollPos = default(Vector2);
+        private ProgressBar powerBar = new ProgressBar();
+        private ProgressBar cpuBar = new ProgressBar();
 
         private string designName = "";
 
@@ -33,6 +39,8 @@ namespace MD3_Droids
             absorbInputAroundWindow = true;
             forcePause = true;
             doCloseX = true;
+
+            StatsReportUtility.Reset();
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -49,7 +57,9 @@ namespace MD3_Droids
                 //Text box
                 float textBoxHeight = 28;
                 Rect nameRect = new Rect(nameLabelRect.xMax + 5f, TitleRectHeight / 2 - textBoxHeight / 2, 200f, textBoxHeight);
-                designName = Widgets.TextField(nameRect, designName);
+                GUI.BeginGroup(nameRect);
+                designName = Widgets.TextField(nameRect.AtZero(), designName);
+                GUI.EndGroup();
 
                 Rect titleRect = new Rect(0f, 0f, inRect.width, TitleRectHeight);
                 Text.Anchor = TextAnchor.MiddleCenter;
@@ -63,29 +73,31 @@ namespace MD3_Droids
                 Rect mainRect = new Rect(0f, TitleRectHeight, inRect.width, inRect.height - TitleRectHeight);
                 GUI.BeginGroup(mainRect);
                 float availableHeight = mainRect.height - FooterRectHeight - SectionMargin;
+
                 //Parts area
-                float partsRectHeight = Mathf.Floor((availableHeight / 3) * 2) - SectionMargin;
-                Rect partsRect = new Rect(0f, 0f, DisplayAreaWidth, partsRectHeight);
-                Widgets.DrawBoxSolid(partsRect, BoxColor);
-                DroidDesignUIHandler.DrawPartsList(partsRect, design);
+                float leftRectsHeight = availableHeight / 3 - (SectionMargin * 2) / 3;
+                Rect partsRect = new Rect(0f, 0f, DisplayAreaWidth, leftRectsHeight);
+                DroidDesignUIHandler.DrawPartsList(partsRect, ref partsScrollPos, design);
 
                 //AI area
-                float aiRectHeight = availableHeight - partsRectHeight - SectionMargin;
-                Rect aiRect = new Rect(0f, partsRect.yMax + 10f, partsRect.width, aiRectHeight);
-                Widgets.DrawBoxSolid(aiRect, BoxColor);
-                DroidDesignUIHandler.DrawAIList(aiRect, design, true);
+                Rect aiRect = new Rect(0f, partsRect.yMax + SectionMargin, partsRect.width, leftRectsHeight);
+                DroidDesignUIHandler.DrawAIList(aiRect, ref aiScrollPos, design, true);
+
+                //Skills area
+                Rect skillsRect = new Rect(0f, aiRect.yMax + SectionMargin, partsRect.width, leftRectsHeight);
+                DroidDesignUIHandler.DrawSkillsList(skillsRect, ref skillsScrollPos, design, true);
 
                 //Droid display area
-                Rect droidDisplayRect = new Rect(partsRect.xMax + 10f, 0f, DroidDisplayAreaWidth, availableHeight);
-                Widgets.DrawBoxSolid(droidDisplayRect, BoxColor);
-                DrawDroidDisplay(droidDisplayRect);
+                Rect droidDisplayRect = new Rect(partsRect.xMax + SectionMargin, 0f, DroidDisplayAreaWidth, availableHeight);
+                DroidDesignUIHandler.DrawPartSelector(droidDisplayRect, design, true);
 
                 //Stats area
-                Rect statsRect = new Rect(droidDisplayRect.xMax + 10f, 0f, StatsDisplayAreaWidth, partsRectHeight);
+                Rect statsRect = new Rect(droidDisplayRect.xMax + SectionMargin, 0f, StatsDisplayAreaWidth, leftRectsHeight * 2 + SectionMargin);
                 Widgets.DrawBoxSolid(statsRect, BoxColor);
+                StatsReportUtility.DrawStatsReport(statsRect, DroidDesignUIHandler.StatDummy(design));
 
                 //Cost area
-                Rect costsRect = new Rect(statsRect.x, statsRect.yMax + 10f, statsRect.width, aiRectHeight);
+                Rect costsRect = new Rect(statsRect.x, statsRect.yMax + SectionMargin, statsRect.width, leftRectsHeight);
                 Widgets.DrawBoxSolid(costsRect, BoxColor);
 
                 //Footer area
@@ -100,11 +112,6 @@ namespace MD3_Droids
             }
         }
 
-        private void DrawDroidDisplay(Rect rect)
-        {
-            DroidDesignUIHandler.DrawPartSelector(rect, design, true);
-        }
-
         private void DrawFooter(Rect rect)
         {
             try
@@ -114,7 +121,7 @@ namespace MD3_Droids
                 Rect cancelButtonRect = new Rect(0f, rect.height - ButtonSize.y, ButtonSize.x, ButtonSize.y);
                 if (Widgets.ButtonText(cancelButtonRect, "Cancel"))
                 {
-                    Find.WindowStack.TryRemove(this);
+                    Close();
                 }
 
                 Rect acceptButtonRect = new Rect(rect.width - ButtonSize.x, cancelButtonRect.y, ButtonSize.x, ButtonSize.y);
@@ -122,7 +129,7 @@ namespace MD3_Droids
                 {
                     if (!designName.NullOrEmpty())
                     {
-                        Find.WindowStack.TryRemove(this);
+                        Close();
                         if (isNewDesign)
                         {
                             design.Label = designName;
@@ -131,6 +138,7 @@ namespace MD3_Droids
                         else
                         {
                             //TODO:: if editing existing design, apply changes
+                            //TODO:: Determine if design is valid, deny accepting and saving if it is not!
                         }
                     }
                     else
@@ -143,16 +151,22 @@ namespace MD3_Droids
                 float cpuY = Mathf.Floor((FooterRectHeight - (DrawBarHeight * 2)) / 3);
                 Rect cpuDrawRect = new Rect(DisplayAreaWidth + SectionMargin, cpuY, DroidDisplayAreaWidth, DrawBarHeight);
                 var cpuUsage = design.GetUsedCPU;
-                DroidDesignUIHandler.DrawProgressBar(cpuDrawRect, cpuUsage.value, design.GetMaxCPU.value, cpuUsage, design.CPUTooltip);
+                cpuBar.DrawProgressBar(cpuDrawRect, cpuUsage.value, design.GetMaxCPU.value, cpuUsage, design.CPUTooltip);
 
                 Rect powerDrawRect = new Rect(cpuDrawRect.x, cpuDrawRect.yMax + cpuY, cpuDrawRect.width, cpuDrawRect.height);
                 var powerDrain = design.GetPowerDrain;
-                DroidDesignUIHandler.DrawProgressBar(powerDrawRect, powerDrain.value, design.GetMaxPowerDrain.value, powerDrain, design.PowerDrainTooltip);
+                powerBar.DrawProgressBar(powerDrawRect, powerDrain.value, design.GetMaxPowerDrain.value, powerDrain, design.PowerDrainTooltip);
             }
             finally
             {
                 GUI.EndGroup();
             }
+        }
+
+        public override void Close(bool doCloseSound = true)
+        {
+            base.Close(doCloseSound);
+            ITab_DroidDesigns.DrawStats = true;
         }
     }
 }

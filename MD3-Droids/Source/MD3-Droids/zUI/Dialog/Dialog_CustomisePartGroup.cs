@@ -153,7 +153,8 @@ namespace MD3_Droids
                             Slot5.CopyFrom(Slot5Temp);
                         if (Slot6 != null)
                             Slot6.CopyFrom(Slot6Temp);
-                        design.Recache();
+                        DroidDesignUIHandler.StatDummy(design).InitialiseFromDesign();
+                        RimWorld.StatsReportUtility.Reset();
                         Find.WindowStack.TryRemove(this);
                     }
                     //Cancel

@@ -81,6 +81,7 @@
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_DroidWorkPriority.cs" />
     <Compile Include="zExtensions\BodyDefExt.cs" />
     <Compile Include="zExtensions\BodyPartRecordExtension.cs" />
+    <Compile Include="zUI\ProgressBar.cs" />
     <Compile Include="zUtil\BodyPosition.cs" />
     <Compile Include="zUtil\CapModSaveable.cs" />
     <Compile Include="zUtil\ChassisPoint.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="zAI\ThinkNode_ConditionalDroid.cs" />
     <Compile Include="zUtil\PartCustomisePack.cs" />
     <Compile Include="zUtil\PawnCapacityModifier.cs" />
+    <Compile Include="zUtil\SkillLevel.cs" />
     <Compile Include="zUtil\StatOffsetSaveable.cs" />
   </ItemGroup>
   <ItemGroup>

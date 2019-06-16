@@ -119,7 +119,8 @@ namespace MD3_Droids
                 {
                     design.AIPackages.Clear();
                     design.AIPackages.AddRange(packagesTemp);
-                    design.Recache();
+                    DroidDesignUIHandler.StatDummy(design).InitialiseFromDesign();
+                    RimWorld.StatsReportUtility.Reset();
                     Find.WindowStack.TryRemove(this);
                 }
             }

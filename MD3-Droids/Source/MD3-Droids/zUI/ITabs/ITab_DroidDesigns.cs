@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using HugsLib.Utils;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +15,16 @@ namespace MD3_Droids
         private const float DesignEntryHeight = 30f;
         private const float DesignEntryMargin = 0f;
         private const float EntryHeightWithMargin = DesignEntryHeight + DesignEntryMargin;
-        private Vector2 scrollPos = default(Vector2);
+        private Vector2 designsScrollPos = default(Vector2);
+        private Vector2 partsScrollPos = default(Vector2);
+        private Vector2 skillsScrollPos = default(Vector2);
+        private Vector2 aiScrollPos = default(Vector2);
         private DroidDesign selDesign = null;
 
         private static readonly Vector2 CreateButtonSize = new Vector2(150f, 29f);
         public static readonly Vector2 SmallSize = new Vector2(260f, 700f);
         public static readonly Vector2 LargeSize = new Vector2(1310f, 700f);
+        public static bool DrawStats = true;
 
         public ITab_DroidDesigns()
         {
@@ -44,7 +49,7 @@ namespace MD3_Droids
             Widgets.DrawBoxSolid(designsListRect, BoxColor);
             DrawDesignList(designsListRect);
             //DEBUG:: Spawn droid button
-            Rect spawnButtonRect = new Rect(0f, designsListRect.yMax + SectionMargin, 50f, 30f);
+            Rect spawnButtonRect = new Rect(designsListRect.xMax - 70f, designsListRect.yMax - 30f, 50f, 30f);
             if (Widgets.ButtonText(spawnButtonRect, "spawn"))
             {
                 if (selDesign != null)
@@ -67,6 +72,7 @@ namespace MD3_Droids
                     list.Add(new FloatMenuOption("Medium", delegate
                     {
                         Find.WindowStack.Add(new Dialog_EditDesign(new DroidDesign(ChassisType.Medium), true));
+                        DrawStats = false;
                     }));
                     //list.Add(new FloatMenuOption("Large", delegate
                     //{
@@ -77,15 +83,30 @@ namespace MD3_Droids
                 Find.WindowStack.Add(new FloatMenu(chassisTypeOptionsMaker()));
             }
 
+            //Delete button
             if (selDesign != null)
             {
-                //Droid display area
-                Rect droidDisplayRect = new Rect(designsListRect.xMax + SectionMargin, 0f, 420f, designsListRect.height);
-                Widgets.DrawBoxSolid(droidDisplayRect, BoxColor);
-                DroidDesignUIHandler.DrawPartSelector(droidDisplayRect, selDesign, false);
+                Rect deleteButtonRect = new Rect(0f, createButtonRect.y, createButtonRect.x - 2f, CreateButtonSize.y);
+                if (Widgets.ButtonText(deleteButtonRect, "Delete") && selDesign != null)
+                {
+                    Dialog_Confirm confirm = new Dialog_Confirm("Are you sure you wish to delete this design? \n\n This action cannot be undone.", delegate
+                     {
+                         DroidManager.Instance.Designs.Remove(selDesign);
+                         selDesign = null;
+                     });
+                    Find.WindowStack.Add(confirm);
+                }
+            }
+
+            if (selDesign != null)
+            {
+                //Part Selector area
+                Rect partSelectorRect = new Rect(designsListRect.xMax + SectionMargin, 0f, 420f, designsListRect.height);
+                Widgets.DrawBoxSolid(partSelectorRect, BoxColor);
+                DroidDesignUIHandler.DrawPartSelector(partSelectorRect, selDesign, false);
 
                 //Design label
-                Rect designLabelRect = new Rect(droidDisplayRect.x, droidDisplayRect.yMax + SectionMargin, droidDisplayRect.width, CreateButtonSize.y);
+                Rect designLabelRect = new Rect(partSelectorRect.x, partSelectorRect.yMax + SectionMargin, partSelectorRect.width, CreateButtonSize.y);
                 if (selDesign != null)
                 {
                     Text.Anchor = TextAnchor.MiddleCenter;
@@ -96,29 +117,30 @@ namespace MD3_Droids
                 }
 
                 //Parts list area
-                Rect partsRect = new Rect(droidDisplayRect.xMax + SectionMargin, 0f, 240f, 260f);
-                Widgets.DrawBoxSolid(partsRect, BoxColor);
-                DroidDesignUIHandler.DrawPartsList(partsRect, selDesign);
+                Rect partsRect = new Rect(partSelectorRect.xMax + SectionMargin, 0f, 240f, 260f);
+                DroidDesignUIHandler.DrawPartsList(partsRect, ref partsScrollPos, selDesign);
 
                 float rectHeight = (mainRect.height - partsRect.height - (SectionMargin * 2)) / 2;
                 //AI packages area
                 Rect aiPackagesRect = new Rect(partsRect.x, partsRect.yMax + SectionMargin, partsRect.width, rectHeight);
-                Widgets.DrawBoxSolid(aiPackagesRect, BoxColor);
-                DroidDesignUIHandler.DrawAIList(aiPackagesRect, selDesign, false);
+                DroidDesignUIHandler.DrawAIList(aiPackagesRect, ref aiScrollPos, selDesign, false);
 
                 //Skills list area
                 Rect skillsRect = new Rect(partsRect.x, aiPackagesRect.yMax + SectionMargin, partsRect.width, rectHeight);
-                Widgets.DrawBoxSolid(skillsRect, BoxColor);
-                DrawSkillsList(skillsRect);
+                DroidDesignUIHandler.DrawSkillsList(skillsRect, ref skillsScrollPos, selDesign, false);
 
                 //Stats display area
                 Rect statsRect = new Rect(partsRect.xMax + SectionMargin, 0f, mainRect.width - partsRect.xMax, mainRect.height - skillsRect.height - SectionMargin);
-                Widgets.DrawBoxSolid(statsRect, BoxColor);
-                DrawStatsList(statsRect);
+                if (DrawStats)
+                {
+                    Widgets.DrawBoxSolid(statsRect, BoxColor);
+                    StatsReportUtility.DrawStatsReport(statsRect, DroidDesignUIHandler.StatDummy(selDesign));
+                }
 
+                //Bill of materials display area
                 Rect materialsCostRect = new Rect(statsRect.x, skillsRect.y, statsRect.width, skillsRect.height);
                 Widgets.DrawBoxSolid(materialsCostRect, BoxColor);
-                DrawMaterialsCostList(materialsCostRect);
+
             }
 
             GUI.EndGroup();
@@ -144,7 +166,7 @@ namespace MD3_Droids
                     Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, height);
                     float curY = 0f;
                     bool alternate = false;
-                    Widgets.BeginScrollView(outRect, ref scrollPos, viewRect);
+                    Widgets.BeginScrollView(outRect, ref designsScrollPos, viewRect);
 
                     foreach (var design in DroidManager.Instance.Designs)
                     {
@@ -175,7 +197,10 @@ namespace MD3_Droids
 
                 if (Widgets.ButtonInvisible(entryRect))
                 {
-                    selDesign = design;
+                    if (selDesign != null && selDesign == design)
+                        selDesign = null;
+                    else
+                        selDesign = design;
                 }
 
                 if (selDesign != null && selDesign == design)
@@ -203,19 +228,5 @@ namespace MD3_Droids
             }
         }
 
-        private void DrawSkillsList(Rect mainRect)
-        {
-
-        }
-
-        private void DrawStatsList(Rect mainRect)
-        {
-
-        }
-
-        private void DrawMaterialsCostList(Rect mainRect)
-        {
-
-        }
     }
 }

@@ -11,5 +11,7 @@ namespace MD3_Droids
     public static class DroidsDefOf
     {
         public static HediffDef MD3_DroidStatsApplier;
+        public static PawnKindDef MD3_Droid;
+        public static BodyDef MD3_MediumDroid;
     }
 }

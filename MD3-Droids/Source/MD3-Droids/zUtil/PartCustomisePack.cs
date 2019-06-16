@@ -48,6 +48,11 @@ namespace MD3_Droids
             return false;
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public PartCustomisePack CreateCopy()
         {
             return new PartCustomisePack(ChassisPoint, Part, BodyPosition);

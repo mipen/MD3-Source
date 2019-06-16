@@ -12,8 +12,9 @@ namespace MD3_Droids
     public static class DroidDesignUIHandler
     {
         #region Variables
-        private static Vector2 partsScrollPos = default(Vector2);
+        public static readonly Color BoxColor = new Color(0.1098f, 0.1294f, 0.149f);
 
+        #region PartSelector
         public static readonly Texture2D AddButtonTex;
 
         public static readonly Texture2D HeadTex;
@@ -39,27 +40,45 @@ namespace MD3_Droids
         public static readonly Vector2 ArmRectSize = new Vector2(100, 100);
         public static readonly Vector2 LegRectSize = new Vector2(100, 100);
         public const float PartSelectorMargin = 10f;
+        #endregion
 
+        #region Parts List
         public const float PartGroupTitleHeight = 40f;
         public const float PartEntryHeight = 30f;
         private const float PartsListTitleHeight = 30f;
+        #endregion
 
+        #region AIPackages List
         public const float AIPackagesTitleBar = 30f;
         public const float AIEntryHeight = 30f;
         public static readonly Vector2 AddAIButtonSize = new Vector2(30f, 30f);
+        #endregion
 
+        #region Progress Bar
         public static readonly Color Blue = new Color(0.094f, 0.592f, 0.905f, 1f);
         public static readonly Color Orange = new Color(0.874f, 0.36f, 0.066f, 1f);
         public static readonly Color Red = new Color(0.964f, 0.082f, 0.074f, 1f);
+        #endregion
 
+        #region Slot
         public static readonly Texture2D DefaultSlotIcon;
         public static readonly Vector2 TexRectSize = new Vector2(128f, 128f);
         public static readonly Vector2 SlotRectSize = new Vector2(64f, 64f);
         public static readonly Vector2 IconRectSize = new Vector2(32f, 32f);
         public const float SlotLabelHeight = 25f;
         public static readonly float TotalSlotRectHeight = SlotRectSize.y + SlotLabelHeight + 10f;
+        #endregion
 
-        public static readonly float PartSelectorMinDistFromBottom = (BodyRectSize.y + PartSelectorMargin + LegRectSize.y + PartSelectorMargin + TotalSlotRectHeight);
+        #region Skills List
+
+        private const float SkillsEntryHeight = 40f;
+        private const float SkillsEntryLevelDisplayWidth = 20f;
+
+        #endregion
+
+        #endregion
+        #region Properties
+        private static Droid statDummy = null;
         #endregion
 
         static DroidDesignUIHandler()
@@ -87,6 +106,18 @@ namespace MD3_Droids
 
         }
 
+        public static Droid StatDummy(DroidDesign design)
+        {
+            if (statDummy == null || statDummy.kindDef != design.KindDef || statDummy.design != design)
+            {
+                statDummy = (Droid)PawnGenerator.GeneratePawn(design.KindDef);
+                statDummy.design = design;
+                statDummy.InitialiseFromDesign();
+                StatsReportUtility.Reset();
+            }
+            return statDummy;
+        }
+
         public static void DrawPartSelector(Rect mainRect, DroidDesign design, bool editMode)
         {
             try
@@ -95,97 +126,17 @@ namespace MD3_Droids
                 if (inRect.height < (HeadRectSize.y + PartSelectorMargin + BodyRectSize.y + PartSelectorMargin + LegRectSize.y + PartSelectorMargin + TotalSlotRectHeight))
                     Log.Error($"Rect is too small for PartSelector height: {inRect.height}");
 
+                Widgets.DrawBoxSolid(mainRect, BoxColor);
+                Widgets.DrawBox(mainRect);
+
                 GUI.BeginGroup(inRect);
-
-                //Body rect
-                float bodyRectY = inRect.center.y - (BodyRectSize.y / 2);
-                if (inRect.height - bodyRectY < PartSelectorMinDistFromBottom)
-                    bodyRectY = inRect.height - PartSelectorMinDistFromBottom;
-                Rect bodyRect = new Rect((inRect.width / 2) - (BodyRectSize.x / 2), bodyRectY, BodyRectSize.x, BodyRectSize.y);
-                if (Mouse.IsOver(bodyRect))
-                    Widgets.DrawTextureFitted(bodyRect, BodyHoverTex, 1.3f);
-                else
-                    Widgets.DrawTextureFitted(bodyRect, BodyTex, 1.3f);
-                if (Widgets.ButtonInvisible(bodyRect))
-                {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidChassis"), design, BodyTex, editMode);
-                    Find.WindowStack.Add(cp);
-                }
-
-                //Head rect
-                Rect headRect = new Rect((inRect.width / 2) - (HeadRectSize.x / 2), bodyRect.y - PartSelectorMargin - HeadRectSize.y, HeadRectSize.x, HeadRectSize.y);
-                if (Mouse.IsOver(headRect))
-                    Widgets.DrawTextureFitted(headRect, HeadHoverTex, 1);
-                else
-                    Widgets.DrawTextureFitted(headRect, HeadTex, 1);
-                if (Widgets.ButtonInvisible(headRect))
-                {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidHead"), design, HeadTex, editMode);
-                    Find.WindowStack.Add(cp);
-                }
-
-                //Left arm rect
-                Rect leftArmRect = new Rect(bodyRect.x - PartSelectorMargin - ArmRectSize.x, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
-                if (Mouse.IsOver(leftArmRect))
-                    Widgets.DrawTextureFitted(leftArmRect, LeftArmHoverTex, 1);
-                else
-                    Widgets.DrawTextureFitted(leftArmRect, LeftArmTex, 1);
-                if (Widgets.ButtonInvisible(leftArmRect))
-                {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidLeftArm"), design, LeftArmTex, editMode);
-                    Find.WindowStack.Add(cp);
-                }
-
-                //Right arm rect
-                Rect rightArmRect = new Rect(bodyRect.xMax + PartSelectorMargin, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
-                if (Mouse.IsOver(rightArmRect))
-                    Widgets.DrawTextureFitted(rightArmRect, RightArmHoverTex, 1);
-                else
-                    Widgets.DrawTextureFitted(rightArmRect, RightArmTex, 1);
-                if (Widgets.ButtonInvisible(rightArmRect))
-                {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightArm"), design, RightArmTex, editMode);
-                    Find.WindowStack.Add(cp);
-                }
-
-                //Left leg rect
-                Rect leftLegRect = new Rect(leftArmRect.x + LegRectSize.x / 2, bodyRect.yMax + PartSelectorMargin, LegRectSize.x, LegRectSize.y);
-                if (Mouse.IsOver(leftLegRect))
-                    Widgets.DrawTextureFitted(leftLegRect, LeftLegHoverTex, 1);
-                else
-                    Widgets.DrawTextureFitted(leftLegRect, LeftLegTex, 1);
-                if (Widgets.ButtonInvisible(leftLegRect))
-                {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidLeftLeg"), design, LeftLegTex, editMode);
-                    Find.WindowStack.Add(cp);
-                }
-
-                //Right leg rect 
-                Rect rightLegRect = new Rect(rightArmRect.x - LegRectSize.x / 2, leftLegRect.y, LegRectSize.x, LegRectSize.y);
-                if (Mouse.IsOver(rightLegRect))
-                    Widgets.DrawTextureFitted(rightLegRect, RightLegHoverTex, 1);
-                else
-                    Widgets.DrawTextureFitted(rightLegRect, RightLegTex, 1);
-                if (Widgets.ButtonInvisible(rightLegRect))
-                {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightLeg"), design, RightLegTex, editMode);
-                    Find.WindowStack.Add(cp);
-                }
+                //Draw selector
+                Rect selectorRect = new Rect(0f, 0f, inRect.width, inRect.height - TotalSlotRectHeight);
+                DrawParts(selectorRect, design, editMode);
 
                 //Bottom slots
-                float slotWidth = inRect.width / 3;
-                Rect armourSlotRect = new Rect(slotWidth, inRect.height - TotalSlotRectHeight, slotWidth, TotalSlotRectHeight);
-                if (design.HasArmourPlating)
-                {
-                    List<PartCustomisePack> armour = design.GetPartCustomisePacks(DroidCustomiseGroupDef.Named("MD3_DroidArmourPlating"), true);
-                    var pack = armour.First();
-                    DrawSlot(pack, armourSlotRect, design.ChassisType, editMode);
-                    foreach (var p in armour)
-                        p.Part = pack.Part;
-                    design.Recache();
-                }
-
-                Rect motivator1SlotRect = new Rect(0f, armourSlotRect.y, armourSlotRect.width, armourSlotRect.height);
+                Rect footerRect = new Rect(0f, selectorRect.yMax, inRect.width, TotalSlotRectHeight);
+                DrawBottomSlots(footerRect, design, editMode);
             }
             finally
             {
@@ -193,10 +144,11 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawAIList(Rect mainRect, DroidDesign design, bool editMode)
+        public static void DrawAIList(Rect mainRect, ref Vector2 scrollPos, DroidDesign design, bool editMode)
         {
             try
             {
+                Widgets.DrawBoxSolid(mainRect, BoxColor);
                 GUI.BeginGroup(mainRect);
 
                 Rect titleRect = new Rect(10f, 0f, mainRect.width - 10f, AIPackagesTitleBar);
@@ -217,7 +169,15 @@ namespace MD3_Droids
                 if (design.AIPackages.Count > 0)
                 {
                     Rect listRect = new Rect(0f, titleRect.yMax, mainRect.width, mainRect.height - AIPackagesTitleBar);
-                    DrawAIListing(listRect, design);
+                    DrawAIListing(listRect, ref scrollPos, design);
+                }
+                else
+                {
+                    Rect labelRect = mainRect.AtZero();
+                    Text.Font = GameFont.Small;
+                    Text.Anchor = TextAnchor.MiddleCenter;
+                    Widgets.Label(labelRect, "No AI Packages");
+                    Text.Anchor = TextAnchor.UpperLeft;
                 }
             }
             finally
@@ -226,10 +186,11 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawPartsList(Rect mainRect, DroidDesign design)
+        public static void DrawPartsList(Rect mainRect, ref Vector2 scrollPos, DroidDesign design)
         {
             try
             {
+                Widgets.DrawBoxSolid(mainRect, BoxColor);
                 GUI.BeginGroup(mainRect);
 
                 Rect titleRect = new Rect(10f, 0f, mainRect.width - 10f, PartsListTitleHeight);
@@ -244,7 +205,7 @@ namespace MD3_Droids
                 {
                     Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, height);
                     float curY = 0f;
-                    Widgets.BeginScrollView(outRect, ref partsScrollPos, viewRect);
+                    Widgets.BeginScrollView(outRect, ref scrollPos, viewRect);
 
                     foreach (var groupKey in design.PartsGrouped.Keys)
                     {
@@ -269,6 +230,51 @@ namespace MD3_Droids
                     }
 
                     Widgets.EndScrollView();
+                }
+            }
+            finally
+            {
+                GUI.EndGroup();
+            }
+        }
+
+        public static void DrawSkillsList(Rect mainRect, ref Vector2 scrollPos, DroidDesign design, bool editMode)
+        {
+
+            try
+            {
+                Widgets.DrawBoxSolid(mainRect, BoxColor);
+                GUI.BeginGroup(mainRect);
+
+                Rect titleRect = new Rect(10f, 0f, mainRect.width - 10f, PartsListTitleHeight);
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Widgets.Label(titleRect, "Skills");
+                Text.Anchor = TextAnchor.UpperLeft;
+
+                if (design.Skills.Count > 0)
+                {
+                    Rect outRect = new Rect(0f, PartsListTitleHeight, mainRect.width, mainRect.height - PartsListTitleHeight);
+
+                    float height = design.Skills.Count * SkillsEntryHeight;
+                    Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, height);
+                    float curY = 0f;
+                    bool alternate = false;
+                    Widgets.BeginScrollView(outRect, ref scrollPos, viewRect);
+                    foreach (var skill in design.Skills)
+                    {
+                        Rect entryRect = new Rect(0f, curY, viewRect.width, SkillsEntryHeight);
+                        DrawSkillsEntry(entryRect, skill, design, alternate, editMode);
+                        curY += SkillsEntryHeight;
+                        alternate = !alternate;
+                    }
+                    Widgets.EndScrollView();
+                }
+                else
+                {
+                    Rect labelRect = new Rect(0f, 0f, mainRect.width, mainRect.height);
+                    Text.Anchor = TextAnchor.MiddleCenter;
+                    Widgets.Label(labelRect, "No skills");
+                    Text.Anchor = TextAnchor.UpperLeft;
                 }
             }
             finally
@@ -357,7 +363,159 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawAIListing(Rect listRect, DroidDesign design)
+        private static void DrawParts(Rect rect, DroidDesign design, bool editMode)
+        {
+            try
+            {
+                GUI.BeginGroup(rect);
+
+                //TODO:: draw gradient background
+                //Body rect
+                Rect bodyRect = new Rect(rect.width / 2 - BodyRectSize.x / 2, rect.height / 2 - BodyRectSize.y / 2, BodyRectSize.x, BodyRectSize.y);
+                if (Mouse.IsOver(bodyRect))
+                    Widgets.DrawTextureFitted(bodyRect, BodyHoverTex, 1.3f);
+                else
+                    Widgets.DrawTextureFitted(bodyRect, BodyTex, 1.3f);
+                if (Widgets.ButtonInvisible(bodyRect))
+                {
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidChassis"), design, BodyTex, editMode);
+                    Find.WindowStack.Add(cp);
+                }
+
+                //Head rect
+                Rect headRect = new Rect(rect.width / 2 - HeadRectSize.x / 2, bodyRect.y - PartSelectorMargin - HeadRectSize.y, HeadRectSize.x, HeadRectSize.y);
+                if (Mouse.IsOver(headRect))
+                    Widgets.DrawTextureFitted(headRect, HeadHoverTex, 1);
+                else
+                    Widgets.DrawTextureFitted(headRect, HeadTex, 1);
+                if (Widgets.ButtonInvisible(headRect))
+                {
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidHead"), design, HeadTex, editMode);
+                    Find.WindowStack.Add(cp);
+                }
+
+                //Left arm rect
+                Rect leftArmRect = new Rect(bodyRect.x - PartSelectorMargin - ArmRectSize.x, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
+                if (Mouse.IsOver(leftArmRect))
+                    Widgets.DrawTextureFitted(leftArmRect, LeftArmHoverTex, 1);
+                else
+                    Widgets.DrawTextureFitted(leftArmRect, LeftArmTex, 1);
+                if (Widgets.ButtonInvisible(leftArmRect))
+                {
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidLeftArm"), design, LeftArmTex, editMode);
+                    Find.WindowStack.Add(cp);
+                }
+
+                //Right arm rect
+                Rect rightArmRect = new Rect(bodyRect.xMax + PartSelectorMargin, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
+                if (Mouse.IsOver(rightArmRect))
+                    Widgets.DrawTextureFitted(rightArmRect, RightArmHoverTex, 1);
+                else
+                    Widgets.DrawTextureFitted(rightArmRect, RightArmTex, 1);
+                if (Widgets.ButtonInvisible(rightArmRect))
+                {
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightArm"), design, RightArmTex, editMode);
+                    Find.WindowStack.Add(cp);
+                }
+
+                //Left leg rect
+                Rect leftLegRect = new Rect(leftArmRect.x + LegRectSize.x / 2, bodyRect.yMax + PartSelectorMargin, LegRectSize.x, LegRectSize.y);
+                if (Mouse.IsOver(leftLegRect))
+                    Widgets.DrawTextureFitted(leftLegRect, LeftLegHoverTex, 1);
+                else
+                    Widgets.DrawTextureFitted(leftLegRect, LeftLegTex, 1);
+                if (Widgets.ButtonInvisible(leftLegRect))
+                {
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidLeftLeg"), design, LeftLegTex, editMode);
+                    Find.WindowStack.Add(cp);
+                }
+
+                //Right leg rect 
+                Rect rightLegRect = new Rect(rightArmRect.x - LegRectSize.x / 2, leftLegRect.y, LegRectSize.x, LegRectSize.y);
+                if (Mouse.IsOver(rightLegRect))
+                    Widgets.DrawTextureFitted(rightLegRect, RightLegHoverTex, 1);
+                else
+                    Widgets.DrawTextureFitted(rightLegRect, RightLegTex, 1);
+                if (Widgets.ButtonInvisible(rightLegRect))
+                {
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightLeg"), design, RightLegTex, editMode);
+                    Find.WindowStack.Add(cp);
+                }
+            }
+            finally
+            {
+                GUI.EndGroup();
+            }
+        }
+
+        private static void DrawBottomSlots(Rect rect, DroidDesign design, bool editMode)
+        {
+            try
+            {
+                GUI.BeginGroup(rect);
+
+                float slotWidth = rect.width / 3;
+                Rect armourSlotRect = new Rect(slotWidth, rect.height - TotalSlotRectHeight, slotWidth, TotalSlotRectHeight);
+                if (design.HasArmourPlating)
+                {
+                    List<PartCustomisePack> armour = design.GetPartCustomisePacks(DroidCustomiseGroupDef.Named("MD3_DroidArmourPlating"), true);
+                    var pack = armour.First();
+                    DrawSlot(pack, armourSlotRect, design.ChassisType, editMode);
+                    foreach (var p in armour)
+                        p.Part = pack.Part;
+                    design.Recache();
+                }
+
+                Rect motivator1SlotRect = new Rect(0f, armourSlotRect.y, armourSlotRect.width, armourSlotRect.height);
+            }
+            finally
+            {
+                GUI.EndGroup();
+            }
+        }
+
+        private static void DrawSkillsEntry(Rect entryRect, SkillLevel skill, DroidDesign design, bool alternate, bool editMode)
+        {
+            try
+            {
+                if (Mouse.IsOver(entryRect))
+                    Widgets.DrawHighlight(entryRect);
+                else if (alternate)
+                    Widgets.DrawAltRect(entryRect);
+
+                GUI.BeginGroup(entryRect);
+
+                if (editMode)
+                {
+                    Rect sliderRect = new Rect(0f, 0f, entryRect.width, entryRect.height);
+                    int prevLevel = skill.Level;
+                    skill.Level = Mathf.RoundToInt(Widgets.HorizontalSlider(sliderRect, skill.Level, 0, 20, true, $"{skill.Skill.LabelCap} ({skill.Level})", "0", "20"));
+                    if (skill.Level != prevLevel)
+                    {
+                        design.Recache();
+                        design.AddSkillsToDroid(StatDummy(design));
+                        StatsReportUtility.Reset();
+                    }
+                }
+                else
+                {
+                    Rect skillLabelRect = new Rect(0f, 0f, (entryRect.width / 2), entryRect.height);
+                    Text.Anchor = TextAnchor.MiddleLeft;
+                    Widgets.Label(skillLabelRect, skill.Skill.LabelCap);
+
+                    Rect skillLevelRect = new Rect(skillLabelRect.xMax, 0f, entryRect.width / 2 - 5f, entryRect.height);
+                    Text.Anchor = TextAnchor.MiddleRight;
+                    Widgets.Label(skillLevelRect, skill.Level.ToString());
+                    Text.Anchor = TextAnchor.UpperLeft;
+                }
+            }
+            finally
+            {
+                GUI.EndGroup();
+            }
+        }
+
+        private static void DrawAIListing(Rect listRect, ref Vector2 scrollPos, DroidDesign design)
         {
             try
             {
@@ -369,6 +527,7 @@ namespace MD3_Droids
                 Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, height);
                 float curY = 0f;
                 bool alternate = false;
+                Widgets.BeginScrollView(outRect, ref scrollPos, viewRect);
                 foreach (var p in design.AIPackages)
                 {
                     Rect entryRect = new Rect(0f, curY, viewRect.width, AIEntryHeight);
@@ -376,6 +535,7 @@ namespace MD3_Droids
                     curY += AIEntryHeight;
                     alternate = !alternate;
                 }
+                Widgets.EndScrollView();
             }
             finally
             {
