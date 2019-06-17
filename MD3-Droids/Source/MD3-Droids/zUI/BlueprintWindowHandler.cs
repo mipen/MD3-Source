@@ -13,13 +13,20 @@ namespace MD3_Droids
         private BlueprintHandlerState state = BlueprintHandlerState.Normal;
 
         private Blueprint blueprint;
-        public Blueprint Blueprint => blueprint;
+        public Blueprint Blueprint
+        {
+            get
+            {
+                return blueprint;
+            }
+            set
+            {
+                blueprint = value;
+            }
+        }
 
         private static readonly Color BoxColor = new Color(0.1098f, 0.1294f, 0.149f);
 
-        //private const float DroidDisplayAreaWidth = 420f;
-        //private const float StatsDisplayAreaWidth = 300f;
-        //private const float DisplayAreaWidth = 300f;
         private float PartSelectorAreaWidth = 0f;
         private float StatsAreaWidth = 0f;
         private float DisplayAreaWidth = 0f;
@@ -29,6 +36,7 @@ namespace MD3_Droids
         private const float TextBoxWidth = 200f;
         private const float FooterRectHeight = 100f;
         private const float DrawBarHeight = 25f;
+        private const float ButtonIndent = 30f;
         private static readonly Vector2 ButtonSize = new Vector2(120f, 30f);
         private Vector2 partsScrollPos = default(Vector2);
         private Vector2 aiScrollPos = default(Vector2);
@@ -36,12 +44,19 @@ namespace MD3_Droids
         private ProgressBar powerBar = new ProgressBar();
         private ProgressBar cpuBar = new ProgressBar();
 
-        public delegate void Close();
-        public event Close EventClose;
-        public delegate void Cancel();
-        public event Cancel EventCancel;
-        public delegate void Accept();
-        public event Accept EventAccept;
+        public delegate void CloseDelegate();
+        public event CloseDelegate EventClose;
+        public delegate void CancelDelegate();
+        public event CancelDelegate EventCancel;
+        public delegate void AcceptDelegate();
+        public event AcceptDelegate EventAccept;
+        public delegate void EditDelegate();
+        public event EditDelegate EventEdit;
+
+        public bool CloseButtonVisible { get; set; } = true;
+        public bool CancelButtonVisible { get; set; } = true;
+        public bool AcceptButtonVisible { get; set; } = true;
+        public bool EditButtonVisible { get; set; } = true;
 
 
         public BlueprintWindowHandler(Blueprint blueprint, BlueprintHandlerState state)
@@ -71,13 +86,13 @@ namespace MD3_Droids
 
                     if (state == BlueprintHandlerState.Edit || state == BlueprintHandlerState.New)
                     {
-                        nameLabelString = "DesignName".Translate();
+                        nameLabelString = "BlueprintName".Translate();
                         nameLabelWidth = Text.CalcSize(nameLabelString).x;
                         nameLabelXPos = headerRect.width / 2 - (nameLabelWidth + 5f + TextBoxWidth) / 2;
                     }
                     else
                     {
-                        nameLabelString = "DesignName".Translate() + blueprint.Label;
+                        nameLabelString = "BlueprintName".Translate() + blueprint.Label;
                         nameLabelWidth = Text.CalcSize(nameLabelString).x;
                         nameLabelXPos = headerRect.width / 2 - nameLabelWidth / 2;
                     }
@@ -120,15 +135,15 @@ namespace MD3_Droids
 
                     //AI list
                     Rect aiRect = new Rect(0f, partsRect.yMax + SectionMargin, partsRect.width, leftRectsHeight);
-                    BlueprintUIUtil.DrawAIList(aiRect, ref aiScrollPos, blueprint, true);
+                    BlueprintUIUtil.DrawAIList(aiRect, ref aiScrollPos, blueprint, state);
 
                     //Skills
                     Rect skillsRect = new Rect(0f, aiRect.yMax + SectionMargin, partsRect.width, leftRectsHeight);
-                    BlueprintUIUtil.DrawSkillsList(skillsRect, ref skillsScrollPos, blueprint, true);
+                    BlueprintUIUtil.DrawSkillsList(skillsRect, ref skillsScrollPos, blueprint, state);
 
                     //Droid part selector
                     Rect droidDisplayRect = new Rect(partsRect.xMax + SectionMargin, 0f, PartSelectorAreaWidth, mainRect.height);
-                    BlueprintUIUtil.DrawPartSelector(droidDisplayRect, blueprint, true);
+                    BlueprintUIUtil.DrawPartSelector(droidDisplayRect, blueprint, state);
 
                     //Stats 
                     Rect statsRect = new Rect(droidDisplayRect.xMax + SectionMargin, 0f, StatsAreaWidth, leftRectsHeight * 2 + SectionMargin);
@@ -147,11 +162,9 @@ namespace MD3_Droids
                 }
                 #endregion
 
-                #region Footer
                 //Footer area
                 Rect footerRect = new Rect(0f, inRect.height - FooterRectHeight, mainRect.width, FooterRectHeight);
                 DrawFooter(footerRect);
-                #endregion
             }
             finally
             {
@@ -168,34 +181,54 @@ namespace MD3_Droids
 
                 if (state == BlueprintHandlerState.Normal)
                 {
-                    Rect closeButtonRect = new Rect(0f, rect.height / 2 - ButtonSize.y / 2, ButtonSize.x, ButtonSize.y);
-                    if (Widgets.ButtonText(closeButtonRect, "Close".Translate()))
+                    if (CloseButtonVisible)
                     {
-                        EventClose?.Invoke();
+                        Rect closeButtonRect = new Rect(ButtonIndent, rect.height / 2 - ButtonSize.y / 2, ButtonSize.x, ButtonSize.y);
+                        if (Widgets.ButtonText(closeButtonRect, "Close".Translate()))
+                        {
+                            EventClose?.Invoke();
+                        }
+                    }
+
+                    if (EditButtonVisible)
+                    {
+                        Rect editButtonRect = new Rect(rect.width - ButtonSize.x - ButtonIndent, rect.height / 2 - ButtonSize.y / 2, ButtonSize.x, ButtonSize.y);
+                        if (Widgets.ButtonText(editButtonRect, "Edit".Translate()))
+                        {
+                            EventEdit?.Invoke();
+                        }
+
                     }
                 }
                 else if (state == BlueprintHandlerState.New || state == BlueprintHandlerState.Edit)
                 {
-                    Rect cancelButtonRect = new Rect(0f, rect.height / 2 - ButtonSize.y / 2, ButtonSize.x, ButtonSize.y);
-                    if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
+                    if (CancelButtonVisible)
                     {
-                        EventCancel?.Invoke();
+                        Rect cancelButtonRect = new Rect(ButtonIndent, rect.height / 2 - ButtonSize.y / 2, ButtonSize.x, ButtonSize.y);
+                        if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
+                        {
+                            EventCancel?.Invoke();
+                        }
                     }
 
-                    Rect acceptButtonRect = new Rect(rect.width - ButtonSize.x, cancelButtonRect.y, ButtonSize.x, ButtonSize.y);
-                    if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
+                    if (AcceptButtonVisible)
                     {
-                        EventAccept?.Invoke();
+                        Rect acceptButtonRect = new Rect(rect.width - ButtonSize.x - ButtonIndent, rect.height / 2 - ButtonSize.y / 2, ButtonSize.x, ButtonSize.y);
+                        if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
+                        {
+                            EventAccept?.Invoke();
+                        }
                     }
                 }
 
                 //Draw cpu, power draw and max power draw bars
-                float cpuY = Mathf.Floor((FooterRectHeight - (DrawBarHeight * 2)) / 3);
+                float remainingSpace = FooterRectHeight - DrawBarHeight * 2;
+                float cpuY = Mathf.Floor((FooterRectHeight / 2 - DrawBarHeight - remainingSpace / 3 / 2));
                 Rect cpuDrawRect = new Rect(DisplayAreaWidth + SectionMargin, cpuY, PartSelectorAreaWidth, DrawBarHeight);
                 var cpuUsage = blueprint.GetUsedCPU;
                 cpuBar.DrawProgressBar(cpuDrawRect, cpuUsage.value, blueprint.GetMaxCPU.value, cpuUsage, blueprint.CPUTooltip);
 
-                Rect powerDrawRect = new Rect(cpuDrawRect.x, cpuDrawRect.yMax + cpuY, cpuDrawRect.width, cpuDrawRect.height);
+                Rect powerDrawRect = new Rect(cpuDrawRect.x, cpuDrawRect.yMax + remainingSpace / 3, cpuDrawRect.width, cpuDrawRect.height);
                 var powerDrain = blueprint.GetPowerDrain;
                 powerBar.DrawProgressBar(powerDrawRect, powerDrain.value, blueprint.GetMaxPowerDrain.value, powerDrain, blueprint.PowerDrainTooltip);
             }

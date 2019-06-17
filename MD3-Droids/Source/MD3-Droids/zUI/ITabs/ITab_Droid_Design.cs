@@ -17,28 +17,27 @@ namespace MD3_Droids
         private const float DisplayAreaWidth = 300f;
 
         public Droid Droid => SelPawn as Droid;
+        private BlueprintWindowHandler bpHandler;
 
         public ITab_Droid_Design()
         {
-            size = new Vector2(730f+20f, 800f);
-            labelKey = "Design";
+            size = new Vector2(1280f, 800f);
+            labelKey = "Blueprint".Translate();
+            bpHandler = new BlueprintWindowHandler(null, BlueprintHandlerState.Normal);
+            bpHandler.EventClose += () => { CloseTab(); };
+            //TODO:: Handle edit button event.
+
         }
 
         protected override void FillTab()
         {
-            Rect baseRect = new Rect(0f, 20f, size.x, size.y-20f);
-            Rect mainRect = new Rect(baseRect.ContractedBy(10f));
+            Rect mainRect = new Rect(10f, 10f, size.x - 20f, size.y - 20f);
 
             try
             {
                 GUI.BeginGroup(mainRect);
-
-                Rect displayRect = new Rect(0f, 0f, DisplayAreaWidth, mainRect.height);
-                Widgets.DrawBoxSolid(displayRect, BoxColor);
-                Widgets.DrawBox(displayRect);
-
-                Rect droidDisplayRect = new Rect(displayRect.xMax + SectionMargin, 0f, DroidDisplayWidth, mainRect.height);
-                BlueprintUIUtil.DrawPartSelector(droidDisplayRect, Droid.blueprint, false);
+                bpHandler.Blueprint = Droid.blueprint;
+                bpHandler.DrawWindow(mainRect);
             }
             finally
             {

@@ -39,7 +39,17 @@ namespace MD3_Droids
                 bptype = value;
             }
         }
-        public ChassisType ChassisType => chassisType;
+        public ChassisType ChassisType
+        {
+            get
+            {
+                return chassisType;
+            }
+            set
+            {
+                chassisType = value;
+            }
+        }
         public List<PartCustomisePack> Parts
         {
             get
@@ -288,12 +298,7 @@ namespace MD3_Droids
 
         public Blueprint()
         {
-
-        }
-        public Blueprint(ChassisType ct = ChassisType.Medium)
-        {
             id = DroidManager.Instance.GetUniqueID();
-            chassisType = ct;
         }
 
         public void ExposeData()

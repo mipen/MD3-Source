@@ -10,7 +10,7 @@ namespace MD3_Droids
 {
 
     [HarmonyPatch(typeof(RaceProperties))]
-    [HarmonyPatch("IsFlesh", PropertyMethod.Getter)]
+    [HarmonyPatch("IsFlesh", MethodType.Getter)]
     class IsFleshPatch
     {
         [HarmonyPrefix]

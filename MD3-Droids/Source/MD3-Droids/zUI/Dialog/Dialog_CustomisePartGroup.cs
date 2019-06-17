@@ -12,7 +12,7 @@ namespace MD3_Droids
         private static readonly Vector2 ButtonSize = new Vector2(120f, 40f);
         private const float HorizontalMargin = 20f;
         private const float SlotVerticalMargin = 20f;
-        private bool editMode = false;
+        private BlueprintHandlerState state;
 
         private Texture2D partTex = null;
         private DroidCustomiseGroupDef group;
@@ -33,10 +33,10 @@ namespace MD3_Droids
         public PartCustomisePack Slot6 = null;
         public PartCustomisePack Slot6Temp = null;
 
-        public Dialog_CustomisePartGroup(DroidCustomiseGroupDef group, Blueprint design, Texture2D partTex, bool editMode)
+        public Dialog_CustomisePartGroup(DroidCustomiseGroupDef group, Blueprint design, Texture2D partTex, BlueprintHandlerState state)
         {
             this.partTex = partTex;
-            this.editMode = editMode;
+            this.state = state;
 
             this.group = group;
             this.design = design;
@@ -111,35 +111,35 @@ namespace MD3_Droids
                 //Draw Left slot boxes
                 Rect Slot2Rect = new Rect(0f, (texRect.y + texRect.height / 2) - BlueprintUIUtil.SlotRectSize.y / 2, inRect.width - texRect.xMax, BlueprintUIUtil.TotalSlotRectHeight);
                 if (Slot2 != null)
-                    BlueprintUIUtil.DrawSlot(Slot2Temp, Slot2Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot2Temp, Slot2Rect, design.ChassisType, state);
 
                 Rect Slot1Rect = new Rect(Slot2Rect.x, Slot2Rect.y - BlueprintUIUtil.TotalSlotRectHeight, Slot2Rect.width, Slot2Rect.height);
                 if (Slot1 != null)
-                    BlueprintUIUtil.DrawSlot(Slot1Temp, Slot1Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot1Temp, Slot1Rect, design.ChassisType, state);
 
                 Rect Slot3Rect = new Rect(Slot2Rect.x, Slot2Rect.yMax, Slot2Rect.width, Slot2Rect.height);
                 if (Slot3 != null)
-                    BlueprintUIUtil.DrawSlot(Slot3Temp, Slot3Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot3Temp, Slot3Rect, design.ChassisType, state);
 
                 //Draw right slot boxes
                 Rect Slot4Rect = new Rect(texRect.xMax, Slot1Rect.y, inRect.width - texRect.xMax, Slot2Rect.height);
                 if (Slot4 != null)
-                    BlueprintUIUtil.DrawSlot(Slot4Temp, Slot4Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot4Temp, Slot4Rect, design.ChassisType, state);
 
                 Rect Slot5Rect = new Rect(Slot4Rect.x, Slot2Rect.y, Slot4Rect.width, Slot2Rect.height);
                 if (Slot5 != null)
-                    BlueprintUIUtil.DrawSlot(Slot5Temp, Slot5Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot5Temp, Slot5Rect, design.ChassisType, state);
 
                 Rect Slot6Rect = new Rect(Slot4Rect.x, Slot3Rect.y, Slot4Rect.width, Slot2Rect.height);
                 if (Slot6 != null)
-                    BlueprintUIUtil.DrawSlot(Slot6Temp, Slot6Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot6Temp, Slot6Rect, design.ChassisType, state);
 
                 //Draw Buttons
-                if (editMode)
+                if (state == BlueprintHandlerState.New || state == BlueprintHandlerState.Edit)
                 {
                     //Accept
                     Rect acceptButtonRect = new Rect(inRect.width - ButtonSize.x, inRect.height - ButtonSize.y, ButtonSize.x, ButtonSize.y);
-                    if (Widgets.ButtonText(acceptButtonRect, "Accept"))
+                    if (Widgets.ButtonText(acceptButtonRect, "Accept".Translate()))
                     {
                         if (Slot1 != null)
                             Slot1.CopyFrom(Slot1Temp);
@@ -159,7 +159,7 @@ namespace MD3_Droids
                     }
                     //Cancel
                     Rect cancelButtonRect = new Rect(0f, inRect.height - ButtonSize.y, ButtonSize.x, ButtonSize.y);
-                    if (Widgets.ButtonText(cancelButtonRect, "Cancel"))
+                    if (Widgets.ButtonText(cancelButtonRect, "Cancel".Translate()))
                     {
                         Find.WindowStack.TryRemove(this);
                     }
@@ -167,7 +167,7 @@ namespace MD3_Droids
                 else
                 {
                     Rect closeButtonRect = new Rect(inRect.width / 2 - ButtonSize.x / 2, inRect.height - ButtonSize.y, ButtonSize.x, ButtonSize.y);
-                    if (Widgets.ButtonText(closeButtonRect, "Close"))
+                    if (Widgets.ButtonText(closeButtonRect, "Close".Translate()))
                     {
                         Find.WindowStack.TryRemove(this);
                     }

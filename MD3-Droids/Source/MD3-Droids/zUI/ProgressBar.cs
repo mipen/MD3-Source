@@ -1,8 +1,5 @@
 ﻿using RimWorld;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -17,7 +14,6 @@ namespace MD3_Droids
         public static readonly Color Red = new Color(0.964f, 0.082f, 0.074f, 1f);
 
         private float curValue = 0f;
-        private float workingWidth = 0f;
         #endregion
 
 

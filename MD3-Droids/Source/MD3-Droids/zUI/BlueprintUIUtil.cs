@@ -13,6 +13,7 @@ namespace MD3_Droids
     {
         #region Variables
         public static readonly Color BoxColor = new Color(0.1098f, 0.1294f, 0.149f);
+        public static readonly Vector2 ButtonSize = new Vector2(120f, 30f);
 
         #region PartSelector
         public static readonly Texture2D AddButtonTex;
@@ -40,6 +41,7 @@ namespace MD3_Droids
         public static readonly Vector2 ArmRectSize = new Vector2(100, 100);
         public static readonly Vector2 LegRectSize = new Vector2(100, 100);
         public const float PartSelectorMargin = 10f;
+        public const float PartSelectorHeaderHeight = 35f;
         #endregion
 
         #region Parts List
@@ -118,7 +120,7 @@ namespace MD3_Droids
             return statDummy;
         }
 
-        public static void DrawPartSelector(Rect mainRect, Blueprint design, bool editMode)
+        public static void DrawPartSelector(Rect mainRect, Blueprint bp, BlueprintHandlerState state)
         {
             try
             {
@@ -130,13 +132,63 @@ namespace MD3_Droids
                 Widgets.DrawBox(mainRect);
 
                 GUI.BeginGroup(inRect);
+
+                #region Header
+                Rect headerRect = new Rect(0f, 0f, inRect.width, PartSelectorHeaderHeight);
+                try
+                {
+                    GUI.BeginGroup(headerRect);
+                    if (state == BlueprintHandlerState.New)
+                    {
+                        Rect chassisTypeRect = new Rect(headerRect.width / 2 - ButtonSize.x / 2, headerRect.height / 2 - ButtonSize.y / 2, ButtonSize.x, ButtonSize.y);
+                        if (Widgets.ButtonText(chassisTypeRect, GetChassisString(bp.ChassisType)))
+                        {
+                            Func<List<FloatMenuOption>> chassisTypeOptionsMaker = delegate
+                            {
+                                List<FloatMenuOption> list = new List<FloatMenuOption>();
+                                if (bp.ChassisType != ChassisType.Small)
+                                    list.Add(new FloatMenuOption("SmallChassis".Translate(), delegate
+                                    {
+                                        bp.ChassisType = ChassisType.Small;
+                                    }));
+                                if (bp.ChassisType != ChassisType.Medium)
+                                    list.Add(new FloatMenuOption("MediumChassis".Translate(), delegate
+                                    {
+                                        bp.ChassisType = ChassisType.Medium;
+                                    }));
+                                if (bp.ChassisType != ChassisType.Large)
+                                    list.Add(new FloatMenuOption("LargeChassis".Translate(), delegate
+                                    {
+                                        bp.ChassisType = ChassisType.Large;
+                                    }));
+                                return list;
+                            };
+                            Find.WindowStack.Add(new FloatMenu(chassisTypeOptionsMaker()));
+                        }
+                    }
+                    else
+                    {
+                        string headerLabelString = GetChassisString(bp.ChassisType);
+                        Rect headerLabelRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
+                        Text.Anchor = TextAnchor.MiddleCenter;
+                        Widgets.Label(headerLabelRect, headerLabelString);
+                        Text.Anchor = TextAnchor.UpperLeft;
+                    }
+                }
+                finally
+                {
+                    GUI.EndGroup();
+                    Text.Anchor = TextAnchor.UpperLeft;
+                }
+                #endregion
+
                 //Draw selector
                 Rect selectorRect = new Rect(0f, 0f, inRect.width, inRect.height - TotalSlotRectHeight);
-                DrawParts(selectorRect, design, editMode);
+                DrawParts(selectorRect, bp, state);
 
                 //Bottom slots
                 Rect footerRect = new Rect(0f, selectorRect.yMax, inRect.width, TotalSlotRectHeight);
-                DrawBottomSlots(footerRect, design, editMode);
+                DrawBottomSlots(footerRect, bp, state);
             }
             finally
             {
@@ -144,7 +196,7 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawAIList(Rect mainRect, ref Vector2 scrollPos, Blueprint design, bool editMode)
+        public static void DrawAIList(Rect mainRect, ref Vector2 scrollPos, Blueprint bp, BlueprintHandlerState state)
         {
             try
             {
@@ -156,20 +208,20 @@ namespace MD3_Droids
                 Widgets.Label(titleRect, "AI Packages");
                 Text.Anchor = TextAnchor.UpperLeft;
 
-                if (editMode)
+                if (state == BlueprintHandlerState.New || state == BlueprintHandlerState.Edit)
                 {
                     Rect buttonRect = new Rect(mainRect.width - AddAIButtonSize.x, 0f, AddAIButtonSize.x, AddAIButtonSize.y);
                     if (Widgets.ButtonImage(buttonRect, AddButtonTex))
                     {
-                        Dialog_AIPackages d = new Dialog_AIPackages(design);
+                        Dialog_AIPackages d = new Dialog_AIPackages(bp);
                         Find.WindowStack.Add(d);
                     }
                 }
 
-                if (design.AIPackages.Count > 0)
+                if (bp.AIPackages.Count > 0)
                 {
                     Rect listRect = new Rect(0f, titleRect.yMax, mainRect.width, mainRect.height - AIPackagesTitleBar);
-                    DrawAIListing(listRect, ref scrollPos, design);
+                    DrawAIListing(listRect, ref scrollPos, bp);
                 }
                 else
                 {
@@ -186,7 +238,7 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawPartsList(Rect mainRect, ref Vector2 scrollPos, Blueprint design)
+        public static void DrawPartsList(Rect mainRect, ref Vector2 scrollPos, Blueprint bp)
         {
             try
             {
@@ -200,30 +252,30 @@ namespace MD3_Droids
 
                 Rect outRect = new Rect(0f, titleRect.yMax, mainRect.width, mainRect.height - titleRect.yMax);
 
-                float height = DesignPartsHeight(design);
+                float height = DesignPartsHeight(bp);
                 if (height > 0)
                 {
                     Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, height);
                     float curY = 0f;
                     Widgets.BeginScrollView(outRect, ref scrollPos, viewRect);
 
-                    foreach (var groupKey in design.PartsGrouped.Keys)
+                    foreach (var groupKey in bp.PartsGrouped.Keys)
                     {
-                        var partsList = design.PartsGrouped[groupKey].Where(x => x.Part.BasePart == false).ToList();
+                        var partsList = bp.PartsGrouped[groupKey].Where(x => x.Part.BasePart == false).ToList();
                         if (partsList.Any())
                         {
                             if (partsList[0].ChassisPoint == ChassisPoint.ArmourPlating)
                             {
-                                float entryHeight = PartGroupHeight(design.PartsGrouped[groupKey]);
+                                float entryHeight = PartGroupHeight(bp.PartsGrouped[groupKey]);
                                 Rect entryRect = new Rect(0f, curY, viewRect.width, entryHeight);
                                 DrawPartsGroupListing(entryRect, groupKey, new List<PartCustomisePack>() { partsList[0] });
                                 curY += entryHeight;
                             }
                             else
                             {
-                                float entryHeight = PartGroupHeight(design.PartsGrouped[groupKey]);
+                                float entryHeight = PartGroupHeight(bp.PartsGrouped[groupKey]);
                                 Rect entryRect = new Rect(0f, curY, viewRect.width, entryHeight);
-                                DrawPartsGroupListing(entryRect, groupKey, design.PartsGrouped[groupKey]);
+                                DrawPartsGroupListing(entryRect, groupKey, bp.PartsGrouped[groupKey]);
                                 curY += entryHeight;
                             }
                         }
@@ -238,7 +290,7 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawSkillsList(Rect mainRect, ref Vector2 scrollPos, Blueprint design, bool editMode)
+        public static void DrawSkillsList(Rect mainRect, ref Vector2 scrollPos, Blueprint bp, BlueprintHandlerState state)
         {
 
             try
@@ -251,19 +303,19 @@ namespace MD3_Droids
                 Widgets.Label(titleRect, "Skills");
                 Text.Anchor = TextAnchor.UpperLeft;
 
-                if (design.Skills.Count > 0)
+                if (bp.Skills.Count > 0)
                 {
                     Rect outRect = new Rect(0f, PartsListTitleHeight, mainRect.width, mainRect.height - PartsListTitleHeight);
 
-                    float height = design.Skills.Count * SkillsEntryHeight;
+                    float height = bp.Skills.Count * SkillsEntryHeight;
                     Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, height);
                     float curY = 0f;
                     bool alternate = false;
                     Widgets.BeginScrollView(outRect, ref scrollPos, viewRect);
-                    foreach (var skill in design.Skills)
+                    foreach (var skill in bp.Skills)
                     {
                         Rect entryRect = new Rect(0f, curY, viewRect.width, SkillsEntryHeight);
-                        DrawSkillsEntry(entryRect, skill, design, alternate, editMode);
+                        DrawSkillsEntry(entryRect, skill, bp, alternate, state);
                         curY += SkillsEntryHeight;
                         alternate = !alternate;
                     }
@@ -321,7 +373,7 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawSlot(PartCustomisePack slot, Rect rect, ChassisType ct, bool editMode)
+        public static void DrawSlot(PartCustomisePack slot, Rect rect, ChassisType ct, BlueprintHandlerState state)
         {
             try
             {
@@ -347,7 +399,7 @@ namespace MD3_Droids
                 Widgets.Label(labelRect, slot.Part.LabelCap);
                 GUI.color = Color.white;
 
-                if (editMode)
+                if (state == BlueprintHandlerState.New || state == BlueprintHandlerState.Edit)
                 {
                     if (Widgets.ButtonInvisible(slotRect))
                     {
@@ -363,7 +415,7 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawParts(Rect rect, Blueprint design, bool editMode)
+        private static void DrawParts(Rect rect, Blueprint bp, BlueprintHandlerState state)
         {
             try
             {
@@ -378,7 +430,7 @@ namespace MD3_Droids
                     Widgets.DrawTextureFitted(bodyRect, BodyTex, 1.3f);
                 if (Widgets.ButtonInvisible(bodyRect))
                 {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidChassis"), design, BodyTex, editMode);
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidChassis"), bp, BodyTex, state);
                     Find.WindowStack.Add(cp);
                 }
 
@@ -390,7 +442,7 @@ namespace MD3_Droids
                     Widgets.DrawTextureFitted(headRect, HeadTex, 1);
                 if (Widgets.ButtonInvisible(headRect))
                 {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidHead"), design, HeadTex, editMode);
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidHead"), bp, HeadTex, state);
                     Find.WindowStack.Add(cp);
                 }
 
@@ -402,7 +454,7 @@ namespace MD3_Droids
                     Widgets.DrawTextureFitted(leftArmRect, LeftArmTex, 1);
                 if (Widgets.ButtonInvisible(leftArmRect))
                 {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidLeftArm"), design, LeftArmTex, editMode);
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidLeftArm"), bp, LeftArmTex, state);
                     Find.WindowStack.Add(cp);
                 }
 
@@ -414,7 +466,7 @@ namespace MD3_Droids
                     Widgets.DrawTextureFitted(rightArmRect, RightArmTex, 1);
                 if (Widgets.ButtonInvisible(rightArmRect))
                 {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightArm"), design, RightArmTex, editMode);
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightArm"), bp, RightArmTex, state);
                     Find.WindowStack.Add(cp);
                 }
 
@@ -426,7 +478,7 @@ namespace MD3_Droids
                     Widgets.DrawTextureFitted(leftLegRect, LeftLegTex, 1);
                 if (Widgets.ButtonInvisible(leftLegRect))
                 {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidLeftLeg"), design, LeftLegTex, editMode);
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidLeftLeg"), bp, LeftLegTex, state);
                     Find.WindowStack.Add(cp);
                 }
 
@@ -438,7 +490,7 @@ namespace MD3_Droids
                     Widgets.DrawTextureFitted(rightLegRect, RightLegTex, 1);
                 if (Widgets.ButtonInvisible(rightLegRect))
                 {
-                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightLeg"), design, RightLegTex, editMode);
+                    Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidRightLeg"), bp, RightLegTex, state);
                     Find.WindowStack.Add(cp);
                 }
             }
@@ -448,7 +500,7 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawBottomSlots(Rect rect, Blueprint design, bool editMode)
+        private static void DrawBottomSlots(Rect rect, Blueprint bp, BlueprintHandlerState state)
         {
             try
             {
@@ -456,14 +508,14 @@ namespace MD3_Droids
 
                 float slotWidth = rect.width / 3;
                 Rect armourSlotRect = new Rect(slotWidth, rect.height - TotalSlotRectHeight, slotWidth, TotalSlotRectHeight);
-                if (design.HasArmourPlating)
+                if (bp.HasArmourPlating)
                 {
-                    List<PartCustomisePack> armour = design.GetPartCustomisePacks(DroidCustomiseGroupDef.Named("MD3_DroidArmourPlating"), true);
+                    List<PartCustomisePack> armour = bp.GetPartCustomisePacks(DroidCustomiseGroupDef.Named("MD3_DroidArmourPlating"), true);
                     var pack = armour.First();
-                    DrawSlot(pack, armourSlotRect, design.ChassisType, editMode);
+                    DrawSlot(pack, armourSlotRect, bp.ChassisType, state);
                     foreach (var p in armour)
                         p.Part = pack.Part;
-                    design.Recache();
+                    bp.Recache();
                 }
 
                 Rect motivator1SlotRect = new Rect(0f, armourSlotRect.y, armourSlotRect.width, armourSlotRect.height);
@@ -474,7 +526,7 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawSkillsEntry(Rect entryRect, SkillLevel skill, Blueprint design, bool alternate, bool editMode)
+        private static void DrawSkillsEntry(Rect entryRect, SkillLevel skill, Blueprint bp, bool alternate, BlueprintHandlerState state)
         {
             try
             {
@@ -485,15 +537,15 @@ namespace MD3_Droids
 
                 GUI.BeginGroup(entryRect);
 
-                if (editMode)
+                if (state == BlueprintHandlerState.New || state == BlueprintHandlerState.Edit)
                 {
                     Rect sliderRect = new Rect(0f, 0f, entryRect.width, entryRect.height);
                     int prevLevel = skill.Level;
                     skill.Level = Mathf.RoundToInt(Widgets.HorizontalSlider(sliderRect, skill.Level, 0, 20, true, $"{skill.Skill.LabelCap} ({skill.Level})", "0", "20"));
                     if (skill.Level != prevLevel)
                     {
-                        design.Recache();
-                        design.AddSkillsToDroid(StatDummy(design));
+                        bp.Recache();
+                        bp.AddSkillsToDroid(StatDummy(bp));
                         StatsReportUtility.Reset();
                     }
                 }
@@ -515,7 +567,7 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawAIListing(Rect listRect, ref Vector2 scrollPos, Blueprint design)
+        private static void DrawAIListing(Rect listRect, ref Vector2 scrollPos, Blueprint bp)
         {
             try
             {
@@ -523,12 +575,12 @@ namespace MD3_Droids
 
                 Rect outRect = new Rect(0f, 0f, listRect.width, listRect.height);
 
-                float height = design.AIPackages.Count * AIEntryHeight;
+                float height = bp.AIPackages.Count * AIEntryHeight;
                 Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, height);
                 float curY = 0f;
                 bool alternate = false;
                 Widgets.BeginScrollView(outRect, ref scrollPos, viewRect);
-                foreach (var p in design.AIPackages)
+                foreach (var p in bp.AIPackages)
                 {
                     Rect entryRect = new Rect(0f, curY, viewRect.width, AIEntryHeight);
                     DrawAIEntry(entryRect, p, alternate);
@@ -623,17 +675,30 @@ namespace MD3_Droids
             return num;
         }
 
-        private static float DesignPartsHeight(Blueprint design)
+        private static float DesignPartsHeight(Blueprint bp)
         {
             float num = 0f;
-            if (design.PartsGrouped.Keys.Count > 0)
+            if (bp.PartsGrouped.Keys.Count > 0)
             {
-                foreach (var group in design.PartsGrouped.Values)
+                foreach (var group in bp.PartsGrouped.Values)
                 {
                     num += PartGroupHeight(group);
                 }
             }
             return num;
+        }
+
+        private static string GetChassisString(ChassisType type)
+        {
+            if (type == ChassisType.Small)
+                return "SmallChassis".Translate();
+            else if (type == ChassisType.Medium)
+                return "MediumChassis".Translate();
+            else if (type == ChassisType.Large)
+                return "LargeChassis".Translate();
+            else
+                Log.Error("Should not get here");
+            return "error";
         }
     }
 }

@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 
-  <DesignName>Design name: </DesignName>
+  <BlueprintName>Blueprint name: </BlueprintName>
   <Close>Close</Close>
   <Cancel>Cancel</Cancel>
   <Blueprints>Blueprints</Blueprints>
+  <Blueprint>Blueprint</Blueprint>
   <Accept>Accept</Accept>
+  <Edit>Edit</Edit>
   <InvalidBlueprint>Blueprint is invalid. Make sure that it is named and that you have not exceeded the maximum CPU and power drain.</InvalidBlueprint>
+  <New>New</New>
+  <Delete>Delete</Delete>
+  <ConfirmDeleteBlueprint>Are you sure you wish to delete this blueprint? \n\n This action cannot be undone.</ConfirmDeleteBlueprint>
+  <SmallChassis>Small Chassis</SmallChassis>
+  <MediumChassis>Medium Chassis</MediumChassis>
+  <LargeChassis>Large Chassis</LargeChassis>
+  
   
 </LanguageData>

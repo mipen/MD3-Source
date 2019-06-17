@@ -9,6 +9,8 @@ namespace MD3_Droids
 {
     public class ITab_DroidConstructionTable : ITab
     {
+        private BlueprintWindowHandler bpHandler;
+
         private static readonly Color BoxColor = new Color(0.1098f, 0.1294f, 0.149f);
 
         private const float SectionMargin = 10f;
@@ -16,14 +18,11 @@ namespace MD3_Droids
         private const float DesignEntryMargin = 0f;
         private const float EntryHeightWithMargin = DesignEntryHeight + DesignEntryMargin;
         private Vector2 designsScrollPos = default(Vector2);
-        private Vector2 partsScrollPos = default(Vector2);
-        private Vector2 skillsScrollPos = default(Vector2);
-        private Vector2 aiScrollPos = default(Vector2);
-        private Blueprint selDesign = null;
+        private Blueprint selBlueprint = null;
 
         private static readonly Vector2 CreateButtonSize = new Vector2(150f, 29f);
-        public static readonly Vector2 SmallSize = new Vector2(260f, 700f);
-        public static readonly Vector2 LargeSize = new Vector2(1310f, 700f);
+        public static readonly Vector2 SmallSize = new Vector2(260f, 800f);
+        public static readonly Vector2 LargeSize = new Vector2(1310f, 800f);
         public static bool DrawStats = true;
 
         public ITab_DroidConstructionTable()
@@ -34,7 +33,7 @@ namespace MD3_Droids
 
         protected override void FillTab()
         {
-            if (selDesign == null)
+            if (selBlueprint == null)
                 size = SmallSize;
             else
                 size = LargeSize;
@@ -42,108 +41,58 @@ namespace MD3_Droids
             Rect baseRect = new Rect(0f, 20f, size.x, size.y - 20f);
             Rect mainRect = baseRect.ContractedBy(10f);
 
-            GUI.BeginGroup(mainRect);
+            try
+            {
+                GUI.BeginGroup(mainRect);
 
-            //Designs list area
-            Rect designsListRect = new Rect(0f, 0f, 240f, mainRect.height - CreateButtonSize.y - SectionMargin);
-            Widgets.DrawBoxSolid(designsListRect, BoxColor);
-            DrawDesignList(designsListRect);
-            //DEBUG:: Spawn droid button
-            Rect spawnButtonRect = new Rect(designsListRect.xMax - 70f, designsListRect.yMax - 30f, 50f, 30f);
-            if (Widgets.ButtonText(spawnButtonRect, "spawn"))
-            {
-                if (selDesign != null)
+                //Designs list area
+                Rect designsListRect = new Rect(0f, 0f, 240f, mainRect.height - CreateButtonSize.y - SectionMargin);
+                Widgets.DrawBoxSolid(designsListRect, BoxColor);
+                DrawDesignList(designsListRect);
+
+                //DEBUG:: Spawn droid button
+                Rect spawnButtonRect = new Rect(designsListRect.xMax - 70f, designsListRect.yMax - 30f, 50f, 30f);
+                if (Widgets.ButtonText(spawnButtonRect, "spawn"))
                 {
-                    Droid d = DroidGenerator.GenerateDroid(DefDatabase<PawnKindDef>.GetNamed("MD3_Droid"), selDesign, Faction.OfPlayer);
-                    GenSpawn.Spawn(d, ((Building)SelObject).InteractionCell, ((Building)SelObject).Map);
-                }
-            }
-            //Create button
-            Rect createButtonRect = new Rect(designsListRect.xMax - CreateButtonSize.x, designsListRect.yMax + SectionMargin, CreateButtonSize.x, CreateButtonSize.y);
-            if (Widgets.ButtonText(createButtonRect, "Create New"))
-            {
-                Func<List<FloatMenuOption>> chassisTypeOptionsMaker = delegate
-                {
-                    List<FloatMenuOption> list = new List<FloatMenuOption>();
-                    //list.Add(new FloatMenuOption("Small", delegate
-                    //{
-                    //TODO:: implement this
-                    //}));
-                    list.Add(new FloatMenuOption("Medium", delegate
+                    if (selBlueprint != null)
                     {
-                        Find.WindowStack.Add(new Dialog_NewBlueprint(new Blueprint(ChassisType.Medium)));
-                        DrawStats = false;
-                    }));
-                    //list.Add(new FloatMenuOption("Large", delegate
-                    //{
-                    //TODO:: implement this
-                    //}));
-                    return list;
-                };
-                Find.WindowStack.Add(new FloatMenu(chassisTypeOptionsMaker()));
-            }
+                        Droid d = DroidGenerator.GenerateDroid(DefDatabase<PawnKindDef>.GetNamed("MD3_Droid"), selBlueprint, Faction.OfPlayer);
+                        GenSpawn.Spawn(d, ((Building)SelObject).InteractionCell, ((Building)SelObject).Map);
+                    }
+                }
 
-            //Delete button
-            if (selDesign != null)
+                //Create button
+                Rect createButtonRect = new Rect(designsListRect.xMax - CreateButtonSize.x, designsListRect.yMax + SectionMargin, CreateButtonSize.x, CreateButtonSize.y);
+                if (Widgets.ButtonText(createButtonRect, "New".Translate()))
+                {
+                    Find.WindowStack.Add(new Dialog_NewBlueprint(new Blueprint()));
+                }
+
+                //Delete button
+                if (selBlueprint != null)
+                {
+                    Rect deleteButtonRect = new Rect(0f, createButtonRect.y, createButtonRect.x - 2f, CreateButtonSize.y);
+                    if (Widgets.ButtonText(deleteButtonRect, "Delete".Translate()) && selBlueprint != null)
+                    {
+                        Dialog_Confirm confirm = new Dialog_Confirm("ConfirmDeleteBlueprint".Translate(), delegate
+                         {
+                             DroidManager.Instance.Blueprints.Remove(selBlueprint);
+                             selBlueprint = null;
+                         });
+                        Find.WindowStack.Add(confirm);
+                    }
+                }
+
+                if (selBlueprint != null)
+                {
+                    Rect blueprintRect = new Rect(designsListRect.xMax + SectionMargin, 0f, mainRect.width - designsListRect.width - SectionMargin, mainRect.height);
+                    bpHandler?.DrawWindow(blueprintRect);
+                }
+            }
+            finally
             {
-                Rect deleteButtonRect = new Rect(0f, createButtonRect.y, createButtonRect.x - 2f, CreateButtonSize.y);
-                if (Widgets.ButtonText(deleteButtonRect, "Delete") && selDesign != null)
-                {
-                    Dialog_Confirm confirm = new Dialog_Confirm("Are you sure you wish to delete this design? \n\n This action cannot be undone.", delegate
-                     {
-                         DroidManager.Instance.Blueprints.Remove(selDesign);
-                         selDesign = null;
-                     });
-                    Find.WindowStack.Add(confirm);
-                }
+                GUI.EndGroup();
             }
-
-            if (selDesign != null)
-            {
-                //Part Selector area
-                Rect partSelectorRect = new Rect(designsListRect.xMax + SectionMargin, 0f, 420f, designsListRect.height);
-                Widgets.DrawBoxSolid(partSelectorRect, BoxColor);
-                BlueprintUIUtil.DrawPartSelector(partSelectorRect, selDesign, false);
-
-                //Design label
-                Rect designLabelRect = new Rect(partSelectorRect.x, partSelectorRect.yMax + SectionMargin, partSelectorRect.width, CreateButtonSize.y);
-                if (selDesign != null)
-                {
-                    Text.Anchor = TextAnchor.MiddleCenter;
-                    Text.Font = GameFont.Medium;
-                    Widgets.Label(designLabelRect, selDesign.Label);
-                    Text.Anchor = TextAnchor.UpperLeft;
-                    Text.Font = GameFont.Small;
-                }
-
-                //Parts list area
-                Rect partsRect = new Rect(partSelectorRect.xMax + SectionMargin, 0f, 240f, 260f);
-                BlueprintUIUtil.DrawPartsList(partsRect, ref partsScrollPos, selDesign);
-
-                float rectHeight = (mainRect.height - partsRect.height - (SectionMargin * 2)) / 2;
-                //AI packages area
-                Rect aiPackagesRect = new Rect(partsRect.x, partsRect.yMax + SectionMargin, partsRect.width, rectHeight);
-                BlueprintUIUtil.DrawAIList(aiPackagesRect, ref aiScrollPos, selDesign, false);
-
-                //Skills list area
-                Rect skillsRect = new Rect(partsRect.x, aiPackagesRect.yMax + SectionMargin, partsRect.width, rectHeight);
-                BlueprintUIUtil.DrawSkillsList(skillsRect, ref skillsScrollPos, selDesign, false);
-
-                //Stats display area
-                Rect statsRect = new Rect(partsRect.xMax + SectionMargin, 0f, mainRect.width - partsRect.xMax, mainRect.height - skillsRect.height - SectionMargin);
-                if (DrawStats)
-                {
-                    Widgets.DrawBoxSolid(statsRect, BoxColor);
-                    StatsReportUtility.DrawStatsReport(statsRect, BlueprintUIUtil.StatDummy(selDesign));
-                }
-
-                //Bill of materials display area
-                Rect materialsCostRect = new Rect(statsRect.x, skillsRect.y, statsRect.width, skillsRect.height);
-                Widgets.DrawBoxSolid(materialsCostRect, BoxColor);
-
-            }
-
-            GUI.EndGroup();
         }
 
         private void DrawDesignList(Rect mainRect)
@@ -188,7 +137,7 @@ namespace MD3_Droids
             }
         }
 
-        private void DrawDesignEntry(Rect rect, Blueprint design, bool alternate)
+        private void DrawDesignEntry(Rect rect, Blueprint bp, bool alternate)
         {
             try
             {
@@ -197,13 +146,18 @@ namespace MD3_Droids
 
                 if (Widgets.ButtonInvisible(entryRect))
                 {
-                    if (selDesign != null && selDesign == design)
-                        selDesign = null;
+                    if (selBlueprint != null && selBlueprint == bp)
+                        selBlueprint = null;
                     else
-                        selDesign = design;
+                    {
+                        selBlueprint = bp;
+                        bpHandler = new BlueprintWindowHandler(selBlueprint, BlueprintHandlerState.Normal);
+                        bpHandler.CloseButtonVisible = false;
+                        bpHandler.EditButtonVisible = true;
+                    }
                 }
 
-                if (selDesign != null && selDesign == design)
+                if (selBlueprint != null && selBlueprint == bp)
                     Widgets.DrawHighlightSelected(entryRect);
                 else if (Mouse.IsOver(entryRect))
                     Widgets.DrawHighlight(entryRect);
@@ -212,10 +166,11 @@ namespace MD3_Droids
 
                 Rect textRect = new Rect(SectionMargin, 0, entryRect.width - SectionMargin, entryRect.height);
                 Text.Anchor = TextAnchor.MiddleLeft;
-                Widgets.Label(textRect, design.Label);
+                Widgets.Label(textRect, bp.Label);
                 Text.Anchor = TextAnchor.UpperLeft;
 
-                string text = design.ChassisType == ChassisType.Small ? "Small Chassis   " : design.ChassisType == ChassisType.Medium ? "Medium Chassis   " : design.ChassisType == ChassisType.Large ? "Large Chassis   " : "Undefined droid chassis   ";
+                string text = bp.ChassisType == ChassisType.Small ? "SmallChassis".Translate() : bp.ChassisType == ChassisType.Medium ? "MediumChassis".Translate() : bp.ChassisType == ChassisType.Large ? "LargeChassis".Translate() : "Undefined droid chassis   ";
+                text += "   ";
                 Text.Anchor = TextAnchor.LowerRight;
                 Text.Font = GameFont.Tiny;
                 Widgets.Label(textRect, text);
@@ -225,6 +180,7 @@ namespace MD3_Droids
             finally
             {
                 GUI.EndGroup();
+                Text.Anchor = TextAnchor.UpperLeft;
             }
         }
 
