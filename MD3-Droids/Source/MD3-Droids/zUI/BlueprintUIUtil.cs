@@ -9,7 +9,7 @@ using Verse;
 namespace MD3_Droids
 {
     [StaticConstructorOnStartup]
-    public static class DroidDesignUIHandler
+    public static class BlueprintUIUtil
     {
         #region Variables
         public static readonly Color BoxColor = new Color(0.1098f, 0.1294f, 0.149f);
@@ -81,7 +81,7 @@ namespace MD3_Droids
         private static Droid statDummy = null;
         #endregion
 
-        static DroidDesignUIHandler()
+        static BlueprintUIUtil()
         {
             DefaultSlotIcon = ContentFinder<Texture2D>.Get("Things/Item/Health/HealthItemProsthetic");
             AddButtonTex = ContentFinder<Texture2D>.Get("UI/AddButton");
@@ -106,19 +106,19 @@ namespace MD3_Droids
 
         }
 
-        public static Droid StatDummy(DroidDesign design)
+        public static Droid StatDummy(Blueprint bp)
         {
-            if (statDummy == null || statDummy.kindDef != design.KindDef || statDummy.design != design)
+            if (statDummy == null || statDummy.kindDef != bp.KindDef || statDummy.blueprint != bp)
             {
-                statDummy = (Droid)PawnGenerator.GeneratePawn(design.KindDef);
-                statDummy.design = design;
+                statDummy = (Droid)PawnGenerator.GeneratePawn(bp.KindDef);
+                statDummy.blueprint = bp;
                 statDummy.InitialiseFromDesign();
                 StatsReportUtility.Reset();
             }
             return statDummy;
         }
 
-        public static void DrawPartSelector(Rect mainRect, DroidDesign design, bool editMode)
+        public static void DrawPartSelector(Rect mainRect, Blueprint design, bool editMode)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawAIList(Rect mainRect, ref Vector2 scrollPos, DroidDesign design, bool editMode)
+        public static void DrawAIList(Rect mainRect, ref Vector2 scrollPos, Blueprint design, bool editMode)
         {
             try
             {
@@ -186,7 +186,7 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawPartsList(Rect mainRect, ref Vector2 scrollPos, DroidDesign design)
+        public static void DrawPartsList(Rect mainRect, ref Vector2 scrollPos, Blueprint design)
         {
             try
             {
@@ -238,7 +238,7 @@ namespace MD3_Droids
             }
         }
 
-        public static void DrawSkillsList(Rect mainRect, ref Vector2 scrollPos, DroidDesign design, bool editMode)
+        public static void DrawSkillsList(Rect mainRect, ref Vector2 scrollPos, Blueprint design, bool editMode)
         {
 
             try
@@ -363,7 +363,7 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawParts(Rect rect, DroidDesign design, bool editMode)
+        private static void DrawParts(Rect rect, Blueprint design, bool editMode)
         {
             try
             {
@@ -448,7 +448,7 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawBottomSlots(Rect rect, DroidDesign design, bool editMode)
+        private static void DrawBottomSlots(Rect rect, Blueprint design, bool editMode)
         {
             try
             {
@@ -474,7 +474,7 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawSkillsEntry(Rect entryRect, SkillLevel skill, DroidDesign design, bool alternate, bool editMode)
+        private static void DrawSkillsEntry(Rect entryRect, SkillLevel skill, Blueprint design, bool alternate, bool editMode)
         {
             try
             {
@@ -515,7 +515,7 @@ namespace MD3_Droids
             }
         }
 
-        private static void DrawAIListing(Rect listRect, ref Vector2 scrollPos, DroidDesign design)
+        private static void DrawAIListing(Rect listRect, ref Vector2 scrollPos, Blueprint design)
         {
             try
             {
@@ -623,7 +623,7 @@ namespace MD3_Droids
             return num;
         }
 
-        private static float DesignPartsHeight(DroidDesign design)
+        private static float DesignPartsHeight(Blueprint design)
         {
             float num = 0f;
             if (design.PartsGrouped.Keys.Count > 0)

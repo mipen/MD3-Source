@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <DesignName>Design name: </DesignName>
+  <Close>Close</Close>
+  <Cancel>Cancel</Cancel>
+  <Blueprints>Blueprints</Blueprints>
+  <Accept>Accept</Accept>
+  <InvalidBlueprint>Blueprint is invalid. Make sure that it is named and that you have not exceeded the maximum CPU and power drain.</InvalidBlueprint>
+  
+</LanguageData>

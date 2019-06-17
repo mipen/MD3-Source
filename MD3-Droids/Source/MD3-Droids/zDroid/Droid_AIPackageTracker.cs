@@ -19,7 +19,7 @@ namespace MD3_Droids
 
         public bool CapableOfWorkType(WorkTypeDef def)
         {
-            foreach(var package in droid.design.AIPackages)
+            foreach(var package in droid.blueprint.AIPackages)
             {
                 if (package.CapableOfWorkType(def))
                     return true;
@@ -34,7 +34,7 @@ namespace MD3_Droids
         public void SpawnSetup()
         {
             //DEBUG:: Set skills to max
-            foreach(var aiDef in droid.design.AIPackages)
+            foreach(var aiDef in droid.blueprint.AIPackages)
             {
                 if(aiDef.workTypes.Count>0)
                 {

@@ -8,11 +8,12 @@ using Verse;
 
 namespace MD3_Droids
 {
-    public class DroidDesign : IExposable
+    public class Blueprint : IExposable
     {
         private int id = -1;
         public string Label = "";
         public int VersionNumber = 1;
+        private BlueprintType bptype = BlueprintType.Explicit;
 
         //private Color color;
         //private Graphic_Multi bodyGraphic;
@@ -27,6 +28,17 @@ namespace MD3_Droids
 
 
         public int ID => id;
+        public BlueprintType BpType
+        {
+            get
+            {
+                return bptype;
+            }
+            set
+            {
+                bptype = value;
+            }
+        }
         public ChassisType ChassisType => chassisType;
         public List<PartCustomisePack> Parts
         {
@@ -178,7 +190,7 @@ namespace MD3_Droids
                             usedCPU.value += stat.value;
                         }
                     }
-                    foreach(var sl in Skills)
+                    foreach (var sl in Skills)
                     {
                         usedCPU.value += sl.CPUUsage;
                     }
@@ -246,7 +258,7 @@ namespace MD3_Droids
                             powerDrain.value += stat.value;
                         }
                     }
-                    foreach(var sl in Skills)
+                    foreach (var sl in Skills)
                     {
                         powerDrain.value += sl.PowerUsage;
                     }
@@ -274,11 +286,11 @@ namespace MD3_Droids
             }
         }
 
-        public DroidDesign()
+        public Blueprint()
         {
 
         }
-        public DroidDesign(ChassisType ct = ChassisType.Medium)
+        public Blueprint(ChassisType ct = ChassisType.Medium)
         {
             id = DroidManager.Instance.GetUniqueID();
             chassisType = ct;
@@ -544,6 +556,11 @@ namespace MD3_Droids
             RecacheMaxCPU = true;
             RecacheMaxPowerDrain = true;
             RecachePowerDrain = true;
+        }
+
+        public bool IsValid()
+        {
+            return (GetPowerDrain.value <= GetMaxPowerDrain.value) && (GetUsedCPU.value <= GetMaxCPU.value) && !Label.NullOrEmpty(); //TODO:: Add any other checks needed.
         }
     }
 }

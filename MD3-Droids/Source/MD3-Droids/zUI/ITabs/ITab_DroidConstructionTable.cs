@@ -7,7 +7,7 @@ using Verse;
 
 namespace MD3_Droids
 {
-    public class ITab_DroidDesigns : ITab
+    public class ITab_DroidConstructionTable : ITab
     {
         private static readonly Color BoxColor = new Color(0.1098f, 0.1294f, 0.149f);
 
@@ -19,17 +19,17 @@ namespace MD3_Droids
         private Vector2 partsScrollPos = default(Vector2);
         private Vector2 skillsScrollPos = default(Vector2);
         private Vector2 aiScrollPos = default(Vector2);
-        private DroidDesign selDesign = null;
+        private Blueprint selDesign = null;
 
         private static readonly Vector2 CreateButtonSize = new Vector2(150f, 29f);
         public static readonly Vector2 SmallSize = new Vector2(260f, 700f);
         public static readonly Vector2 LargeSize = new Vector2(1310f, 700f);
         public static bool DrawStats = true;
 
-        public ITab_DroidDesigns()
+        public ITab_DroidConstructionTable()
         {
             size = SmallSize;
-            labelKey = "Designs";//TODO:: implement proper label key
+            labelKey = "Blueprints".Translate();
         }
 
         protected override void FillTab()
@@ -71,7 +71,7 @@ namespace MD3_Droids
                     //}));
                     list.Add(new FloatMenuOption("Medium", delegate
                     {
-                        Find.WindowStack.Add(new Dialog_EditDesign(new DroidDesign(ChassisType.Medium), true));
+                        Find.WindowStack.Add(new Dialog_NewBlueprint(new Blueprint(ChassisType.Medium)));
                         DrawStats = false;
                     }));
                     //list.Add(new FloatMenuOption("Large", delegate
@@ -91,7 +91,7 @@ namespace MD3_Droids
                 {
                     Dialog_Confirm confirm = new Dialog_Confirm("Are you sure you wish to delete this design? \n\n This action cannot be undone.", delegate
                      {
-                         DroidManager.Instance.Designs.Remove(selDesign);
+                         DroidManager.Instance.Blueprints.Remove(selDesign);
                          selDesign = null;
                      });
                     Find.WindowStack.Add(confirm);
@@ -103,7 +103,7 @@ namespace MD3_Droids
                 //Part Selector area
                 Rect partSelectorRect = new Rect(designsListRect.xMax + SectionMargin, 0f, 420f, designsListRect.height);
                 Widgets.DrawBoxSolid(partSelectorRect, BoxColor);
-                DroidDesignUIHandler.DrawPartSelector(partSelectorRect, selDesign, false);
+                BlueprintUIUtil.DrawPartSelector(partSelectorRect, selDesign, false);
 
                 //Design label
                 Rect designLabelRect = new Rect(partSelectorRect.x, partSelectorRect.yMax + SectionMargin, partSelectorRect.width, CreateButtonSize.y);
@@ -118,23 +118,23 @@ namespace MD3_Droids
 
                 //Parts list area
                 Rect partsRect = new Rect(partSelectorRect.xMax + SectionMargin, 0f, 240f, 260f);
-                DroidDesignUIHandler.DrawPartsList(partsRect, ref partsScrollPos, selDesign);
+                BlueprintUIUtil.DrawPartsList(partsRect, ref partsScrollPos, selDesign);
 
                 float rectHeight = (mainRect.height - partsRect.height - (SectionMargin * 2)) / 2;
                 //AI packages area
                 Rect aiPackagesRect = new Rect(partsRect.x, partsRect.yMax + SectionMargin, partsRect.width, rectHeight);
-                DroidDesignUIHandler.DrawAIList(aiPackagesRect, ref aiScrollPos, selDesign, false);
+                BlueprintUIUtil.DrawAIList(aiPackagesRect, ref aiScrollPos, selDesign, false);
 
                 //Skills list area
                 Rect skillsRect = new Rect(partsRect.x, aiPackagesRect.yMax + SectionMargin, partsRect.width, rectHeight);
-                DroidDesignUIHandler.DrawSkillsList(skillsRect, ref skillsScrollPos, selDesign, false);
+                BlueprintUIUtil.DrawSkillsList(skillsRect, ref skillsScrollPos, selDesign, false);
 
                 //Stats display area
                 Rect statsRect = new Rect(partsRect.xMax + SectionMargin, 0f, mainRect.width - partsRect.xMax, mainRect.height - skillsRect.height - SectionMargin);
                 if (DrawStats)
                 {
                     Widgets.DrawBoxSolid(statsRect, BoxColor);
-                    StatsReportUtility.DrawStatsReport(statsRect, DroidDesignUIHandler.StatDummy(selDesign));
+                    StatsReportUtility.DrawStatsReport(statsRect, BlueprintUIUtil.StatDummy(selDesign));
                 }
 
                 //Bill of materials display area
@@ -148,7 +148,7 @@ namespace MD3_Droids
 
         private void DrawDesignList(Rect mainRect)
         {
-            if (DroidManager.Instance.Designs.Count == 0)
+            if (DroidManager.Instance.Blueprints.Count == 0)
             {
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Widgets.Label(mainRect, "No designs");
@@ -162,13 +162,13 @@ namespace MD3_Droids
 
                     Rect outRect = new Rect(0f, 0f, mainRect.width, mainRect.height);
 
-                    float height = DroidManager.Instance.Designs.Count * EntryHeightWithMargin;
+                    float height = DroidManager.Instance.Blueprints.Count * EntryHeightWithMargin;
                     Rect viewRect = new Rect(0f, 0f, outRect.width - 16f, height);
                     float curY = 0f;
                     bool alternate = false;
                     Widgets.BeginScrollView(outRect, ref designsScrollPos, viewRect);
 
-                    foreach (var design in DroidManager.Instance.Designs)
+                    foreach (var design in DroidManager.Instance.Blueprints)
                     {
                         Rect entryRect = new Rect(0f, curY, viewRect.width, DesignEntryHeight);
                         DrawDesignEntry(entryRect, design, alternate);
@@ -188,7 +188,7 @@ namespace MD3_Droids
             }
         }
 
-        private void DrawDesignEntry(Rect rect, DroidDesign design, bool alternate)
+        private void DrawDesignEntry(Rect rect, Blueprint design, bool alternate)
         {
             try
             {

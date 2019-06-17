@@ -9,7 +9,7 @@ namespace MD3_Droids
 {
     public class Dialog_AIPackages : Window
     {
-        private DroidDesign design;
+        private Blueprint design;
         private List<AIPackageDef> packagesTemp = new List<AIPackageDef>();
         private List<AIPackageDef> availableTemp = null;
 
@@ -53,7 +53,7 @@ namespace MD3_Droids
             }
         }
 
-        public Dialog_AIPackages(DroidDesign design)
+        public Dialog_AIPackages(Blueprint design)
         {
             this.design = design;
 
@@ -119,7 +119,7 @@ namespace MD3_Droids
                 {
                     design.AIPackages.Clear();
                     design.AIPackages.AddRange(packagesTemp);
-                    DroidDesignUIHandler.StatDummy(design).InitialiseFromDesign();
+                    BlueprintUIUtil.StatDummy(design).InitialiseFromDesign();
                     RimWorld.StatsReportUtility.Reset();
                     Find.WindowStack.TryRemove(this);
                 }

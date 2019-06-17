@@ -16,7 +16,7 @@ namespace MD3_Droids
 
         private Texture2D partTex = null;
         private DroidCustomiseGroupDef group;
-        private DroidDesign design;
+        private Blueprint design;
 
         public override Vector2 InitialSize => new Vector2(500, 400f + 30f);
 
@@ -33,7 +33,7 @@ namespace MD3_Droids
         public PartCustomisePack Slot6 = null;
         public PartCustomisePack Slot6Temp = null;
 
-        public Dialog_CustomisePartGroup(DroidCustomiseGroupDef group, DroidDesign design, Texture2D partTex, bool editMode)
+        public Dialog_CustomisePartGroup(DroidCustomiseGroupDef group, Blueprint design, Texture2D partTex, bool editMode)
         {
             this.partTex = partTex;
             this.editMode = editMode;
@@ -105,34 +105,34 @@ namespace MD3_Droids
                 Text.Font = GameFont.Small;
                 Widgets.DrawLine(new Vector2(labelRect.x + 15f, labelRect.yMax - 3f), new Vector2(labelRect.xMax - 15f, labelRect.yMax - 3f), Color.white, 1f);
 
-                Rect texRect = new Rect(inRect.width / 2 - DroidDesignUIHandler.TexRectSize.x / 2, inRect.height / 2 - DroidDesignUIHandler.TexRectSize.y / 2 - 7f, DroidDesignUIHandler.TexRectSize.x, DroidDesignUIHandler.TexRectSize.y);
+                Rect texRect = new Rect(inRect.width / 2 - BlueprintUIUtil.TexRectSize.x / 2, inRect.height / 2 - BlueprintUIUtil.TexRectSize.y / 2 - 7f, BlueprintUIUtil.TexRectSize.x, BlueprintUIUtil.TexRectSize.y);
                 Widgets.DrawTextureFitted(texRect, partTex, 1f);
 
                 //Draw Left slot boxes
-                Rect Slot2Rect = new Rect(0f, (texRect.y + texRect.height / 2) - DroidDesignUIHandler.SlotRectSize.y / 2, inRect.width - texRect.xMax, DroidDesignUIHandler.TotalSlotRectHeight);
+                Rect Slot2Rect = new Rect(0f, (texRect.y + texRect.height / 2) - BlueprintUIUtil.SlotRectSize.y / 2, inRect.width - texRect.xMax, BlueprintUIUtil.TotalSlotRectHeight);
                 if (Slot2 != null)
-                    DroidDesignUIHandler.DrawSlot(Slot2Temp, Slot2Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot2Temp, Slot2Rect, design.ChassisType, editMode);
 
-                Rect Slot1Rect = new Rect(Slot2Rect.x, Slot2Rect.y - DroidDesignUIHandler.TotalSlotRectHeight, Slot2Rect.width, Slot2Rect.height);
+                Rect Slot1Rect = new Rect(Slot2Rect.x, Slot2Rect.y - BlueprintUIUtil.TotalSlotRectHeight, Slot2Rect.width, Slot2Rect.height);
                 if (Slot1 != null)
-                    DroidDesignUIHandler.DrawSlot(Slot1Temp, Slot1Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot1Temp, Slot1Rect, design.ChassisType, editMode);
 
                 Rect Slot3Rect = new Rect(Slot2Rect.x, Slot2Rect.yMax, Slot2Rect.width, Slot2Rect.height);
                 if (Slot3 != null)
-                    DroidDesignUIHandler.DrawSlot(Slot3Temp, Slot3Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot3Temp, Slot3Rect, design.ChassisType, editMode);
 
                 //Draw right slot boxes
                 Rect Slot4Rect = new Rect(texRect.xMax, Slot1Rect.y, inRect.width - texRect.xMax, Slot2Rect.height);
                 if (Slot4 != null)
-                    DroidDesignUIHandler.DrawSlot(Slot4Temp, Slot4Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot4Temp, Slot4Rect, design.ChassisType, editMode);
 
                 Rect Slot5Rect = new Rect(Slot4Rect.x, Slot2Rect.y, Slot4Rect.width, Slot2Rect.height);
                 if (Slot5 != null)
-                    DroidDesignUIHandler.DrawSlot(Slot5Temp, Slot5Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot5Temp, Slot5Rect, design.ChassisType, editMode);
 
                 Rect Slot6Rect = new Rect(Slot4Rect.x, Slot3Rect.y, Slot4Rect.width, Slot2Rect.height);
                 if (Slot6 != null)
-                    DroidDesignUIHandler.DrawSlot(Slot6Temp, Slot6Rect, design.ChassisType, editMode);
+                    BlueprintUIUtil.DrawSlot(Slot6Temp, Slot6Rect, design.ChassisType, editMode);
 
                 //Draw Buttons
                 if (editMode)
@@ -153,7 +153,7 @@ namespace MD3_Droids
                             Slot5.CopyFrom(Slot5Temp);
                         if (Slot6 != null)
                             Slot6.CopyFrom(Slot6Temp);
-                        DroidDesignUIHandler.StatDummy(design).InitialiseFromDesign();
+                        BlueprintUIUtil.StatDummy(design).InitialiseFromDesign();
                         RimWorld.StatsReportUtility.Reset();
                         Find.WindowStack.TryRemove(this);
                     }

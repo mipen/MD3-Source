@@ -9,12 +9,12 @@ namespace MD3_Droids
 {
     public static class DroidGenerator
     {
-        public static Droid GenerateDroid(PawnKindDef kindDef, DroidDesign design, Faction faction = null)
+        public static Droid GenerateDroid(PawnKindDef kindDef, Blueprint design, Faction faction = null)
         {
             try
             {
                 Droid d = (Droid)PawnGenerator.GeneratePawn(kindDef, faction);
-                d.design = design;
+                d.blueprint = design;
                 d.InitialiseFromDesign();
                 return d;
             }

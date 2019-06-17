@@ -12,18 +12,18 @@ namespace MD3_Droids
     {
         private List<Droid> droids = new List<Droid>();
         private List<Thing> chargers = new List<Thing>();
-        private List<DroidDesign> designs;
+        private List<Blueprint> blueprints;
         private int idCount = 0;
 
         public List<Droid> AllDroids => droids;
         public List<Thing> AllChargers => chargers;
-        public List<DroidDesign> Designs
+        public List<Blueprint> Blueprints
         {
             get
             {
-                if (designs == null)
-                    designs = new List<DroidDesign>();
-                return designs;
+                if (blueprints == null)
+                    blueprints = new List<Blueprint>();
+                return blueprints;
             }
         }
 
@@ -45,12 +45,12 @@ namespace MD3_Droids
         {
             base.ExposeData();
             //TODO:: implement saving designs properly
-            Scribe_Collections.Look(ref designs, "designs", LookMode.Deep);
+            Scribe_Collections.Look(ref blueprints, "designs", LookMode.Deep);
         }
 
         private void LoadDroidDesigns()
         {
-            designs = new List<DroidDesign>();
+            blueprints = new List<Blueprint>();
             //TODO:: Load droid designs here
         }
 

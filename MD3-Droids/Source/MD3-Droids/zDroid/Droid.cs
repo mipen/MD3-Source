@@ -42,7 +42,7 @@ namespace MD3_Droids
         #endregion
 
         private bool active = true;
-        public DroidDesign design;
+        public Blueprint blueprint;
         public Droid_WorkManager workManager;
 
         public bool Active { get => active; set => active = value; }
@@ -51,7 +51,7 @@ namespace MD3_Droids
 
         public Droid() : base()
         {
-            design = new DroidDesign();
+            blueprint = new Blueprint();
             story = new Pawn_StoryTracker(this);
             skills = new Pawn_SkillTracker(this);
             playerSettings = new Pawn_PlayerSettings(this);
@@ -69,7 +69,7 @@ namespace MD3_Droids
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Deep.Look(ref design, "design");
+            Scribe_Deep.Look(ref blueprint, "design");
             Scribe_Values.Look(ref totalCharge, "totalCharge");
             Scribe_Values.Look(ref shouldUseCharge, "shouldUseCharge");
             Scribe_Deep.Look(ref aiPackages, "aiPackages", this);
@@ -86,9 +86,9 @@ namespace MD3_Droids
 
         public void InitialiseFromDesign()
         {
-            design.Recache();
-            design.AddHediffsToDroid(this);
-            design.AddSkillsToDroid(this);
+            blueprint.Recache();
+            blueprint.AddHediffsToDroid(this);
+            blueprint.AddSkillsToDroid(this);
             aiPackages.SpawnSetup();
         }
 

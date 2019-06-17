@@ -38,7 +38,7 @@ namespace MD3_Droids
                 Widgets.DrawBox(displayRect);
 
                 Rect droidDisplayRect = new Rect(displayRect.xMax + SectionMargin, 0f, DroidDisplayWidth, mainRect.height);
-                DroidDesignUIHandler.DrawPartSelector(droidDisplayRect, Droid.design, false);
+                BlueprintUIUtil.DrawPartSelector(droidDisplayRect, Droid.blueprint, false);
             }
             finally
             {

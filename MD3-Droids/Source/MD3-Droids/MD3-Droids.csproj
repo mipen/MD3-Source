@@ -30,13 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
+    <Reference Include="0Harmony, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Desktop\RimWorld\Mods\HugsLib\Assemblies\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp">
+    <Reference Include="Assembly-CSharp, Version=1.0.6834.35209, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Desktop\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="HugsLib">
+    <Reference Include="HugsLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Desktop\RimWorld\Mods\HugsLib\Assemblies\HugsLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -45,7 +48,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine">
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Desktop\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -53,7 +57,7 @@
     <Compile Include="zDefs\DroidChassisPartDef.cs" />
     <Compile Include="zDefs\DroidCustomiseGroupDef.cs" />
     <Compile Include="zDefs\TierColourDef.cs" />
-    <Compile Include="zDroid\DroidDesign.cs" />
+    <Compile Include="zDroid\Blueprint.cs" />
     <Compile Include="zDroid\Droid_WorkManager.cs" />
     <Compile Include="zExtensions\CloneExt.cs" />
     <Compile Include="zExtensions\ThingDefExt.cs" />
@@ -71,17 +75,20 @@
     <Compile Include="zPatches\Pawn_HealthTrackerPatch.cs" />
     <Compile Include="zUI\Dialog\Dialog_AIPackages.cs" />
     <Compile Include="zUI\Dialog\Dialog_CustomisePartGroup.cs" />
-    <Compile Include="zUI\Dialog\Dialog_EditDesign.cs" />
+    <Compile Include="zUI\Dialog\Dialog_NewBlueprint.cs" />
     <Compile Include="zUI\Dialog\Dialog_SelectPart.cs" />
-    <Compile Include="zUI\ITabs\ITab_DroidDesigns.cs" />
-    <Compile Include="zUI\DroidDesignUIHandler.cs" />
+    <Compile Include="zUI\ITabs\ITab_DroidConstructionTable.cs" />
+    <Compile Include="zUI\BlueprintUIUtil.cs" />
     <Compile Include="zUI\ITabs\ITab_Droid_Design.cs" />
     <Compile Include="zUI\ITabs\ITab_Droid_Health.cs" />
+    <Compile Include="zUI\BlueprintWindowHandler.cs" />
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_CopyPasteDroidWorkPriorities.cs" />
     <Compile Include="zUI\PawnColumnWorker\PawnColumnWorker_DroidWorkPriority.cs" />
     <Compile Include="zExtensions\BodyDefExt.cs" />
     <Compile Include="zExtensions\BodyPartRecordExtension.cs" />
     <Compile Include="zUI\ProgressBar.cs" />
+    <Compile Include="zUtil\BlueprintHandlerState.cs" />
+    <Compile Include="zUtil\BlueprintType.cs" />
     <Compile Include="zUtil\BodyPosition.cs" />
     <Compile Include="zUtil\CapModSaveable.cs" />
     <Compile Include="zUtil\ChassisPoint.cs" />
@@ -156,6 +163,7 @@
     <Content Include="Defs\ThinkTreeDefs\DroidThinkTree.xml" />
     <Content Include="Defs\ThinkTreeDefs\SubTrees_Misc.xml" />
     <Content Include="Defs\TierColourDefs\TierColours.xml" />
+    <Content Include="Languages\English\Keyed\MD3.xml" />
     <Content Include="Textures\Buildings\DroidCharger.png" />
     <Content Include="Textures\Droids\DroidMedium\Body_east.png" />
     <Content Include="Textures\Droids\DroidMedium\Body_north.png" />
@@ -192,6 +200,10 @@ xcopy "$(ProjectDir)Defs\*.*" "$(SolutionDir)\MD3-Droids\Defs\*.*" /Y /I /E
 rd "$(SolutionDir)MD3-Droids\Textures\" /q /s
 mkdir "$(SolutionDir)MD3-Droids\Textures\"
 xcopy "$(ProjectDir)Textures\*.*" "$(SolutionDir)\MD3-Droids\Textures\*.*" /Y /I /E
+
+rd "$(SolutionDir)MD3-Droids\Languages\" /q /s
+mkdir "$(SolutionDir)MD3-Droids\Languages\"
+xcopy "$(ProjectDir)Languages\*.*" "$(SolutionDir)\MD3-Droids\Languages\*.*" /Y /I /E
 
 
 rd "C:\Users\Liam\Desktop\RimWorld\Mods\$(ProjectName)" /q /s
