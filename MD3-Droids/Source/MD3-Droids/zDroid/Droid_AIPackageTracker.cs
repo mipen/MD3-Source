@@ -33,21 +33,7 @@ namespace MD3_Droids
 
         public void SpawnSetup()
         {
-            //DEBUG:: Set skills to max
-            foreach(var aiDef in droid.blueprint.AIPackages)
-            {
-                if(aiDef.workTypes.Count>0)
-                {
-                    foreach(var wDef in aiDef.workTypes)
-                    {
-                        if(wDef.relevantSkills.Count>0)
-                        {
-                            foreach (var skill in wDef.relevantSkills)
-                                droid.skills.GetSkill(skill).Level = 20;
-                        }
-                    }
-                }
-            }
+
         }
     }
 }

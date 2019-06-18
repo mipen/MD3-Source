@@ -1,20 +1,17 @@
 ﻿using RimWorld;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Verse;
 
 namespace MD3_Droids
 {
     public static class DroidGenerator
     {
-        public static Droid GenerateDroid(PawnKindDef kindDef, Blueprint design, Faction faction = null)
+        public static Droid GenerateDroid(PawnKindDef kindDef, Blueprint bp, Faction faction = null)
         {
             try
             {
                 Droid d = (Droid)PawnGenerator.GeneratePawn(kindDef, faction);
-                d.blueprint = design;
+                d.blueprint = bp;
                 d.InitialiseFromBlueprint();
                 return d;
             }

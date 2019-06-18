@@ -82,6 +82,10 @@ namespace MD3_Droids
             {
                 Deplete(EnergyUseRate);
             }
+            foreach (var s in skills.skills)
+            {
+                Log.Message($"{s.def.LabelCap}: {s.Level}");
+            }
         }
 
         public void InitialiseFromBlueprint()

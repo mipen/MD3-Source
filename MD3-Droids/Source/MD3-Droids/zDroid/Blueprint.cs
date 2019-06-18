@@ -71,7 +71,7 @@ namespace MD3_Droids
             get
             {
                 if (skills == null)
-                    skills = new List<SkillLevel>();
+                    skills = SkillLevel.GetBlankList();
                 return skills;
             }
         }
@@ -351,8 +351,8 @@ namespace MD3_Droids
             Scribe_Collections.Look(ref skills, "skills", LookMode.Deep);
             Scribe_Values.Look(ref CapableOfViolence, "capableOfViolence");
             Scribe_Values.Look(ref bptype, "bpType");
-            Scribe_Defs.Look<DroidGraphicDef>(ref headGraphicDef, "headGraphicDef");
-            Scribe_Defs.Look<DroidGraphicDef>(ref bodyGraphicDef, "bodyGraphicDef");
+            Scribe_Defs.Look(ref headGraphicDef, "headGraphicDef");
+            Scribe_Defs.Look(ref bodyGraphicDef, "bodyGraphicDef");
             //Scribe_Values.Look(ref color, "color");
             if (Scribe.mode == LoadSaveMode.Saving)
             {
