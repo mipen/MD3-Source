@@ -40,8 +40,11 @@ namespace MD3_Droids
         public static readonly Vector2 BodyRectSize = new Vector2(128, 192);
         public static readonly Vector2 ArmRectSize = new Vector2(100, 100);
         public static readonly Vector2 LegRectSize = new Vector2(100, 100);
+        public const float PartSelectorArrowHeight = 25f;
         public const float PartSelectorMargin = 10f;
         public const float PartSelectorHeaderHeight = 35f;
+        public const float PartSelectorFooterHeight = 100f;
+        public const float PartSelectorSideBarWidth = 25f;
         #endregion
 
         #region Parts List
@@ -79,6 +82,7 @@ namespace MD3_Droids
         #endregion
 
         #endregion
+
         #region Properties
         private static Droid statDummy = null;
         #endregion
@@ -114,7 +118,7 @@ namespace MD3_Droids
             {
                 statDummy = (Droid)PawnGenerator.GeneratePawn(bp.KindDef);
                 statDummy.blueprint = bp;
-                statDummy.InitialiseFromDesign();
+                statDummy.InitialiseFromBlueprint();
                 StatsReportUtility.Reset();
             }
             return statDummy;
@@ -125,8 +129,6 @@ namespace MD3_Droids
             try
             {
                 Rect inRect = mainRect.ContractedBy(10f);
-                if (inRect.height < (HeadRectSize.y + PartSelectorMargin + BodyRectSize.y + PartSelectorMargin + LegRectSize.y + PartSelectorMargin + TotalSlotRectHeight))
-                    Log.Error($"Rect is too small for PartSelector height: {inRect.height}");
 
                 Widgets.DrawBoxSolid(mainRect, BoxColor);
                 Widgets.DrawBox(mainRect);
@@ -182,13 +184,68 @@ namespace MD3_Droids
                 }
                 #endregion
 
-                //Draw selector
-                Rect selectorRect = new Rect(0f, 0f, inRect.width, inRect.height - TotalSlotRectHeight);
-                DrawParts(selectorRect, bp, state);
-
-                //Bottom slots
-                Rect footerRect = new Rect(0f, selectorRect.yMax, inRect.width, TotalSlotRectHeight);
+                //Footer
+                Rect footerRect = new Rect(0f, inRect.height - PartSelectorFooterHeight, inRect.width, PartSelectorFooterHeight);
                 DrawBottomSlots(footerRect, bp, state);
+
+                #region Side Arrows
+                //Side arrows
+                if (state == BlueprintHandlerState.Edit || state == BlueprintHandlerState.New)
+                {
+                    Rect leftSideRect = new Rect(0f, headerRect.height, PartSelectorSideBarWidth, inRect.height - headerRect.height - footerRect.height);
+                    try
+                    {
+                        GUI.BeginGroup(leftSideRect);
+                        Rect headArrowRect = new Rect(0f, leftSideRect.height / 6 - PartSelectorArrowHeight / 2f, leftSideRect.width, PartSelectorArrowHeight);
+                        Widgets.DrawHighlightIfMouseover(headArrowRect);
+                        Widgets.DrawTextureFitted(headArrowRect, TexUI.ArrowTexLeft, 1f);
+                        if (Widgets.ButtonInvisible(headArrowRect))
+                        {
+                            bp.HeadGraphicDef = DroidGraphics.GetPreviousHead(bp.ChassisType);
+                        }
+
+                        Rect bodyArrowRect = new Rect(0f, leftSideRect.height / 2, leftSideRect.width, PartSelectorArrowHeight);
+                        Widgets.DrawHighlightIfMouseover(bodyArrowRect);
+                        Widgets.DrawTextureFitted(bodyArrowRect, TexUI.ArrowTexLeft, 1f);
+                        if (Widgets.ButtonInvisible(bodyArrowRect))
+                        {
+                            bp.BodyGraphicDef = DroidGraphics.GetPreviousBody(bp.ChassisType);
+                        }
+                    }
+                    finally
+                    {
+                        GUI.EndGroup();
+                    }
+                    Rect rightSideRect = new Rect(inRect.width - PartSelectorSideBarWidth, headerRect.height, PartSelectorSideBarWidth, leftSideRect.height);
+                    try
+                    {
+                        GUI.BeginGroup(rightSideRect);
+                        Rect headArrowRect = new Rect(0f, leftSideRect.height / 6 - PartSelectorArrowHeight / 2f, leftSideRect.width, PartSelectorArrowHeight);
+                        Widgets.DrawHighlightIfMouseover(headArrowRect);
+                        Widgets.DrawTextureFitted(headArrowRect, TexUI.ArrowTexRight, 1f);
+                        if (Widgets.ButtonInvisible(headArrowRect))
+                        {
+                            bp.HeadGraphicDef = DroidGraphics.GetNextHead(bp.ChassisType);
+                        }
+
+                        Rect bodyArrowRect = new Rect(0f, leftSideRect.height / 2, leftSideRect.width, PartSelectorArrowHeight);
+                        Widgets.DrawHighlightIfMouseover(bodyArrowRect);
+                        Widgets.DrawTextureFitted(bodyArrowRect, TexUI.ArrowTexRight, 1f);
+                        if (Widgets.ButtonInvisible(bodyArrowRect))
+                        {
+                            bp.BodyGraphicDef = DroidGraphics.GetNextBody(bp.ChassisType);
+                        }
+                    }
+                    finally
+                    {
+                        GUI.EndGroup();
+                    }
+                }
+                #endregion
+
+                //Draw selector
+                Rect selectorRect = new Rect(PartSelectorSideBarWidth + 5f, headerRect.yMax, inRect.width - 10f - PartSelectorSideBarWidth * 2f, inRect.height - headerRect.height - footerRect.height - PartSelectorMargin);
+                DrawParts(selectorRect, bp, state);
             }
             finally
             {
@@ -422,12 +479,20 @@ namespace MD3_Droids
                 GUI.BeginGroup(rect);
 
                 //TODO:: draw gradient background
+                float multiplier = Math.Min(rect.width / 328f, rect.height / 404f);
+                if (multiplier > 1.2f)
+                    multiplier = 1.2f;
+
                 //Body rect
-                Rect bodyRect = new Rect(rect.width / 2 - BodyRectSize.x / 2, rect.height / 2 - BodyRectSize.y / 2, BodyRectSize.x, BodyRectSize.y);
-                if (Mouse.IsOver(bodyRect))
-                    Widgets.DrawTextureFitted(bodyRect, BodyHoverTex, 1.3f);
-                else
-                    Widgets.DrawTextureFitted(bodyRect, BodyTex, 1.3f);
+                Vector2 bodyRectAdjusted = new Vector2(BodyRectSize.x * multiplier, BodyRectSize.y * multiplier);
+                Rect bodyRect = new Rect(rect.width / 2 - bodyRectAdjusted.x / 2, rect.height / 2 - bodyRectAdjusted.y / 2, bodyRectAdjusted.x, bodyRectAdjusted.y);
+                Widgets.DrawHighlightIfMouseover(bodyRect);
+                if (bp.BodyGraphic == null)
+                {
+                    bp.BodyGraphicDef = DroidGraphics.GetFirstBody(bp.ChassisType);
+                }
+                Widgets.DrawTextureFitted(bodyRect, bp.BodyGraphic.MatSouth.mainTexture, 1.6f);
+
                 if (Widgets.ButtonInvisible(bodyRect))
                 {
                     Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidChassis"), bp, BodyTex, state);
@@ -435,11 +500,15 @@ namespace MD3_Droids
                 }
 
                 //Head rect
-                Rect headRect = new Rect(rect.width / 2 - HeadRectSize.x / 2, bodyRect.y - PartSelectorMargin - HeadRectSize.y, HeadRectSize.x, HeadRectSize.y);
-                if (Mouse.IsOver(headRect))
-                    Widgets.DrawTextureFitted(headRect, HeadHoverTex, 1);
-                else
-                    Widgets.DrawTextureFitted(headRect, HeadTex, 1);
+                Vector2 headRectAdjusted = new Vector2(HeadRectSize.x * multiplier, HeadRectSize.y * multiplier);
+                Rect headRect = new Rect(rect.width / 2 - headRectAdjusted.x / 2, bodyRect.y - PartSelectorMargin - headRectAdjusted.y, headRectAdjusted.x, headRectAdjusted.y);
+                Widgets.DrawHighlightIfMouseover(headRect);
+                if (bp.HeadGraphic == null)
+                {
+                    bp.HeadGraphicDef = DroidGraphics.GetFirstHead(bp.ChassisType);
+                }
+                Widgets.DrawTextureFitted(headRect, bp.HeadGraphic.MatSouth.mainTexture, 1.7f);
+
                 if (Widgets.ButtonInvisible(headRect))
                 {
                     Dialog_CustomisePartGroup cp = new Dialog_CustomisePartGroup(DroidCustomiseGroupDef.Named("MD3_MediumDroidHead"), bp, HeadTex, state);
@@ -447,7 +516,8 @@ namespace MD3_Droids
                 }
 
                 //Left arm rect
-                Rect leftArmRect = new Rect(bodyRect.x - PartSelectorMargin - ArmRectSize.x, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
+                Vector2 armRectAdjusted = new Vector2(ArmRectSize.x * multiplier, ArmRectSize.y * multiplier);
+                Rect leftArmRect = new Rect(bodyRect.x - PartSelectorMargin - armRectAdjusted.x, bodyRect.y, armRectAdjusted.x, armRectAdjusted.y);
                 if (Mouse.IsOver(leftArmRect))
                     Widgets.DrawTextureFitted(leftArmRect, LeftArmHoverTex, 1);
                 else
@@ -459,7 +529,7 @@ namespace MD3_Droids
                 }
 
                 //Right arm rect
-                Rect rightArmRect = new Rect(bodyRect.xMax + PartSelectorMargin, bodyRect.y, ArmRectSize.x, ArmRectSize.y);
+                Rect rightArmRect = new Rect(bodyRect.xMax + PartSelectorMargin, bodyRect.y, armRectAdjusted.x, armRectAdjusted.y);
                 if (Mouse.IsOver(rightArmRect))
                     Widgets.DrawTextureFitted(rightArmRect, RightArmHoverTex, 1);
                 else
@@ -471,7 +541,8 @@ namespace MD3_Droids
                 }
 
                 //Left leg rect
-                Rect leftLegRect = new Rect(leftArmRect.x + LegRectSize.x / 2, bodyRect.yMax + PartSelectorMargin, LegRectSize.x, LegRectSize.y);
+                Vector2 legRectAdjusted = new Vector2(LegRectSize.x * multiplier, LegRectSize.y * multiplier);
+                Rect leftLegRect = new Rect(leftArmRect.x + legRectAdjusted.x / 2, bodyRect.yMax + PartSelectorMargin, legRectAdjusted.x, legRectAdjusted.y);
                 if (Mouse.IsOver(leftLegRect))
                     Widgets.DrawTextureFitted(leftLegRect, LeftLegHoverTex, 1);
                 else
@@ -483,7 +554,7 @@ namespace MD3_Droids
                 }
 
                 //Right leg rect 
-                Rect rightLegRect = new Rect(rightArmRect.x - LegRectSize.x / 2, leftLegRect.y, LegRectSize.x, LegRectSize.y);
+                Rect rightLegRect = new Rect(rightArmRect.x - legRectAdjusted.x / 2, leftLegRect.y, legRectAdjusted.x, legRectAdjusted.y);
                 if (Mouse.IsOver(rightLegRect))
                     Widgets.DrawTextureFitted(rightLegRect, RightLegHoverTex, 1);
                 else
@@ -505,6 +576,8 @@ namespace MD3_Droids
             try
             {
                 GUI.BeginGroup(rect);
+
+                List<object> list = new List<object>() { 1, 2, 3 };
 
                 float slotWidth = rect.width / 3;
                 Rect armourSlotRect = new Rect(slotWidth, rect.height - TotalSlotRectHeight, slotWidth, TotalSlotRectHeight);

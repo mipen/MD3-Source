@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--Medium Bodies-->
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedBody1</defName>
+    <name>MedBody1</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Body</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedBody2</defName>
+    <name>MedBody2</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Body</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedBody3</defName>
+    <name>MedBody3</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Body</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedBody4</defName>
+    <name>MedBody4</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Body</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedBody5</defName>
+    <name>MedBody5</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Body</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+
+  <!--Large Bodies-->
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3LargeBody1</defName>
+    <name>LargeBody1</name>
+    <chassisType>Large</chassisType>
+    <graphicType>Body</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+  
+</Defs>

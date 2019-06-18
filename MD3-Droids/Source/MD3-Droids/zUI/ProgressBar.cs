@@ -71,7 +71,7 @@ namespace MD3_Droids
             if (difference < 0)
                 change *= -1;
             curValue += change;
-            Log.Message($"Change value: {change}");
+            //Log.Message($"Change value: {change}");
             return curValue / maxValue;
         }
     }

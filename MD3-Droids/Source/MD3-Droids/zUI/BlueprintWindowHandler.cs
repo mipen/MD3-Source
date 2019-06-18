@@ -1,8 +1,5 @@
 ﻿using RimWorld;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -11,19 +8,7 @@ namespace MD3_Droids
     public class BlueprintWindowHandler
     {
         private BlueprintHandlerState state = BlueprintHandlerState.Normal;
-
-        private Blueprint blueprint;
-        public Blueprint Blueprint
-        {
-            get
-            {
-                return blueprint;
-            }
-            set
-            {
-                blueprint = value;
-            }
-        }
+        public Blueprint Blueprint { get; set; }
 
         private static readonly Color BoxColor = new Color(0.1098f, 0.1294f, 0.149f);
 
@@ -61,7 +46,7 @@ namespace MD3_Droids
 
         public BlueprintWindowHandler(Blueprint blueprint, BlueprintHandlerState state)
         {
-            this.blueprint = blueprint;
+            Blueprint = blueprint;
             this.state = state;
 
             StatsReportUtility.Reset();
@@ -92,7 +77,7 @@ namespace MD3_Droids
                     }
                     else
                     {
-                        nameLabelString = "BlueprintName".Translate() + blueprint.Label;
+                        nameLabelString = "BlueprintName".Translate() + Blueprint.Label;
                         nameLabelWidth = Text.CalcSize(nameLabelString).x;
                         nameLabelXPos = headerRect.width / 2 - nameLabelWidth / 2;
                     }
@@ -106,7 +91,7 @@ namespace MD3_Droids
                     if (state == BlueprintHandlerState.Edit || state == BlueprintHandlerState.New)
                     {
                         Rect nameRect = new Rect(nameLabelRect.xMax + 5f, HeaderRectHeight / 2 - TextBoxHeight / 2, 200f, TextBoxHeight);
-                        blueprint.Label = Widgets.TextField(nameRect, blueprint.Label);
+                        Blueprint.Label = Widgets.TextField(nameRect, Blueprint.Label);
                     }
 
                 }
@@ -131,24 +116,24 @@ namespace MD3_Droids
                     //Parts list
                     float leftRectsHeight = mainRect.height / 3 - (SectionMargin * 2) / 3;
                     Rect partsRect = new Rect(0f, 0f, DisplayAreaWidth, leftRectsHeight);
-                    BlueprintUIUtil.DrawPartsList(partsRect, ref partsScrollPos, blueprint);
+                    BlueprintUIUtil.DrawPartsList(partsRect, ref partsScrollPos, Blueprint);
 
                     //AI list
                     Rect aiRect = new Rect(0f, partsRect.yMax + SectionMargin, partsRect.width, leftRectsHeight);
-                    BlueprintUIUtil.DrawAIList(aiRect, ref aiScrollPos, blueprint, state);
+                    BlueprintUIUtil.DrawAIList(aiRect, ref aiScrollPos, Blueprint, state);
 
                     //Skills
                     Rect skillsRect = new Rect(0f, aiRect.yMax + SectionMargin, partsRect.width, leftRectsHeight);
-                    BlueprintUIUtil.DrawSkillsList(skillsRect, ref skillsScrollPos, blueprint, state);
+                    BlueprintUIUtil.DrawSkillsList(skillsRect, ref skillsScrollPos, Blueprint, state);
 
                     //Droid part selector
                     Rect droidDisplayRect = new Rect(partsRect.xMax + SectionMargin, 0f, PartSelectorAreaWidth, mainRect.height);
-                    BlueprintUIUtil.DrawPartSelector(droidDisplayRect, blueprint, state);
+                    BlueprintUIUtil.DrawPartSelector(droidDisplayRect, Blueprint, state);
 
                     //Stats 
                     Rect statsRect = new Rect(droidDisplayRect.xMax + SectionMargin, 0f, StatsAreaWidth, leftRectsHeight * 2 + SectionMargin);
                     Widgets.DrawBoxSolid(statsRect, BoxColor);
-                    StatsReportUtility.DrawStatsReport(statsRect, BlueprintUIUtil.StatDummy(blueprint));
+                    StatsReportUtility.DrawStatsReport(statsRect, BlueprintUIUtil.StatDummy(Blueprint));
 
                     //Costs 
                     Rect costsRect = new Rect(statsRect.x, statsRect.yMax + SectionMargin, statsRect.width, leftRectsHeight);
@@ -225,12 +210,12 @@ namespace MD3_Droids
                 float remainingSpace = FooterRectHeight - DrawBarHeight * 2;
                 float cpuY = Mathf.Floor((FooterRectHeight / 2 - DrawBarHeight - remainingSpace / 3 / 2));
                 Rect cpuDrawRect = new Rect(DisplayAreaWidth + SectionMargin, cpuY, PartSelectorAreaWidth, DrawBarHeight);
-                var cpuUsage = blueprint.GetUsedCPU;
-                cpuBar.DrawProgressBar(cpuDrawRect, cpuUsage.value, blueprint.GetMaxCPU.value, cpuUsage, blueprint.CPUTooltip);
+                var cpuUsage = Blueprint.GetUsedCPU;
+                cpuBar.DrawProgressBar(cpuDrawRect, cpuUsage.value, Blueprint.GetMaxCPU.value, cpuUsage, Blueprint.CPUTooltip);
 
                 Rect powerDrawRect = new Rect(cpuDrawRect.x, cpuDrawRect.yMax + remainingSpace / 3, cpuDrawRect.width, cpuDrawRect.height);
-                var powerDrain = blueprint.GetPowerDrain;
-                powerBar.DrawProgressBar(powerDrawRect, powerDrain.value, blueprint.GetMaxPowerDrain.value, powerDrain, blueprint.PowerDrainTooltip);
+                var powerDrain = Blueprint.GetPowerDrain;
+                powerBar.DrawProgressBar(powerDrawRect, powerDrain.value, Blueprint.GetMaxPowerDrain.value, powerDrain, Blueprint.PowerDrainTooltip);
             }
             finally
             {

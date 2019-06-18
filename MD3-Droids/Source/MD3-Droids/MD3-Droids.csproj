@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="zDefs\DroidChassisPartDef.cs" />
     <Compile Include="zDefs\DroidCustomiseGroupDef.cs" />
+    <Compile Include="zDefs\DroidGraphicDef.cs" />
     <Compile Include="zDefs\TierColourDef.cs" />
     <Compile Include="zDroid\Blueprint.cs" />
     <Compile Include="zDroid\Droid_WorkManager.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="zHediffs\Hediff_DroidStatsApplier.cs" />
     <Compile Include="zPatches\HealthCardUtilityPatch.cs" />
     <Compile Include="zPatches\HediffSetPatch.cs" />
+    <Compile Include="zPatches\PawnRendererPatch.cs" />
     <Compile Include="zThings\Building_DroidConstructionTable.cs" />
     <Compile Include="zComps\CompDroidCharger.cs" />
     <Compile Include="zDefs\DroidUpgradeHediffDef.cs" />
@@ -96,6 +98,8 @@
     <Compile Include="zUtil\CustomiseGroupListItem.cs" />
     <Compile Include="zUtil\DroidChassisPartRecord.cs" />
     <Compile Include="zUtil\DroidGenerator.cs" />
+    <Compile Include="zUtil\DroidGraphics.cs" />
+    <Compile Include="zUtil\DroidGraphicType.cs" />
     <Compile Include="zUtil\DroidManager.cs" />
     <Compile Include="zUtil\DroidsDefOf.cs" />
     <Compile Include="zUtil\DroidStatDefOf.cs" />
@@ -142,6 +146,8 @@
     <Content Include="Defs\DroidCustomiseGroupDefs\MediumDroidCustomiseGroups.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Defs\DroidGraphicDefs\HeadGraphics.xml" />
+    <Content Include="Defs\DroidGraphicDefs\BodyGraphics.xml" />
     <Content Include="Defs\FleshTypeDefs\FleshType.xml" />
     <Content Include="Defs\HediffDefs\CPU Upgrades.xml" />
     <Content Include="Defs\HediffDefs\Hediff_DroidStatsApplier.xml" />
@@ -165,12 +171,42 @@
     <Content Include="Defs\TierColourDefs\TierColours.xml" />
     <Content Include="Languages\English\Keyed\MD3.xml" />
     <Content Include="Textures\Buildings\DroidCharger.png" />
-    <Content Include="Textures\Droids\DroidMedium\Body_east.png" />
-    <Content Include="Textures\Droids\DroidMedium\Body_north.png" />
-    <Content Include="Textures\Droids\DroidMedium\Body_south.png" />
-    <Content Include="Textures\Droids\DroidMedium\Head_east.png" />
-    <Content Include="Textures\Droids\DroidMedium\Head_north.png" />
-    <Content Include="Textures\Droids\DroidMedium\Head_south.png" />
+    <Content Include="Textures\Droids\DroidLarge\Bodies\LargeBody1_east.png" />
+    <Content Include="Textures\Droids\DroidLarge\Bodies\LargeBody1_north.png" />
+    <Content Include="Textures\Droids\DroidLarge\Bodies\LargeBody1_south.png" />
+    <Content Include="Textures\Droids\DroidLarge\Heads\LargeHead1_east.png" />
+    <Content Include="Textures\Droids\DroidLarge\Heads\LargeHead1_north.png" />
+    <Content Include="Textures\Droids\DroidLarge\Heads\LargeHead1_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody1_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody1_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody1_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody2_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody2_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody2_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody3_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody3_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody3_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody4_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody4_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody4_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody5_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody5_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Bodies\MedBody5_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead1_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead1_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead1_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead2_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead2_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead2_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead3_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead3_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead3_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead4_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead4_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead4_south.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead5_east.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead5_north.png" />
+    <Content Include="Textures\Droids\DroidMedium\Heads\MedHead5_south.png" />
     <Content Include="Textures\UI\AddButton.png" />
     <Content Include="Textures\UI\PartSelector\PartSelector_Body.png" />
     <Content Include="Textures\UI\PartSelector\PartSelector_BodyHover.png" />

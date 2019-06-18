@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--Medium Heads-->
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedHead1</defName>
+    <name>MedHead1</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Head</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedHead2</defName>
+    <name>MedHead2</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Head</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedHead3</defName>
+    <name>MedHead3</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Head</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedHead4</defName>
+    <name>MedHead4</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Head</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+  
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3MedHead5</defName>
+    <name>MedHead5</name>
+    <chassisType>Medium</chassisType>
+    <graphicType>Head</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+  
+  <!--Large Heads-->
+  <MD3_Droids.DroidGraphicDef>
+    <defName>MD3LargeHead1</defName>
+    <name>LargeHead1</name>
+    <chassisType>Large</chassisType>
+    <graphicType>Head</graphicType>
+  </MD3_Droids.DroidGraphicDef>
+  
+</Defs>

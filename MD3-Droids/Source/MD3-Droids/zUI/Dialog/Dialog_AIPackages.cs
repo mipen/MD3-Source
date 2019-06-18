@@ -119,7 +119,7 @@ namespace MD3_Droids
                 {
                     design.AIPackages.Clear();
                     design.AIPackages.AddRange(packagesTemp);
-                    BlueprintUIUtil.StatDummy(design).InitialiseFromDesign();
+                    BlueprintUIUtil.StatDummy(design).InitialiseFromBlueprint();
                     RimWorld.StatsReportUtility.Reset();
                     Find.WindowStack.TryRemove(this);
                 }

@@ -16,8 +16,10 @@ namespace MD3_Droids
         private BlueprintType bptype = BlueprintType.Explicit;
 
         //private Color color;
-        //private Graphic_Multi bodyGraphic;
-        //private Graphic_Multi headGraphic;
+        private Graphic_Multi bodyGraphic = null;
+        private Graphic_Multi headGraphic = null;
+        private DroidGraphicDef headGraphicDef;
+        private DroidGraphicDef bodyGraphicDef;
 
         private ChassisType chassisType = ChassisType.Medium;
         private List<AIPackageDef> aiPackages = new List<AIPackageDef>();
@@ -147,6 +149,44 @@ namespace MD3_Droids
                     }
                 }
                 return list;
+            }
+        }
+        public Graphic_Multi BodyGraphic
+        {
+            get
+            {
+                return bodyGraphic;
+            }
+        }
+        public Graphic_Multi HeadGraphic
+        {
+            get
+            {
+                return headGraphic;
+            }
+        }
+        public DroidGraphicDef BodyGraphicDef
+        {
+            get
+            {
+                return bodyGraphicDef;
+            }
+            set
+            {
+                bodyGraphicDef = value;
+                bodyGraphic = value.GetGraphic();
+            }
+        }
+        public DroidGraphicDef HeadGraphicDef
+        {
+            get
+            {
+                return headGraphicDef;
+            }
+            set
+            {
+                headGraphicDef = value;
+                headGraphic = value.GetGraphic();
             }
         }
 
@@ -303,13 +343,16 @@ namespace MD3_Droids
 
         public void ExposeData()
         {
-            Scribe_Values.Look(ref id, "designID");
+            Scribe_Values.Look(ref id, "blueprintID");
             Scribe_Values.Look(ref Label, "label");
-            Scribe_Values.Look(ref VersionNumber, "versionRun");
+            Scribe_Values.Look(ref VersionNumber, "versionNum");
             Scribe_Values.Look(ref chassisType, "chassisType");
             Scribe_Collections.Look(ref aiPackages, "aiPackages");
             Scribe_Collections.Look(ref skills, "skills", LookMode.Deep);
             Scribe_Values.Look(ref CapableOfViolence, "capableOfViolence");
+            Scribe_Values.Look(ref bptype, "bpType");
+            Scribe_Defs.Look<DroidGraphicDef>(ref headGraphicDef, "headGraphicDef");
+            Scribe_Defs.Look<DroidGraphicDef>(ref bodyGraphicDef, "bodyGraphicDef");
             //Scribe_Values.Look(ref color, "color");
             if (Scribe.mode == LoadSaveMode.Saving)
             {
@@ -320,6 +363,8 @@ namespace MD3_Droids
             {
                 Scribe_Collections.Look(ref partsCondensed, "partsCondensed", LookMode.Deep);
                 LoadDictionary();
+                headGraphic = headGraphicDef.GetGraphic();
+                bodyGraphic = bodyGraphicDef.GetGraphic();
             }
         }
 

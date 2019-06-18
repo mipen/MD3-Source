@@ -15,7 +15,7 @@ namespace MD3_Droids
             {
                 Droid d = (Droid)PawnGenerator.GeneratePawn(kindDef, faction);
                 d.blueprint = design;
-                d.InitialiseFromDesign();
+                d.InitialiseFromBlueprint();
                 return d;
             }
             catch (Exception ex)

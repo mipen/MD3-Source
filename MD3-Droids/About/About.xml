@@ -3,6 +3,8 @@
   <name>Mechanical Defence 3 - Droids</name>
   <author>Mipen</author>
   <url></url>
-  <targetVersion>1.0.2029</targetVersion>
+  <supportedVersions>
+    <li>1.0</li>
+  </supportedVersions>
   <description>Droids.</description>
 </ModMetaData>

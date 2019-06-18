@@ -161,7 +161,7 @@
     <lifeStages>
       <li>
         <bodyGraphicData>
-          <texPath>Droids/DroidMedium/Body</texPath>
+          <texPath>Droids/DroidMedium/Bodies/MedBody1</texPath>
           <graphicClass>Graphic_Multi</graphicClass>
           <drawSize>1.5</drawSize>
           <shadowData>

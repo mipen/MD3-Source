@@ -84,11 +84,30 @@ namespace MD3_Droids
             }
         }
 
-        public void InitialiseFromDesign()
+        public void InitialiseFromBlueprint()
         {
             blueprint.Recache();
             blueprint.AddHediffsToDroid(this);
             blueprint.AddSkillsToDroid(this);
+
+            Drawer.renderer.graphics.ResolveAllGraphics();
+
+            Drawer.renderer.graphics.headGraphic = blueprint.HeadGraphic;
+            Drawer.renderer.graphics.desiccatedHeadGraphic = blueprint.HeadGraphic;
+            Drawer.renderer.graphics.desiccatedHeadStumpGraphic = blueprint.HeadGraphic;
+            Drawer.renderer.graphics.headStumpGraphic = blueprint.HeadGraphic;
+            Drawer.renderer.graphics.skullGraphic = blueprint.HeadGraphic;
+
+            Drawer.renderer.graphics.nakedGraphic = blueprint.BodyGraphic;
+            Drawer.renderer.graphics.dessicatedGraphic = blueprint.BodyGraphic;
+            Drawer.renderer.graphics.rottingGraphic = blueprint.BodyGraphic;
+            Drawer.renderer.graphics.packGraphic = blueprint.BodyGraphic;
+            Log.Message(Drawer.renderer.graphics.nakedGraphic.path);
+
+            Drawer.renderer.graphics.ClearCache();
+
+            story.crownType = CrownType.Narrow;
+
             aiPackages.SpawnSetup();
         }
 
